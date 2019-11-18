@@ -6,7 +6,7 @@ Réunion d'équipe tous les matins : définition des tâches et du temps estimé
 
 Pour le mardi 19, je propose :
   - faire à 100% les 3 premiers points de l'itération 1, soit la gestion des utilisateurs.
-  - Manu termine le côté database avec la création des entities (sans oublier les relations !)
+  - Manu termine le côté database avec la création des entities (sans oublier les relations !), puis formulaire de connexion + remember me
   - Hervé, création du formulaire d'enregistrement (registration) :
   
                       AuthenticationGuardClass
