@@ -1,9 +1,6 @@
 # projet_sortir
 
-Pour qu'il y ait moins de soucis lors des pull/push, nous allons utiliser les branches, ça ne complique pas grand chose et 
-ça évitera d'écraser le travail des autres et les conflits.
-
-Une vue = un controller = une personne = une branche.
+Une vue = un controller = une personne.
 
 Réunion d'équipe tous les matins : définition des tâches et du temps estimé pour chacun.
 
