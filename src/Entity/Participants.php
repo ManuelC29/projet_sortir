@@ -45,7 +45,7 @@ class Participants implements UserInterface
     private $mail;
 
     /**
-     * @ORM\Column(type="string", length=30)
+     * @ORM\Column(type="string", length=255)
      */
     private $password;
 
@@ -252,8 +252,11 @@ class Participants implements UserInterface
      */
     public function getRoles()
     {
-        // TODO: Implement getRoles() method.
+        //TODO à modifier
+        return ['ROLE_USER'];
     }
+
+
 
     /**
      * Returns the salt that was originally used to encode the password.
@@ -264,7 +267,7 @@ class Participants implements UserInterface
      */
     public function getSalt()
     {
-        // TODO: Implement getSalt() method.
+
     }
 
     /**
@@ -274,7 +277,7 @@ class Participants implements UserInterface
      */
     public function getUsername()
     {
-        // TODO: Implement getUsername() method.
+        return $this->getNickname();
     }
 
     /**

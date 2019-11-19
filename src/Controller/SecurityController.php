@@ -1,4 +1,8 @@
 <?php
+
+namespace App\Controller;
+
+
 namespace App\Controller;
 
 use App\Entity\Participants;
@@ -6,21 +10,41 @@ use App\Form\RegistrationType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class SecurityController extends Controller
 {
     /**
-     * @Route("/", name = "main")
+     * @Route("/login", name="login")
      */
-    public function index()
+    public function log(Request $request, AuthenticationUtils $authenticationUtils)
     {
-        return new Response('<html lang="fr"><body>Bienvenue</body></html>');
+        // get the login error if there is one
+        $error = $authenticationUtils->getLastAuthenticationError();
+
+        // last username entered by the user
+        $lastUsername = $authenticationUtils->getLastUsername();
+
+        return $this->render('security/login.html.twig', [
+            'controller_name' => 'SecurityController',
+            'last_username' => $lastUsername,
+            'error' => $error,
+        ]);
     }
+
+    /**
+     * @Route("/logout",name="logout")
+     */
+    public function logout()
+    {
+        return $this->render('welcome/welcome.html.twig');
+    }
+
+
 
 
     /**
@@ -57,7 +81,7 @@ class SecurityController extends Controller
                         $request->getSession()->set('_security_main', serialize($token));
             */
             $this->addFlash('success', 'Votre compte est créé');
-            return $this->redirectToRoute('main');
+            return $this->redirectToRoute('welcome');
         }
 
         return $this->render('security/registration.html.twig', [
