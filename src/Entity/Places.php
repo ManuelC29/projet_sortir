@@ -101,12 +101,12 @@ class Places
         return $this;
     }
 
-    public function getStreet(): ?Cities
+    public function getStreet(): ?string
     {
         return $this->street;
     }
 
-    public function setStreet(?Cities $street): self
+    public function setStreet(?string $street): self
     {
         $this->street = $street;
 

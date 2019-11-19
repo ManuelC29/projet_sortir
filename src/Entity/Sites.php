@@ -36,6 +36,14 @@ class Sites implements FormTypeInterface
         return $this->id;
     }
 
+    public function setId(int $idSite): self
+    {
+        $this->id = $idSite;
+
+        return $this;
+
+    }
+
     public function getNameSite(): ?string
     {
         return $this->nameSite;
