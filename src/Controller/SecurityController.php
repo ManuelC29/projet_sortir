@@ -12,7 +12,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
-use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
@@ -28,6 +27,8 @@ class SecurityController extends Controller
 
         // last username entered by the user
         $lastUsername = $authenticationUtils->getLastUsername();
+
+
 
         return $this->render('security/login.html.twig', [
             'controller_name' => 'SecurityController',
@@ -71,7 +72,7 @@ class SecurityController extends Controller
             $entityManager->flush();
             // possibilité d'ajouter un token pour conserver la connexion
             /*
-                        $token = new UsernamePasswordToken(
+                          $token = new UsernamePasswordToken(
                           $participant,
                           $password,
                           'main',
@@ -80,6 +81,7 @@ class SecurityController extends Controller
                         $tokenStorage->setToken($token);
                         $request->getSession()->set('_security_main', serialize($token));
             */
+
             $this->addFlash('success', 'Votre compte est créé');
             return $this->redirectToRoute('welcome');
         }
