@@ -73,5 +73,15 @@ class Registrations
 
         return $this;
     }
-    
+
+    public function setRegistration(Participants $param)
+    {
+        //TODO
+    }
+
+    public function getRegistration()
+    {
+        //TODO
+    }
+
 }
