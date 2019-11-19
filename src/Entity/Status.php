@@ -19,7 +19,7 @@ class Status
     /**
      * @ORM\Column(type="string", length=30)
      */
-    private $label;
+    private $label = "unknown";
 
     public function getId(): ?int
     {
