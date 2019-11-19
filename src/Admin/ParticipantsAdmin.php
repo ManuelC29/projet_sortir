@@ -10,11 +10,19 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 final class ParticipantsAdmin extends AbstractAdmin
 {
+
+
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper->add('nickname', TextType::class)
             ->add('firstname')
-            ->add('lastname');
+            ->add('lastname')
+            ->add('phone')
+            ->add('mail')
+            ->add('password')
+            ->add('urlPhoto', TextType::class)
+            ->add('site')
+        ;
     }
 
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)

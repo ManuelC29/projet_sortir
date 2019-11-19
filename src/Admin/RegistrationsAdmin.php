@@ -8,23 +8,20 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 
-final class CitiesAdmin extends AbstractAdmin
+final class RegistrationsAdmin extends AbstractAdmin
 {
     protected function configureFormFields(FormMapper $formMapper)
     {
-        $formMapper->add('nameCity', TextType::class)
-                    ->add('zip');
+        $formMapper->add('id', TextType::class);
     }
 
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
-        $datagridMapper->add('nameCity')
-            ->add('zip');
+        $datagridMapper->add('id');
     }
 
     protected function configureListFields(ListMapper $listMapper)
     {
-        $listMapper->addIdentifier('nameCity')
-            ->add('zip');
+        $listMapper->addIdentifier('id');
     }
 }

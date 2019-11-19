@@ -50,19 +50,19 @@ class Participants implements UserInterface
     private $password;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $url_photo;
 
     /**
      * @ORM\Column(type="boolean")
      */
-    private $administrator;
+    private $administrator = false;
 
     /**
      * @ORM\Column(type="boolean")
      */
-    private $active;
+    private $active = true;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Sites")
@@ -74,6 +74,7 @@ class Participants implements UserInterface
      * @ORM\OneToMany(targetEntity="App\Entity\Registrations", mappedBy="registration")
      */
     private $registrations;
+
 
     public function __construct()
     {

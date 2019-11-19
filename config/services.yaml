@@ -32,6 +32,29 @@ services:
         tags:
             - { name: sonata.admin, manager_type: orm, label: Participants }
 
+    admin.places:
+        class: App\Admin\PlacesAdmin
+        arguments: [~, App\Entity\Places, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: Places }
+
+    admin.registrations:
+        class: App\Admin\RegistrationsAdmin
+        arguments: [~, App\Entity\Registrations, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: Registrations }
+
+    admin.sites:
+        class: App\Admin\SitesAdmin
+        arguments: [~, App\Entity\Sites, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: Sites }
+
+    admin.trips:
+        class: App\Admin\TripsAdmin
+        arguments: [~, App\Entity\Trips, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: Trips }
 
     # makes classes in src/ available to be used as services
     # this creates a service per class whose id is the fully-qualified class name
