@@ -1,9 +1,12 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <input type="submit" name="Envoyer">
-    {{ form_end(form) }}
+    <div class="container">
+        <h2>Registration</h2>
+        {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <input type="submit" name="Envoyer">
+        {{ form_end(form) }}
+    </div>
 
 {% endblock %}

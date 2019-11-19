@@ -4,8 +4,5 @@
 
 {% block body %}
 <h1>Welcome</h1>
-    {%if is_granted('IS_AUTHENTICATED_FULLY') %}
-        <a href="{{ path('logout') }}">Se déconnecter !
-    {% endif %}
 
 {% endblock %}
