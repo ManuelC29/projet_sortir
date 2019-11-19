@@ -1,0 +1,74 @@
+<?php
+namespace App\Controller;
+
+use App\Entity\Participants;
+use App\Form\RegistrationType;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+
+class SecurityController extends Controller
+{
+    /**
+     * @Route("/", name = "main")
+     */
+    public function index()
+    {
+        return new Response('<html lang="fr"><body>Bienvenue</body></html>');
+    }
+
+
+    /**
+     * @Route("/registration", name="registration")
+     */
+    public function registration(
+        Request $request,
+        UserPasswordEncoderInterface $encoder,
+        TokenStorageInterface $tokenStorage,
+        EntityManagerInterface $entityManager
+    ) {
+        $participant = new Participants();
+        $form = $this->createForm(RegistrationType::class, $participant);
+
+        // hydratation du participant avec les données saisies sur le formulaire
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid())
+            // gestion du chiffrement du mot de passe
+        {
+            $password = $encoder->encodePassword($participant, $participant->getPassword());
+            $participant->setPassword($password);
+            $entityManager->persist($participant);
+            $entityManager->flush();
+            // possibilité d'ajouter un token pour conserver la connexion
+            /*
+                        $token = new UsernamePasswordToken(
+                          $participant,
+                          $password,
+                          'main',
+                          $participant->getRoles()
+                        );
+                        $tokenStorage->setToken($token);
+                        $request->getSession()->set('_security_main', serialize($token));
+            */
+            $this->addFlash('success', 'Votre compte est créé');
+            return $this->redirectToRoute('main');
+        }
+
+        return $this->render('security/registration.html.twig', [
+            'form' => $form->createView()
+        ]);
+    }
+
+
+
+
+
+
+}
+

@@ -21,6 +21,11 @@ class Sites
      */
     private $nameSite;
 
+    public function __toString()
+    {
+       return $this->nameSite;
+    }
+
     public function getId(): ?int
     {
         return $this->id;
