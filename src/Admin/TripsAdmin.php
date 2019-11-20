@@ -4,6 +4,7 @@ namespace App\Admin;
 
 use Cassandra\Numeric;
 use Doctrine\DBAL\Types\DateTimeType;
+use Doctrine\DBAL\Types\DateType;
 use Doctrine\DBAL\Types\IntegerType;
 use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\ListMapper;
@@ -20,23 +21,36 @@ final class TripsAdmin extends AbstractAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper->add('name', TextType::class)
-                    ->add('dateStart', DateTimePickerType::class)
-                    ->add('duration')
+                    ->add('dateStart', \Symfony\Component\Form\Extension\Core\Type\DateTimeType::class)
+                    ->add('duration', \Symfony\Component\Form\Extension\Core\Type\IntegerType::class)
                     ->add('descriptionInfos', TextareaType::class)
-                    ->add('dateClosing', DateTimePickerType::class)
+                    ->add('dateClosing', \Symfony\Component\Form\Extension\Core\Type\DateTimeType::class)
                     ->add('organizer')
                     ->add('place')
                     ->add('status')
-                    ->add('maxRegistration', NumberType::class);
+                    ->add('maxRegistration', \Symfony\Component\Form\Extension\Core\Type\IntegerType::class);
     }
 
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
-        $datagridMapper->add('name');
+        $datagridMapper->add('name')
+            ->add('duration')
+            ->add('organizer')
+            ->add('place')
+            ->add('status')
+           ;
     }
 
     protected function configureListFields(ListMapper $listMapper)
     {
-        $listMapper->addIdentifier('name');
+        $listMapper->addIdentifier('name')
+            ->add('dateStart')
+            ->add('duration', \Symfony\Component\Form\Extension\Core\Type\IntegerType::class)
+            ->add('descriptionInfos', TextareaType::class)
+            ->add('dateClosing')
+            ->add('organizer')
+            ->add('place')
+            ->add('status')
+            ->add('maxRegistration', \Symfony\Component\Form\Extension\Core\Type\IntegerType::class);
     }
 }

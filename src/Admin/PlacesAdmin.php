@@ -12,16 +12,28 @@ final class PlacesAdmin extends AbstractAdmin
 {
     protected function configureFormFields(FormMapper $formMapper)
     {
-        $formMapper->add('namePlace', TextType::class);
+        $formMapper->add('namePlace', TextType::class)
+                    ->add('city')
+                    ->add('latitude')
+                    ->add('longitude')
+                    ->add('street');
     }
 
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
-        $datagridMapper->add('namePlace');
+        $datagridMapper->add('namePlace')
+                    ->add('city')
+                    ->add('latitude')
+                    ->add('longitude')
+                    ->add('street');
     }
 
     protected function configureListFields(ListMapper $listMapper)
     {
-        $listMapper->addIdentifier('namePlace');
+        $listMapper->addIdentifier('namePlace')
+                    ->add('city')
+                    ->add('latitude')
+                    ->add('longitude')
+                    ->add('street');
     }
 }

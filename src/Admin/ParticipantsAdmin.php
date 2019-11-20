@@ -19,9 +19,9 @@ final class ParticipantsAdmin extends AbstractAdmin
             ->add('lastname')
             ->add('phone')
             ->add('mail')
-            ->add('password')
             ->add('urlPhoto', TextType::class)
             ->add('site')
+            ->add('administrator')
         ;
     }
 
@@ -29,13 +29,22 @@ final class ParticipantsAdmin extends AbstractAdmin
     {
         $datagridMapper->add('nickname')
             ->add('firstname')
-            ->add('lastname');
+            ->add('lastname')
+            ->add('mail')
+            ->add('site')
+        ;
     }
 
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper->addIdentifier('nickname')
             ->add('firstname')
-            ->add('lastname');
+            ->add('lastname')
+            ->add('phone')
+            ->add('mail')
+            ->add('site')
+            ->add('active')
+            ->add('administrator')
+        ;
     }
 }

@@ -4,7 +4,11 @@ namespace App\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\ORM\Mapping as ORM;
+use phpDocumentor\Reflection\Types\Integer;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\TripsRepository")
@@ -29,7 +33,7 @@ class Trips
     private $date_start;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="integer")
      */
     private $duration;
 
@@ -49,6 +53,7 @@ class Trips
     private $description_infos;
 
     /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Participants")
      * @ORM\Column(type="string", length=255)
      */
     private $organizer;
@@ -75,9 +80,12 @@ class Trips
      */
     private $registration;
 
-    public function __construct()
+    public function __construct(TokenStorageInterface $tokenStorage)
     {
         $this->registration = new ArrayCollection();
+        $this->date_start = new \DateTime;
+        $this->date_closing = new \DateTime;
+        $this->organizer = $tokenStorage->getToken()->getUser();
     }
 
     public function getId(): ?int
@@ -109,12 +117,12 @@ class Trips
         return $this;
     }
 
-    public function getDuration(): ?\DateTimeInterface
+    public function getDuration(): ?int
     {
         return $this->duration;
     }
 
-    public function setDuration(\DateTimeInterface $duration): self
+    public function setDuration($duration): self
     {
         $this->duration = $duration;
 
