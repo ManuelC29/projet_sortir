@@ -20,6 +20,7 @@ class TripController extends Controller
         $this->entityManager = $entityManager;
     }
 
+
     /**
      * @Route("/trip", name="trip")
      */
@@ -54,6 +55,14 @@ class TripController extends Controller
         ]);
     }
 
+    /**
+     * @Route("/show/{id}",name="show")
+     */
+    public function show(Trips $trip, Security $security)
+    {
+        $participant = $security->getUser();
+        return $this->render('trip/show.html.twig', compact('trip', 'participant'));
+    }
 
 
 

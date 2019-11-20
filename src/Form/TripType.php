@@ -44,10 +44,10 @@ class TripType extends AbstractType
                 'label' => 'Description et infos'
                           ])
             ->add('place')
-            //->add('place.city')
-            //->add('participant')
-            //->add('organizer')
-            //->add('status')
+
+            ->add('participant')
+            ->add('organizer')
+            ->add('status')
         ;
     }
 

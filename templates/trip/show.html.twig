@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Affichage d'une sortie
+{% endblock %}
+
+{% block body %}
+    <h1>Affichage de la sortie "{{ trip.name }}"</h1>
+    <dl>
+        <dt>Nom de la sortie :</dt>
+        <dd>{{ trip.name }}</dd>
+        <dt>Date et heure de la sortie :</dt>
+        <dd>{{ trip.dateClosing|date('d/m/Y H:i') }}</dd>
+        <dt>Date limite d'inscription :</dt>
+        <dd>{{ trip.dateStart|date('d/m/Y') }}</dd>
+        <dt>Nombre de place :</dt>
+        <dd>{{ trip.maxRegistration }}</dd>
+
+    </dl>
+
+
+{% endblock %}
+

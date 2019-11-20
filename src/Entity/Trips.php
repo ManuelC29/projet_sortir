@@ -209,7 +209,7 @@ class Trips implements FormTypeInterface
         return $this;
     }
 
-    public function getParticipant(): array
+    public function getParticipant(): ?array
     {
         return $this->participant;
     }
