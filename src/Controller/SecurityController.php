@@ -13,6 +13,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class SecurityController extends Controller
@@ -20,10 +21,11 @@ class SecurityController extends Controller
     /**
      * @Route("/login", name="login")
      */
-    public function log(Request $request, AuthenticationUtils $authenticationUtils)
+    public function log(Request $request, AuthenticationUtils $authenticationUtils,Security $security)
     {
         // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();
+        $participant = $security->getUser();
 
         // last username entered by the user
         $lastUsername = $authenticationUtils->getLastUsername();
@@ -32,6 +34,7 @@ class SecurityController extends Controller
             'controller_name' => 'SecurityController',
             'last_username' => $lastUsername,
             'error' => $error,
+            'participant' => $participant
         ]);
     }
 
