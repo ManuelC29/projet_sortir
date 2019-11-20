@@ -15,6 +15,7 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 class AppFixtures extends Fixture
 {
 
+
     private $encoder;
 
     public function __construct(UserPasswordEncoderInterface $encoder)
@@ -27,12 +28,17 @@ class AppFixtures extends Fixture
 
         $faker = \Faker\Factory::create('fr_FR');
 
-        /*$site = new Sites();
+        /*
+         *
+         // création d'un site pour alimenter les 100 participants ci-dessous
+
+        $site = new Sites();
         $site->setId(1);
         $site->setNameSite('Quimper');
-        */
 
-        /*
+
+        // création de 100 participants
+
         $site = $manager->getRepository('App:Sites')->find(1);
 
             for ($i = 0; $i < 100; $i++) {
@@ -52,23 +58,12 @@ class AppFixtures extends Fixture
 
                 $manager->persist($user);
             }
-*/
-        /*
-            // création de 20 cities
-            for ($i = 0; $i < 20; $i++) {
-                $city = new Cities();
 
-                $city->setNameCity($faker->city);
-                $city->setZip($faker->postcode);
-                $manager->persist($city);
-
-                //foreach ($cities as $key =>$city)
-                $this->addReference('city_'.$key, $city);
-            }
         */
 
         /*
-            // création de 9 villes
+            // création de 10 villes pour alimenter Cities et Places
+
         $cities = [
             'Quimper',
             'Le Mans',
@@ -79,8 +74,8 @@ class AppFixtures extends Fixture
             'Brest',
             'Benodet',
             'Plomelin',
-            'Plouigneau'
-        ];
+            'Plouigneau',
+         ];
 
         foreach ($cities as $key =>$name) {
             $city = new Cities();
@@ -101,11 +96,14 @@ class AppFixtures extends Fixture
                 $place->setLongitude($faker->longitude);
                 $manager->persist($place);
             }
-
-
-            $manager->flush();
-        }
         */
 
-    }
+        /*
+            $manager->flush();
+        */
+
+        }
+
+
+
 }

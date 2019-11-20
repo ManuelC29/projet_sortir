@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container">
+
+        <div>
+            <h2>Créer une sortie</h2>
+                {{ form_start(form) }}
+                {{ form_widget(form) }}
+                {{ form_end(form) }}
+        </div>
+
+        <div>
+            <input type="submit" name="Enregistrer" value="Enregistrer">
+        </div>
+        <div>
+            <input type="submit" name="Publier" value="Publier la sortie">
+        </div>
+        <div>
+            <input type="submit" name="Annuler" value="Annuler">
+        </div>
+
+    </div>
+
+{% endblock %}

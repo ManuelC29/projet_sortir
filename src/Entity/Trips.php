@@ -80,12 +80,12 @@ class Trips
      */
     private $registration;
 
-    public function __construct(TokenStorageInterface $tokenStorage)
+    public function __construct()
     {
         $this->registration = new ArrayCollection();
         $this->date_start = new \DateTime;
         $this->date_closing = new \DateTime;
-        $this->organizer = $tokenStorage->getToken()->getUser();
+
     }
 
     public function getId(): ?int
@@ -98,7 +98,7 @@ class Trips
         return $this->name;
     }
 
-    public function setName(string $name): self
+    public function setName(?string $name): self
     {
         $this->name = $name;
 
@@ -110,7 +110,7 @@ class Trips
         return $this->date_start;
     }
 
-    public function setDateStart(\DateTimeInterface $date_start): self
+    public function setDateStart(?\DateTimeInterface $date_start): self
     {
         $this->date_start = $date_start;
 
@@ -122,7 +122,7 @@ class Trips
         return $this->duration;
     }
 
-    public function setDuration($duration): self
+    public function setDuration(? int $duration): self
     {
         $this->duration = $duration;
 
@@ -134,7 +134,7 @@ class Trips
         return $this->date_closing;
     }
 
-    public function setDateClosing(\DateTimeInterface $date_closing): self
+    public function setDateClosing(?\DateTimeInterface $date_closing): self
     {
         $this->date_closing = $date_closing;
 
@@ -146,7 +146,7 @@ class Trips
         return $this->max_registration;
     }
 
-    public function setMaxRegistration(int $max_registration): self
+    public function setMaxRegistration(?int $max_registration): self
     {
         $this->max_registration = $max_registration;
 
@@ -158,7 +158,7 @@ class Trips
         return $this->description_infos;
     }
 
-    public function setDescriptionInfos(string $description_infos): self
+    public function setDescriptionInfos(?string $description_infos): self
     {
         $this->description_infos = $description_infos;
 
