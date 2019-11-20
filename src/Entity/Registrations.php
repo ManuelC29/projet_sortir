@@ -22,7 +22,7 @@ class Registrations
     private $dateRegistration;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Participants", inversedBy="registration")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Participants", inversedBy="registrations")
      */
     private $participant;
 
