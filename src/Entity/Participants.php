@@ -35,7 +35,7 @@ class Participants implements UserInterface
     private $firstname;
 
     /**
-     * @ORM\Column(type="string", length=15)
+     * @ORM\Column(type="string", length=30)
      */
     private $phone;
 
@@ -45,7 +45,7 @@ class Participants implements UserInterface
     private $mail;
 
     /**
-     * @ORM\Column(type="string", length=30)
+     * @ORM\Column(type="string", length=255)
      */
     private $password;
 

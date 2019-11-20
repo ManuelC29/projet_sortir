@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -67,6 +69,16 @@ class Trips
      * @ORM\ManyToOne(targetEntity="App\Entity\Participants")
      */
     private $participant;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Registrations", mappedBy="trips")
+     */
+    private $registration;
+
+    public function __construct()
+    {
+        $this->registration = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -189,6 +201,37 @@ class Trips
     public function setParticipant(?Participants $participant): self
     {
         $this->participant = $participant;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Registrations[]
+     */
+    public function getRegistration(): Collection
+    {
+        return $this->registration;
+    }
+
+    public function addRegistration(Registrations $registration): self
+    {
+        if (!$this->registration->contains($registration)) {
+            $this->registration[] = $registration;
+            $registration->setTrips($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRegistration(Registrations $registration): self
+    {
+        if ($this->registration->contains($registration)) {
+            $this->registration->removeElement($registration);
+            // set the owning side to null (unless already changed)
+            if ($registration->getTrips() === $this) {
+                $registration->setTrips(null);
+            }
+        }
 
         return $this;
     }

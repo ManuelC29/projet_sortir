@@ -22,14 +22,17 @@ class Registrations
     private $dateRegistration;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Participants")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Participants", inversedBy="registration")
      */
     private $participant;
 
+
+
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Trips")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Trips", inversedBy="registration")
+     * @ORM\JoinColumn(nullable=false)
      */
-    private $trip;
+    private $trips;
 
 
 
@@ -62,17 +65,6 @@ class Registrations
         return $this;
     }
 
-    public function getTrip(): ?Trips
-    {
-        return $this->trip;
-    }
-
-    public function setTrip(?Trips $trip): self
-    {
-        $this->trip = $trip;
-
-        return $this;
-    }
 
     public function setRegistration(Participants $param)
     {
@@ -82,6 +74,18 @@ class Registrations
     public function getRegistration()
     {
         //TODO
+    }
+
+    public function getTrips(): ?Trips
+    {
+        return $this->trips;
+    }
+
+    public function setTrips(?Trips $trips): self
+    {
+        $this->trips = $trips;
+
+        return $this;
     }
 
 }
