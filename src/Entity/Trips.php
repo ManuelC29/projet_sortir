@@ -79,7 +79,8 @@ class Trips implements FormTypeInterface
     private $place;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Participants")
+     * @var array Additional data describing the setting.
+     * @ORM\Column(type="json", nullable=true)
      */
     private $participant;
 
@@ -208,7 +209,7 @@ class Trips implements FormTypeInterface
         return $this;
     }
 
-    public function getParticipant(): ?Participants
+    public function getParticipant(): array
     {
         return $this->participant;
     }

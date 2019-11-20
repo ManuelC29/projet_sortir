@@ -2,13 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="97bbd9ab-9de5-4256-99ba-423462af9bf8" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/Migrations/Version20191120155357.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/packages/security.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/packages/security.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Admin/TripsAdmin.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Admin/TripsAdmin.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/TripController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/TripController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/Participants.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Participants.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/Registrations.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Registrations.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Entity/Trips.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Trips.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/trip/add.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/trip/add.html.twig" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
