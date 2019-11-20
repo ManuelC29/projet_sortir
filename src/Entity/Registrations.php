@@ -34,7 +34,10 @@ class Registrations
      */
     private $trips;
 
-
+    public function __construct()
+    {
+        $this->dateRegistration = new \DateTime();
+    }
 
     public function getId(): ?int
     {

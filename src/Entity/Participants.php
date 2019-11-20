@@ -263,7 +263,12 @@ class Participants implements UserInterface, FormTypeInterface
      */
     public function getRoles()
     {
-        return ['ROLE_USER'];
+        if($this->administrator = true){
+            return ['ROLE_ADMIN'];
+        }
+        else {
+            return ['ROLE_USER'];
+        }
     }
 
     /**

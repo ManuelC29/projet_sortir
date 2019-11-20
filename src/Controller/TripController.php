@@ -8,7 +8,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
-
+use Symfony\Component\Security\Core\Security;
 
 
 class TripController extends Controller
@@ -33,8 +33,9 @@ class TripController extends Controller
     /**
      * @Route("/add", name="add")
      */
-    public function add(Request $request)
+    public function add(Request $request, Security $security)
     {
+        $participant = $security->getUser();
         $trip = new Trips();
         $form = $this->createForm(TripType::class, $trip);
 
@@ -44,11 +45,12 @@ class TripController extends Controller
             $this->entityManager->flush();
 
             $this->addFlash('success', 'Votre sortie est ajoutée !');
-            return $this->redirectToRoute('welcome');
+            return $this->redirectToRoute('welcome', compact('participant'));
         }
 
-        return $this->render('trip/add.html.twig', [
-            'form' => $form->createView()
+        return $this->render('trip/add.html.twig',[
+            'form' => $form->createView(),
+            'participant' => $participant
         ]);
     }
 

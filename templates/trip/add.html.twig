@@ -1,16 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    {% block navlink %}
-        {%if is_granted('IS_AUTHENTICATED_FULLY') %}
-            <!--Si l'user est autentifié -->
-
-            <a class="nav-item nav-link active" href="{{ path('logout') }}">Se déconnecter</a>
-            <a class="nav-item nav-link active" href="{{ path('add') }}">Créer une Sortie</a>
-        {% else %}
-            {{ parent() }}
-        {% endif %}
-    {% endblock %}
+    
 
     <div class="container">
 
