@@ -3,6 +3,8 @@
 namespace App\Controller;
 
 use App\Entity\Participants;
+use App\Entity\Sites;
+use App\Entity\Trips;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -20,13 +22,19 @@ class WelcomeController extends Controller
 
         $participant = $security->getUser();
 
-       /* if(!empty($_SESSION['participant'])) {
-            //$id = $_SESSION['paricipant'];
-            $participants = $entityManager
-                ->getRepository(Participants::class);
-                //->find($id);
-        }*/
+        // si un participant est loggé
+        if($participant !== null ){
 
-        return $this->render('welcome/welcome.html.twig', compact('participant'));
+            //TODO AJout de filtres
+
+            // all trips recupération
+            $trips = $entityManager->getRepository(Trips::class)->findAll();
+            dump($trips);
+
+            $sites = $entityManager->getRepository(Sites::class)->findAll();
+
+        }
+
+        return $this->render('welcome/welcome.html.twig', compact('participant','sites','trips'));
     }
 }

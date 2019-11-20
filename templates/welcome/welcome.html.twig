@@ -3,7 +3,73 @@
 {% block title %}Hello WelcomeController!{% endblock %}
 
 {% block body %}
-<h1>Welcome</h1>
+
+    <div class="container">
 
 
+        <h1>Welcome</h1>
+        {%if is_granted('IS_AUTHENTICATED_FULLY') %}
+            <div>Date du Jour : {{ "now"|date("d/m/Y H:i") }} </div>
+            <div> Participant : </div>
+        {% endif %}
+        <div>
+            <h4>Filtrer les sorties</h4>
+            <label for="search">Site</label>
+
+            {%if is_granted('IS_AUTHENTICATED_FULLY') %}
+                <select name="site">
+                    {% for site in sites %}
+                        <option>{{site.nameSite}}</option>
+                    {% endfor %}
+                </select>
+            {% endif %}
+            <label for="search">Le nom de la sortie contient :</label>
+            <input type="text" name="search" />
+            <input type="datetime-local" name="debut" />
+            <input type="datetime-local" name="fin" />
+        </div>
+
+        <div>
+            <input type="checkbox" name="orgaTrip" />
+            <label for="orgaTrip">Sorties dont je suis l'organisateur/trice</label>
+            <input type="checkbox" name="regiTrip" />
+            <label for="regiTrip">Sorties auxquelles je suis inscrit/e</label>
+            <input type="checkbox" name="noreTrip" />
+            <label for="noreTrip">Sorties auxquelles je ne suis pas inscrit/e</label>
+            <input type="checkbox" name="oldsTrip" />
+            <label for="oldsTrip">Sorties passées</label>
+        </div>
+
+        <div>
+            <input class="btn btn-primary" type="submit" value="Rechercher">
+        </div>
+
+        <div>
+            <table>
+                <tr>
+                    <td>Nom de la sortie</td>
+                    <td>Date de sortie</td>
+                    <td>Clôture</td>
+                    <td>inscrits/places</td>
+                    <td>État</td>
+                    <td>Inscrit</td>
+                    <td>Organisateur</td>
+                    <td>Actions</td>
+                </tr>
+                {% for trip in trips %}
+                <tr>
+                    <td>{{ trip.name }}</td>
+                    <td>{{ trip.dateStart|date("d/m/Y H:i") }}</td>
+                    <td>{{ trip.dateClosing|date("d/m/Y H:i") }}</td>
+                    <td>{{ trip.maxRegistration }}</td>
+                    <td>{{ trip.status }}</td>
+                    <td>{{ trip.participant }}</td>
+                    <td>toto</td>
+                    <td>toto</td>
+                </tr>
+                {% endfor %}
+            </table>
+            <input class="btn btn-primary" type="submit" value="Créer une sortie">
+        </div>
+    </div>
 {% endblock %}

@@ -285,7 +285,7 @@ class Participants implements UserInterface, FormTypeInterface
      */
     public function getUsername()
     {
-        // TODO: Implement getUsername() method.
+        return $this->getNickname();
     }
 
     /**

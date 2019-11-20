@@ -2,17 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="97bbd9ab-9de5-4256-99ba-423462af9bf8" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/Migrations/Version20191120102833.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Admin/ParticipantsAdmin.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Admin/ParticipantsAdmin.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Admin/PlacesAdmin.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Admin/PlacesAdmin.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Admin/RegistrationsAdmin.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Admin/RegistrationsAdmin.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Admin/TripsAdmin.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Admin/TripsAdmin.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/Cities.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Cities.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/SecurityController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/SecurityController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/WelcomeController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/WelcomeController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Entity/Participants.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Participants.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/Places.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Places.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/Status.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Status.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/Trips.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Trips.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/welcome/welcome.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/welcome/welcome.html.twig" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
