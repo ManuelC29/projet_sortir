@@ -32,9 +32,11 @@ class WelcomeController extends Controller
             dump($trips);
 
             $sites = $entityManager->getRepository(Sites::class)->findAll();
+            dump($participant);
 
         }
 
         return $this->render('welcome/welcome.html.twig', compact('participant','sites','trips'));
     }
+
 }

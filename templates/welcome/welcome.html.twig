@@ -3,28 +3,26 @@
 {% block title %}Hello WelcomeController!{% endblock %}
 
 {% block body %}
-
     <div class="container">
-
-
         <h1>Welcome</h1>
+
         {%if is_granted('IS_AUTHENTICATED_FULLY') %}
             <div>Date du Jour : {{ "now"|date("d/m/Y H:i") }} </div>
-            <div> Participant : </div>
-        {% endif %}
+            <div> Participant : {{ participant.nickname }} </div>
+
         <div>
             <h4>Filtrer les sorties</h4>
             <label for="search">Site</label>
 
-            {%if is_granted('IS_AUTHENTICATED_FULLY') %}
+
                 <select name="site">
                     {% for site in sites %}
                         <option>{{site.nameSite}}</option>
                     {% endfor %}
                 </select>
-            {% endif %}
+
             <label for="search">Le nom de la sortie contient :</label>
-            <input type="text" name="search" />
+            <input type="text" name="search" placeholder="Search" />
             <input type="datetime-local" name="debut" />
             <input type="datetime-local" name="fin" />
         </div>
@@ -45,7 +43,7 @@
         </div>
 
         <div>
-            <table>
+            <table class="table table-striped table-dark">
                 <tr>
                     <td>Nom de la sortie</td>
                     <td>Date de sortie</td>
@@ -56,7 +54,7 @@
                     <td>Organisateur</td>
                     <td>Actions</td>
                 </tr>
-                {%if is_granted('IS_AUTHENTICATED_FULLY') %}
+
                 {% for trip in trips %}
                 <tr>
                     <td>{{ trip.name }}</td>
@@ -65,13 +63,14 @@
                     <td>{{ trip.maxRegistration }}</td>
                     <td>{{ trip.status }}</td>
                     <td>{{ trip.participant }}</td>
-                    <td>toto</td>
-                    <td>toto</td>
+                    <td>{{ trip.organizer}}</td>
+                    <td><a href="#">Afficher</a></td>
                 </tr>
                 {% endfor %}
-                {% endif %}
+
             </table>
             <input class="btn btn-primary" type="submit" value="Créer une sortie">
         </div>
+        {% endif %}
     </div>
 {% endblock %}
