@@ -2,10 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="97bbd9ab-9de5-4256-99ba-423462af9bf8" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/templates/trip/_form.html.twig" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/trip/modify.html.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/ProfileController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/ProfileController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/TripController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/TripController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/_navbar.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/_navbar.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/profile/show.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/profile/show.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/trip/add.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/trip/add.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/trip/show.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/trip/show.html.twig" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -179,7 +182,7 @@
       <workItem from="1574081211000" duration="5453000" />
       <workItem from="1574149754756" duration="13382000" />
       <workItem from="1574236905146" duration="10635000" />
-      <workItem from="1574322437288" duration="18356000" />
+      <workItem from="1574322437288" duration="16990000" />
     </task>
     <servers />
   </component>

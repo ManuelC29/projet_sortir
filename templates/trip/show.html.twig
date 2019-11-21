@@ -10,13 +10,35 @@
         <dt>Nom de la sortie :</dt>
         <dd>{{ trip.name }}</dd>
         <dt>Date et heure de la sortie :</dt>
-        <dd>{{ trip.dateClosing|date('d/m/Y H:i') }}</dd>
+        <dd>{{ trip.dateStart|date('d/m/Y H:i') }}</dd>
         <dt>Date limite d'inscription :</dt>
-        <dd>{{ trip.dateStart|date('d/m/Y') }}</dd>
+        <dd>{{ trip.dateClosing|date('d/m/Y') }}</dd>
         <dt>Nombre de place :</dt>
-        <dd>{{ trip.maxRegistration }}</dd>
-
+        <dd>{{ trip.maxRegistration }} minutes</dd>
+        <dt>Description et infos :</dt>
+        <dd>{{ trip.descriptionInfos }} </dd>
     </dl>
+    <dl>
+        <dt>Ville organisatrice :</dt>
+        <dd>TODO : REVOIR STRUCTURE ENTITE TRIP.PHP (confusion ORGANIZER, PARTICIPANT, USER): "organizer.site.nameSite"</dd>
+        <dd>(et non "participant.site.nameSite" qui récupère le user connecté et non la liste des organisateurs</dd>
+        <dt>Lieu :</dt>
+        <dd>{{ trip.place.namePlace }}</dd>
+        <dt>Rue :</dt>
+        <dd>{{ trip.place.street }}</dd>
+        <dt>Code postal :</dt>
+        <dd>{{ trip.place.city.zip }}</dd>
+        <dt>Latitude :</dt>
+        <dd>{{ trip.place.latitude }}</dd>
+        <dt>Longitude :</dt>
+        <dd>{{ trip.place.longitude }} </dd>
+    </dl>
+
+    <dl>
+        <dt>Liste des participants :</dt>
+        <dd>TODO : REVOIR STRUCTURE ENTITE TRIP.PHP (confusion ORGANIZER, PARTICIPANT, USER): "trip.organizer.site.nameSite"</dd>
+    </dl>
+
 
 
 {% endblock %}

@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Modification de la sortie "{{ form.vars.value.name }}" {% endblock %}
+
+{% block body %}
+
+    <div class="container">
+
+        <div>
+            <h1>Modifier une sortie</h1>
+            {{ form_start(form) }}
+            {{ form_widget(form) }}
+            <input type="submit" class="btn-primary" name="Enregistrer" value="Enregistrer">
+            {{ form_end(form) }}
+        </div>
+
+        <div>
+            <input type="submit" class="btn-success"name="Publier" value="Publier la sortie">
+        </div>
+        <div>
+            <input type="submit" class="btn-alert"name="Supprimer" value="Supprimer la sortie">
+        </div>
+        <div>
+            <a href="{{ path('welcome') }}"><button class="btn-warning">Annuler</button></a>
+        </div>
+
+    </div>
+
+{% endblock %}
+
+
+
