@@ -85,10 +85,16 @@ class Participants implements UserInterface, FormTypeInterface
      */
     private $registrations;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Trips", mappedBy="organizer")
+     */
+    private $trips;
+
 
     public function __construct()
     {
         $this->registrations = new ArrayCollection();
+        $this->trips = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -393,5 +399,36 @@ class Participants implements UserInterface, FormTypeInterface
     public function getParent()
     {
         // TODO: Implement getParent() method.
+    }
+
+    /**
+     * @return Collection|Trips[]
+     */
+    public function getTrips(): Collection
+    {
+        return $this->trips;
+    }
+
+    public function addTrip(Trips $trip): self
+    {
+        if (!$this->trips->contains($trip)) {
+            $this->trips[] = $trip;
+            $trip->setOrganizer($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTrip(Trips $trip): self
+    {
+        if ($this->trips->contains($trip)) {
+            $this->trips->removeElement($trip);
+            // set the owning side to null (unless already changed)
+            if ($trip->getOrganizer() === $this) {
+                $trip->setOrganizer(null);
+            }
+        }
+
+        return $this;
     }
 }

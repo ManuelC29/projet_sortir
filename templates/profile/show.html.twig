@@ -3,16 +3,22 @@
 {% block title %}Hello ProfileController!{% endblock %}
 
 {% block body %}
-    <h2>Affichage du profil</h2>
-    {%if is_granted('IS_AUTHENTICATED_FULLY') %}
-        id {{ participant.id }}
-        nickname {{ participant.nickname }}
-        lastname {{ participant.lastname }}
-        firstname {{ participant.firstname }}
-        phone {{ participant.phone }}
-        mail {{ participant.mail }}
-    {% endif %}
-
-
-
+    <div class="container">
+        <h2>Affichage du profil</h2>
+        {%if is_granted('IS_AUTHENTICATED_FULLY') %}
+            <label>id</label>
+            {{ participant.id }}
+            <label>nickname</label>
+            {{ participant.nickname }}
+            <label>lastname</label>
+            {{ participant.lastname }}
+            <label>firstname</label>
+            {{ participant.firstname }}
+            <label>phone</label>
+            {{ participant.phone }}
+            <lablel>mail</lablel>
+            {{ participant.mail }}
+            <a href="{{ path('edit') }}"><button class="btn btn-primary">Editer mon profil</button></a>
+        {% endif %}
+    </div>
 {% endblock %}

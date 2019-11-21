@@ -1,0 +1,12 @@
+body{
+
+}
+.container{
+    width: 30%;
+    margin-top: 3rem;
+    border: #0d6aad;
+    box-shadow: 0 0 15px red;
+    display: flex;
+    flex-direction: column;
+    padding : 1.5rem;
+}

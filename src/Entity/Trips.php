@@ -60,11 +60,7 @@ class Trips implements FormTypeInterface
      */
     private $description_infos;
 
-    /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Participants")
-     * @ORM\Column(type="string", length=255)
-     */
-    private $organizer;
+
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Status")
@@ -88,6 +84,12 @@ class Trips implements FormTypeInterface
      * @ORM\OneToMany(targetEntity="App\Entity\Registrations", mappedBy="trips")
      */
     private $registration;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Participants", inversedBy="trips")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $organizer;
 
     public function __construct()
     {
@@ -172,18 +174,7 @@ class Trips implements FormTypeInterface
 
         return $this;
     }
-
-    public function getOrganizer(): ?string
-    {
-        return $this->organizer;
-    }
-
-    public function setOrganizer(string $organizer): self
-    {
-        $this->organizer = $organizer;
-
-        return $this;
-    }
+    
 
     public function getStatus(): ?Status
     {
@@ -341,5 +332,17 @@ class Trips implements FormTypeInterface
     public function getParent()
     {
         // TODO: Implement getParent() method.
+    }
+
+    public function getOrganizer(): ?Participants
+    {
+        return $this->organizer;
+    }
+
+    public function setOrganizer(?Participants $organizer): self
+    {
+        $this->organizer = $organizer;
+
+        return $this;
     }
 }

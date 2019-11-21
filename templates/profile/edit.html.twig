@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ProfileController!{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h2>Edit du profil</h2>
+        {%if is_granted('IS_AUTHENTICATED_FULLY') %}
+            toto
+            <label>id</label>
+            {{ participant.id }}
+            <label>nickname</label>
+            {{ participant.nickname }}
+            <label>lastname</label>
+            {{ participant.lastname }}
+            <label>firstname</label>
+            {{ participant.firstname }}
+            <label>phone</label>
+            {{ participant.phone }}
+            <lablel>mail</lablel>
+            {{ participant.mail }}
+        {% endif %}
+
+    </div>
+{% endblock %}

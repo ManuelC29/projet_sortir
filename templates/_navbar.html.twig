@@ -4,10 +4,11 @@
                 {%if is_granted('IS_AUTHENTICATED_FULLY') %}
                 <!--Si l'user est autentifié -->
                         <a href="{{ path('show', {'id': participant.id}) }}">Mon profil</a>
-                        <a class="nav-item nav-link active" href="{{ path('logout') }}">Se déconnecter</a>
                         <a class="nav-item nav-link active" href="{{ path('add') }}">Créer une Sortie</a>
-                {% else %}
+                        <a class="nav-item nav-link active" href="{{ path('logout') }}">Se déconnecter</a>
+                    <!-- TODO Ajouter un lien vers la page admin si on est admin -->
 
+                {% else %}
                         <a class="nav-item nav-link active" href="{{ path('registration') }}">S'enregistrer</a>
                         <a class="nav-item nav-link active" href="{{ path('login') }}">Se connecter</a>
                 {% endif %}

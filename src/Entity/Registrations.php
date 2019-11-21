@@ -27,7 +27,6 @@ class Registrations
     private $participant;
 
 
-
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Trips", inversedBy="registration")
      * @ORM\JoinColumn(nullable=false)
