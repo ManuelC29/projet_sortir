@@ -29,17 +29,17 @@ class WelcomeController extends Controller
         dump($request->request->get('site'));
         if($participant !== null ){
             //TODO AJout de filtres
-            //if ($request->request->get('site') !== null){
+            if ($request->request->get('site') !== null){
                 //['place' => .... ]
-                //$trips = $tripsRepository->findByCity($request->request->get('site'));
-                //dump($trips);
-                //dump('toto');
-            //}else{
+                $trips = $tripsRepository->findByCity($request->request->get('site'));
+                dump($trips);
+                dump('toto');
+            }else{
                 //all trips recupération
                 //todo EN COURS (manu) si on a pas de sélection activé
                 $trips = $entityManager->getRepository(Trips::class)->findAll();
-               // dump('tata');
-            //}
+                dump('tata');
+            }
 
 
             $sites = $entityManager->getRepository(Sites::class)->findAll();

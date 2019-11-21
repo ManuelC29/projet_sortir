@@ -8,17 +8,18 @@
         {%if is_granted('IS_AUTHENTICATED_FULLY') %}
             toto
             <label>id</label>
-            {{ participant.id }}
+            {{ app.user.id }}
             <label>nickname</label>
-            {{ participant.nickname }}
+            {{ app.user.nickname }}
             <label>lastname</label>
-            {{ participant.lastname }}
+            {{ app.user.lastname }}
             <label>firstname</label>
-            {{ participant.firstname }}
+            {{ app.user.firstname }}
             <label>phone</label>
-            {{ participant.phone }}
+            {{ app.user.phone }}
             <lablel>mail</lablel>
-            {{ participant.mail }}
+            {{ app.user.mail }}
+            {{ app.user.mail }}
         {% endif %}
 
     </div>

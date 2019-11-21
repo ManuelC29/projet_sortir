@@ -9,8 +9,8 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Core\Security;
-use Symfony\Component\Serializer\Encoder\EncoderInterface;
 
 
 class ProfileController extends Controller
@@ -24,17 +24,16 @@ class ProfileController extends Controller
             ->getRepository(Participants::class)
             ->find($id);
 
-        return $this->render('profile/show.html.twig', compact('participant'));
+        return $this->render('profile/show.html.twig');
     }
 
     /**
      * @Route("profil/modify", name="profilModify")
      */
-    public function edit(Security $security, EncoderInterface $encoder, EntityManagerInterface $entityManager, Request $request)
+    public function edit(Security $security, UserPasswordEncoderInterface $encoder, EntityManagerInterface $entityManager, Request $request)
     {
         // TODO A REFAIRE
-        $participant = $security->getUser();
-
+        $participant = new Participants();
         $form = $this->createForm(RegistrationType::class, $participant);
         $form->handleRequest($request);
 
@@ -47,6 +46,6 @@ class ProfileController extends Controller
         }
 
 
-        return $this->render('profile/edit.html.twig', compact('participant'));
+        return $this->render('profile/edit.html.twig');
     }
 }

@@ -9,7 +9,7 @@
 
         {% if is_granted('IS_AUTHENTICATED_FULLY') %}
             <div>Date du Jour : {{ "now"|date("d/m/Y H:i") }} </div>
-            <div> Participant : {{ participant.nickname }} </div>
+            <div> Participant : {{ app.user.nickname }}</div>
             <form action="{{ path('welcome') }}" method="post">
                 <div>
                     <h4>Filtrer les sorties</h4>

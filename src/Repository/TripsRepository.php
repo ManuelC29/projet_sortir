@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Participants;
 use App\Entity\Places;
+use App\Entity\Registrations;
 use App\Entity\Trips;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
@@ -22,16 +23,18 @@ class TripsRepository extends ServiceEntityRepository
         parent::__construct($registry, Trips::class);
     }
 
-   // /**
-     // * @return Trips[] Returns an array of Trips objects
-    // */
-    // public function findByCity($idCity)
-// {
-        //récupère
-   //     return $this->createQueryBuilder('t')
-            //->innerJoin(Participants::class,'p',Join::WITH,'t.organizer = p.id')
-            //->andWhere('p.site = :id')
-            //->setParameter('id', $idCity)
+    /**
+      * @return Trips[] Returns an array of Trips objects
+     *
+     */
+     public function findByCity($idSite)
+ {
+        //récupère le
+        return $this->createQueryBuilder('t')
+            ->innerJoin(Participants::class,'p',Join::WITH,'p.id = t.organizer')
+            //->innerJoin(Registrations::class,'r',Join::WITH, 'r.participant = p.id')
+            ->andWhere('p.site = :id')
+            ->setParameter('id', $idSite)
             //->innerJoin(CitiesRepository::class,'c',Join::ON, 'c.id = ')
             //->setParameter('val', $value)
             //->innerJoin('AppBundle:GroupUser', 'gu', Join::ON, 'g.id = gu.group_id')
@@ -39,10 +42,10 @@ class TripsRepository extends ServiceEntityRepository
             //->setParameter('val', $value)
             //->orderBy('t.id', 'ASC')
             //->setMaxResults(10)
-     //       ->getQuery()
-       //     ->getResult()
-       // ;
-   // }
+            ->getQuery()
+            ->getResult()
+        ;
+    }
 
 
     /*
