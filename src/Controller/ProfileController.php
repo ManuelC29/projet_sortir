@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Participants;
+use App\Form\RegistrationType;
 use App\Form\TripType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -15,7 +16,7 @@ use Symfony\Component\Serializer\Encoder\EncoderInterface;
 class ProfileController extends Controller
 {
     /**
-     * @Route("/show/{id}", name="show")
+     * @Route("profil/show/{id}", name="profilShow")
      */
     public function show($id,Participants $participants, EntityManagerInterface $entityManager)
     {
@@ -27,14 +28,14 @@ class ProfileController extends Controller
     }
 
     /**
-     * @Route("/edit", name="edit")
+     * @Route("profil/modify", name="profilModify")
      */
     public function edit(Security $security, EncoderInterface $encoder, EntityManagerInterface $entityManager, Request $request)
     {
         // TODO A REFAIRE
-        /* $participant = $security->getUser();
+        $participant = $security->getUser();
 
-        $form = $this->createForm(TripType::class, $trip);
+        $form = $this->createForm(RegistrationType::class, $participant);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -44,7 +45,7 @@ class ProfileController extends Controller
             $entityManager->flush();
             $this->addFlash('success', 'Votre compte est créé');
         }
-        */
+
 
         return $this->render('profile/edit.html.twig', compact('participant'));
     }

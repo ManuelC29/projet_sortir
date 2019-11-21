@@ -18,7 +18,7 @@
             {{ participant.phone }}
             <lablel>mail</lablel>
             {{ participant.mail }}
-            <a href="{{ path('edit') }}"><button class="btn btn-primary">Editer mon profil</button></a>
+            <a href="{{ path('profilModify',{'id': participant.id}) }}"><button class="btn btn-primary">Editer mon profil</button></a>
         {% endif %}
     </div>
 {% endblock %}

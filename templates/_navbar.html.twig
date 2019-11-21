@@ -3,7 +3,7 @@
             <a class="nav-item nav-link active" href="{{ path('welcome') }}">Sortir.com</a>
                 {%if is_granted('IS_AUTHENTICATED_FULLY') %}
                 <!--Si l'user est autentifié -->
-                        <a href="{{ path('show', {'id': participant.id}) }}">Mon profil</a>
+                        <a href="{{ path('profilShow', {'id': participant.id}) }}">Mon profil</a>
                         <a class="nav-item nav-link active" href="{{ path('add') }}">Créer une Sortie</a>
                         <a class="nav-item nav-link active" href="{{ path('logout') }}">Se déconnecter</a>
                     <!-- TODO Ajouter un lien vers la page admin si on est admin -->
