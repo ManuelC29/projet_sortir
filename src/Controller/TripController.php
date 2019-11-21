@@ -32,7 +32,7 @@ class TripController extends Controller
     }
 
     /**
-     * @Route("/trip/add", name="addTrip")
+     * @Route("/trip/add", name="tripAdd")
      */
     public function add(Request $request, Security $security)
     {
@@ -56,7 +56,7 @@ class TripController extends Controller
     }
 
     /**
-     * @Route("/trip/modify/{id}", name="modifyTrip", requirements={"id":"\d+"})
+     * @Route("/trip/modify/{id}", name="tripModify", requirements={"id":"\d+"})
      */
     public function modify (Trips $trip, Request $request, EntityManagerInterface $entityManager, Security $security)
     {
@@ -67,7 +67,7 @@ class TripController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
             $this->addFlash('success', 'Votre sortie est modifiée !');
-            return $this->redirectToRoute('showTrip', ['id'=> $trip->getId()]);
+            return $this->redirectToRoute('tripModify', ['id'=> $trip->getId()]);
         }
 
         return $this->render('trip/modify.html.twig', ['ad' =>$trip,
@@ -80,7 +80,7 @@ class TripController extends Controller
 
 
     /**
-     * @Route("/trip/show/{id}",name="showTrip")
+     * @Route("/trip/show/{id}",name="tripShow")
      */
     public function show(Trips $trip, Security $security)
     {

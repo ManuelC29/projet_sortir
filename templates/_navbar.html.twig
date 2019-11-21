@@ -2,9 +2,9 @@
             <img src="{{ asset('images/logo.png') }}" style="width: 50px;height: 50px;" >
             <a class="nav-item nav-link active" href="{{ path('welcome') }}">Sortir.com</a>
                 {%if is_granted('IS_AUTHENTICATED_FULLY') %}
-                <!--Si l'user est autentifié -->
+                <!--Si l'user est authentifié -->
                         <a href="{{ path('profilShow', {'id': participant.id}) }}">Mon profil</a>
-                        <a class="nav-item nav-link active" href="{{ path('add') }}">Créer une Sortie</a>
+                        <a class="nav-item nav-link active" href="{{ path('tripAdd') }}">Créer une Sortie</a>
                         <a class="nav-item nav-link active" href="{{ path('logout') }}">Se déconnecter</a>
                     <!-- TODO Ajouter un lien vers la page admin si on est admin -->
 
