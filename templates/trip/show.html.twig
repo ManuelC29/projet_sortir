@@ -14,14 +14,15 @@
         <dt>Date limite d'inscription :</dt>
         <dd>{{ trip.dateClosing|date('d/m/Y') }}</dd>
         <dt>Nombre de place :</dt>
-        <dd>{{ trip.maxRegistration }} minutes</dd>
+        <dd>{{ trip.maxRegistration }} </dd>
+        <dt>Durée :</dt>
+        <dd>{{ trip.duration }} minutes </dd>
         <dt>Description et infos :</dt>
         <dd>{{ trip.descriptionInfos }} </dd>
     </dl>
     <dl>
         <dt>Ville organisatrice :</dt>
-        <dd>TODO : REVOIR STRUCTURE ENTITE TRIP.PHP (confusion ORGANIZER, PARTICIPANT, USER): "organizer.site.nameSite"</dd>
-        <dd>(et non "participant.site.nameSite" qui récupère le user connecté et non la liste des organisateurs</dd>
+        <dd>{{ trip.organizer.site.nameSite }}</dd>
         <dt>Lieu :</dt>
         <dd>{{ trip.place.namePlace }}</dd>
         <dt>Rue :</dt>
@@ -36,7 +37,11 @@
 
     <dl>
         <dt>Liste des participants :</dt>
-        <dd>TODO : REVOIR STRUCTURE ENTITE TRIP.PHP (confusion ORGANIZER, PARTICIPANT, USER): "trip.organizer.site.nameSite"</dd>
+        {% for participant in trip.registration  %}
+        <dd>TODO : comment récupérer  {#participant.lastname#} </dd>
+        {% endfor %}
+
+        <dd></dd>
     </dl>
 
 

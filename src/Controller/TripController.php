@@ -34,9 +34,8 @@ class TripController extends Controller
     /**
      * @Route("/trip/add", name="tripAdd")
      */
-    public function add(Request $request, Security $security)
+    public function add(Request $request)
     {
-        $participant = $security->getUser();
         $trip = new Trips();
         $form = $this->createForm(TripType::class, $trip);
 
@@ -50,17 +49,16 @@ class TripController extends Controller
         }
 
         return $this->render('trip/add.html.twig',[
-            'form' => $form->createView(),
-            'participant' => $participant
+            'form' => $form->createView()
         ]);
     }
 
     /**
      * @Route("/trip/modify/{id}", name="tripModify", requirements={"id":"\d+"})
      */
-    public function modify (Trips $trip, Request $request, EntityManagerInterface $entityManager, Security $security)
+    public function modify (Trips $trip, Request $request, EntityManagerInterface $entityManager)
     {
-        $participant = $security->getUser();
+
         $form = $this->createForm(TripType::class, $trip);
         $form->handleRequest($request);
 
@@ -71,7 +69,6 @@ class TripController extends Controller
         }
 
         return $this->render('trip/modify.html.twig', ['ad' =>$trip,
-            'participant' => $participant,
             'form' => $form->createView()
         ]);
 
@@ -85,8 +82,8 @@ class TripController extends Controller
     public function show(Trips $trip, Security $security)
     {
         // ATTENTION ! ci-dessous récupération du User connecté, et non de l'organisateur
-        $participant = $security->getUser();
-        return $this->render('trip/show.html.twig', compact('trip', 'participant'));
+        dump($trip);
+        return $this->render('trip/show.html.twig', compact('trip'));
     }
 
 
