@@ -47,6 +47,15 @@ class TripsRepository extends ServiceEntityRepository
         ;
     }
 
+    public function findByName($search = null)
+    {
+        return $this->createQueryBuilder('a')
+
+            ->andWhere('a.name LIKE :search')
+            ->setParameter('search', $search)
+            ->getQuery()
+            ->getResult();
+    }
 
     /*
     public function findOneBySomeField($value): ?Trips

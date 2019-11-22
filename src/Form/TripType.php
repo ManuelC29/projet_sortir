@@ -45,7 +45,6 @@ class TripType extends AbstractType
                           ])
             ->add('place')
 
-
             ->add('organizer')
             ->add('status')
         ;

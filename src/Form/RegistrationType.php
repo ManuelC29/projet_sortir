@@ -20,8 +20,6 @@ class RegistrationType extends AbstractType
             ->add('mail')
             ->add('password', PasswordType::class)
             ->add('url_photo')
-            ->add('administrator')
-            ->add('active')
             ->add('site')
         ;
     }

@@ -8,9 +8,9 @@
         <h1>Welcome</h1>
 
         {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-            <div>Date du Jour : {{ "now"|date("d/m/Y H:i") }} </div>
-            <div> Participant : {{ app.user.nickname }}</div>
-            <form action="{{ path('welcome') }}" method="post">
+            <div class="date">Date du Jour : {{ "now"|date("d/m/Y H:i") }} </div>
+            <div class="user"> Participant : {{ app.user.nickname }}</div>
+            <form action="{{ path('welcome') }}" class="filters" method="post">
                 <div>
                     <h4>Filtrer les sorties</h4>
                     <label for="search">Site</label>
@@ -23,7 +23,7 @@
                     </select>
 
                     <label for="search">Le nom de la sortie contient :</label>
-                    <input type="text" name="search" placeholder="Search"/>
+                    <input type="text" name="search" placeholder="Rechercher"/>
                     <input type="datetime-local" name="debut"/>
                     <input type="datetime-local" name="fin"/>
                 </div>
