@@ -5,6 +5,7 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormTypeInterface;
@@ -14,7 +15,9 @@ use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ParticipantsRepository")
+ * @UniqueEntity("mail, nickname")
  */
+
 class Participants implements UserInterface, FormTypeInterface
 {
     /**
@@ -269,7 +272,7 @@ class Participants implements UserInterface, FormTypeInterface
      */
     public function getRoles()
     {
-        if($this->administrator = true){
+        if($this->administrator == true){
             return ['ROLE_ADMIN'];
         }
         else {

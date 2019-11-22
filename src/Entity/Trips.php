@@ -4,16 +4,12 @@ namespace App\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\ORM\Mapping as ORM;
-use phpDocumentor\Reflection\Types\Integer;
-use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormTypeInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\TripsRepository")
@@ -61,7 +57,6 @@ class Trips implements FormTypeInterface
     private $description_infos;
 
 
-
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Status")
      * @ORM\JoinColumn(nullable=false)
@@ -74,11 +69,6 @@ class Trips implements FormTypeInterface
      */
     private $place;
 
-    /**
-     * @var array Additional data describing the setting.
-     * @ORM\Column(type="json", nullable=true)
-     */
-    private $participant;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Registrations", mappedBy="trips")
@@ -200,17 +190,6 @@ class Trips implements FormTypeInterface
         return $this;
     }
 
-    public function getParticipant(): ?array
-    {
-        return $this->participant;
-    }
-
-    public function setParticipant(?Participants $participant): self
-    {
-        $this->participant = $participant;
-
-        return $this;
-    }
 
     /**
      * @return Collection|Registrations[]
