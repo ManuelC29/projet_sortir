@@ -7,18 +7,18 @@
         <h2>Affichage du profil</h2>
         {%if is_granted('IS_AUTHENTICATED_FULLY') %}
             <label>id</label>
-            {{ app.user.id }}
+            {{ participant.id }}
             <label>nickname</label>
-            {{ app.user.nickname }}
+            {{ participant.nickname }}
             <label>lastname</label>
-            {{ app.user.lastname }}
+            {{ participant.lastname }}
             <label>firstname</label>
-            {{ app.user.firstname }}
+            {{ participant.firstname }}
             <label>phone</label>
-            {{ app.user.phone }}
+            {{ participant.phone }}
             <lablel>mail</lablel>
-            {{ app.user.mail }}
-            <a href="{{ path('profilModify',{'id': app.user.id}) }}"><button class="btn btn-primary">Editer mon profil</button></a>
+            {{ participant.mail }}
+            <a href="{{ path('profileModify',{'id': app.user.id}) }}"><button class="btn btn-primary">Editer mon profil</button></a>
         {% endif %}
     </div>
 {% endblock %}

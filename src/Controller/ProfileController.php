@@ -16,21 +16,19 @@ use Symfony\Component\Security\Core\Security;
 class ProfileController extends Controller
 {
     /**
-     * @Route("profil/show/{id}", name="profilShow")
+     * @Route("profile/show/{id}", name="profileShow")
      */
-    public function show($id,Participants $participants, EntityManagerInterface $entityManager)
+    public function show($id,Participants $participant, EntityManagerInterface $entityManager)
     {
-        $participant = $entityManager
-            ->getRepository(Participants::class)
-            ->find($id);
+        //$participant = $entityManager->getRepository(Participants::class)->find($id);
 
-        return $this->render('profile/show.html.twig');
+        return $this->render('profile/show.html.twig',['participant' => $participant]);
     }
 
     /**
-     * @Route("profil/modify", name="profilModify")
+     * @Route("profile/modify", name="profileModify")
      */
-    public function edit(Security $security, UserPasswordEncoderInterface $encoder, EntityManagerInterface $entityManager, Request $request)
+    public function edit(UserPasswordEncoderInterface $encoder, EntityManagerInterface $entityManager, Request $request)
     {
         // TODO A REFAIRE
         $participant = new Participants();

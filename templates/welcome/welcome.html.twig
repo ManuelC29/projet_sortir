@@ -65,7 +65,7 @@
                             <td>{{ trip.maxRegistration }}</td>
                             <td>{{ trip.status }}</td>
                             <td>A FAIRE</td>
-                            <td>{{ trip.organizer }}</td>
+                            <td><a href="{{ path('profileShow',{ 'id' : trip.organizer.id }) }}">{{ trip.organizer }}</a></td>
                             <td><a href="{{ path('tripShow',{ 'id': trip.id }) }}">Afficher</a></td>
                         </tr>
                     {% endfor %}
