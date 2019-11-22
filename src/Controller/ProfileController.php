@@ -28,11 +28,12 @@ class ProfileController extends Controller
     /**
      * @Route("profile/modify", name="profileModify")
      */
-    public function edit(UserPasswordEncoderInterface $encoder, EntityManagerInterface $entityManager, Request $request)
+    public function edit(Security $user, UserPasswordEncoderInterface $encoder, EntityManagerInterface $entityManager, Request $request)
     {
         // TODO A REFAIRE
-        $participant = new Participants();
+        $participant = $user->getUser();
         $form = $this->createForm(RegistrationType::class, $participant);
+
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -40,10 +41,15 @@ class ProfileController extends Controller
             $participant->setPassword($password);
             $entityManager->persist($participant);
             $entityManager->flush();
-            $this->addFlash('success', 'Votre compte est créé');
+            $this->addFlash('success', 'Votre compte a bien été modifié');
+            $this->redirectToRoute('welcome');
         }
 
-
-        return $this->render('profile/edit.html.twig');
+        return $this->render('profile/edit.html.twig', [
+            'form'=>$form->createView()
+        ]);
     }
+
+
+
 }

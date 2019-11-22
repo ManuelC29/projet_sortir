@@ -19,7 +19,7 @@
             {{ participant.phone }}
             <lablel>mail</lablel>
             {{ participant.mail }}
-            <a href="{{ path('profileModify',{'id': app.user.id}) }}"><button class="btn btn-primary">Editer mon profil</button></a>
+            <a href="{{ path('profileModify') }}"><button class="btn btn-primary">Editer mon profil</button></a>
         {% endif %}
     </div>
 {% endblock %}

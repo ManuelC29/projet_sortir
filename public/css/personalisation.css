@@ -1,0 +1,20 @@
+body{
+    background-color: #333;
+    color: white;
+}
+
+h1{
+    text-align: center;
+}
+
+.filters{
+    
+}
+
+.user{
+    text-align: right;
+}
+
+.date{
+    text-align: right;
+}

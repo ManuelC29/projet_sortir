@@ -35,11 +35,18 @@ class WelcomeController extends Controller
             if ($request->request->get('site') !== null){
                 //['place' => .... ]
                 $trips = $tripsRepository->findByCity($request->request->get('site'));
-            }else{
+            }
+            if ($request->request->get('search') !== null){
+                
+            }
+            else{
                 //all trips recupération
                 //todo EN COURS (manu) si on a pas de sélection activé
                 $trips = $entityManager->getRepository(Trips::class)->findAll();
             }
+
+
+
             $sites = $entityManager->getRepository(Sites::class)->findAll();
         }
 

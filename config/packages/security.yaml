@@ -5,7 +5,7 @@ security:
         users:
             entity:
                 class: 'App\Entity\Participants'
-                property: nickname
+
         # used to reload user from session & other features (e.g. switch_user)
     firewalls:
         dev:

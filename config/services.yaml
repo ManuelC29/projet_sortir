@@ -17,44 +17,44 @@ services:
         class: App\Admin\StatusAdmin
         arguments: [~, App\Entity\Status, ~]
         tags:
-            - { name: sonata.admin, manager_type: orm, label: Status }
+            - { name: sonata.admin, manager_type: orm, group: 'Sorties', label: Status }
 
 
     admin.cities:
         class: App\Admin\CitiesAdmin
         arguments: [~, App\Entity\Cities, ~]
         tags:
-            - { name: sonata.admin, manager_type: orm, label: Cities }
+            - { name: sonata.admin, manager_type: orm, group: 'Sorties', label: Cities }
 
     admin.participants:
         class: App\Admin\ParticipantsAdmin
         arguments: [~, App\Entity\Participants, ~]
         tags:
-            - { name: sonata.admin, manager_type: orm, label: Participants }
+            - { name: sonata.admin, manager_type: orm, group: 'Utilisateurs',label: Participants }
 
     admin.places:
         class: App\Admin\PlacesAdmin
         arguments: [~, App\Entity\Places, ~]
         tags:
-            - { name: sonata.admin, manager_type: orm, label: Places }
+            - { name: sonata.admin, manager_type: orm, group: 'Sorties', label: Places }
 
     admin.registrations:
         class: App\Admin\RegistrationsAdmin
         arguments: [~, App\Entity\Registrations, ~]
         tags:
-            - { name: sonata.admin, manager_type: orm, label: Registrations }
+            - { name: sonata.admin, manager_type: orm, group: 'Sorties',label: Registrations }
 
     admin.sites:
         class: App\Admin\SitesAdmin
         arguments: [~, App\Entity\Sites, ~]
         tags:
-            - { name: sonata.admin, manager_type: orm, label: Sites }
+            - { name: sonata.admin, manager_type: orm, group: 'Utilisateurs', label: Sites }
 
     admin.trips:
         class: App\Admin\TripsAdmin
         arguments: [~, App\Entity\Trips, ~]
         tags:
-            - { name: sonata.admin, manager_type: orm, label: Trips }
+            - { name: sonata.admin, manager_type: orm, group: 'Sorties',label: Trips }
 
     # makes classes in src/ available to be used as services
     # this creates a service per class whose id is the fully-qualified class name
