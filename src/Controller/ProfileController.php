@@ -39,10 +39,13 @@ class ProfileController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $password = $encoder->encodePassword($participant, $participant->getPassword());
             $participant->setPassword($password);
-            $entityManager->persist($participant);
+
             $entityManager->flush();
+
+
             $this->addFlash('success', 'Votre compte a bien été modifié');
-            $this->redirectToRoute('welcome');
+
+            return $this->redirectToRoute('welcome');
         }
 
         return $this->render('profile/edit.html.twig', [

@@ -3,8 +3,6 @@
 namespace App\Repository;
 
 use App\Entity\Participants;
-use App\Entity\Places;
-use App\Entity\Registrations;
 use App\Entity\Trips;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;

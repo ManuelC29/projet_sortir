@@ -8,7 +8,8 @@
         {%if is_granted('IS_AUTHENTICATED_FULLY') %}
             {{ form_start(form) }}
             {{ form_widget(form) }}
-            <input type="submit" class="btn btn-primary" value="Modifer">
+            <a href="{{ path('welcome') }}"><button class="btn btn-primary">Annuler</button></a>
+            <input type="submit" class="btn btn-success" value="Modifer">
             {{ form_end(form) }}
         {% endif %}
     </div>

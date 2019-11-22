@@ -19,12 +19,7 @@ class TripType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name', TextType::class, [
-                'attr' => [
-                    'class' => 'class-css'
-                ],
-                'label' => 'Nom de la sortie'
-            ])
+            ->add('name', TextType::class, ['attr' => ['class' => 'class-css'],'label' => 'Nom de la sortie'])
             ->add('date_start', DateTimeType::class, [
                 'label' => 'Date et heure de la sortie'
             ])
