@@ -3,8 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="97bbd9ab-9de5-4256-99ba-423462af9bf8" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/WelcomeController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/WelcomeController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Form/TripType.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Form/TripType.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/css/profile.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/profile.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/profile/show.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/profile/show.html.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/welcome/welcome.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/welcome/welcome.html.twig" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
