@@ -2,8 +2,10 @@
 
 namespace App\Controller;
 
+use App\Entity\Registrations;
 use App\Entity\Trips;
 use App\Form\TripType;
+use App\Repository\RegistrationsRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -71,19 +73,20 @@ class TripController extends Controller
         return $this->render('trip/modify.html.twig', ['ad' =>$trip,
             'form' => $form->createView()
         ]);
-
-
     }
 
 
     /**
      * @Route("/trip/show/{id}",name="tripShow")
      */
-    public function show(Trips $trip, Security $security)
+    public function show($id, RegistrationsRepository $registrationsRepository, Request $request, Trips $trip)
     {
-        // ATTENTION ! ci-dessous récupération du User connecté, et non de l'organisateur
-        dump($trip);
-        return $this->render('trip/show.html.twig', compact('trip'));
+        $listRegistrations = $registrationsRepository->findByIdTrip($id);
+        dump($id);
+        dump($listRegistrations);
+
+        return $this->render('trip/show.html.twig', compact('trip', 'listRegistrations'));
+
     }
 
 

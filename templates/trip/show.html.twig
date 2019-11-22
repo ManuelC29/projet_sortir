@@ -5,7 +5,9 @@
 {% endblock %}
 
 {% block body %}
+    <div class="container" >
     <h1>Affichage de la sortie "{{ trip.name }}"</h1>
+    <div>
     <dl>
         <dt>Nom de la sortie :</dt>
         <dd>{{ trip.name }}</dd>
@@ -20,6 +22,8 @@
         <dt>Description et infos :</dt>
         <dd>{{ trip.descriptionInfos }} </dd>
     </dl>
+    </div>
+    <div>
     <dl>
         <dt>Ville organisatrice :</dt>
         <dd>{{ trip.organizer.site.nameSite }}</dd>
@@ -34,17 +38,25 @@
         <dt>Longitude :</dt>
         <dd>{{ trip.place.longitude }} </dd>
     </dl>
+    </div>
 
-    <dl>
-        <dt>Liste des participants :</dt>
-        {% for participant in trip.registration  %}
-        <dd>TODO : comment récupérer  {#participant.lastname#} </dd>
-        {% endfor %}
+    <h2>Liste des participants inscrits :</h2>
+    <div>
+        <table class="table thead-dark table-bordered table-striped table-hover table-success">
+            <thead class="thead-dark">
+            <tr>
+                <th style="width:20%;">Pseudo</th>
+                <th style="width:80%;">Nom</th>
 
-        <dd></dd>
-    </dl>
-
-
-
+            </tr>
+            </thead>
+            {% for r in listRegistrations %}
+            <tr>
+                <td>{{r.participant.nickname}}</td>
+                <td>{{r.participant.lastname}}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    </div>
 {% endblock %}
-

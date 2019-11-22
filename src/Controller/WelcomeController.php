@@ -25,7 +25,6 @@ class WelcomeController extends Controller
         $participant = $security->getUser();
 
 
-
         // si un participant est loggé
         if($participant !== null ){
 

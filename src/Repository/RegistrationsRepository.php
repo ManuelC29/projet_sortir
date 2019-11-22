@@ -2,9 +2,11 @@
 
 namespace App\Repository;
 
+use App\Entity\Participants;
 use App\Entity\Registrations;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\ORM\Query\Expr\Join;
 
 /**
  * @method Registrations|null find($id, $lockMode = null, $lockVersion = null)
@@ -18,6 +20,19 @@ class RegistrationsRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Registrations::class);
     }
+
+    public function findByIdTrip($idTrip)
+    {
+
+        return $this->createQueryBuilder('r')
+            ->innerJoin(Participants::class, 'p',Join::WITH, 'p.id = r.participant' )
+            ->Where('r.trips = :id')
+            ->setParameter('id', $idTrip)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
 
     // /**
     //  * @return Registrations[] Returns an array of Registrations objects
