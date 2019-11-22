@@ -64,8 +64,23 @@
                             <td>{{ trip.dateClosing|date("d/m/Y H:i") }}</td>
                             <td>{{ trip.maxRegistration }}</td>
                             <td>{{ trip.status }}</td>
-                            <td>A FAIRE</td>
-                            <td><a href="{{ path('profileShow',{ 'id' : trip.organizer.id }) }}">{{ trip.organizer }}</a></td>
+                            <td>
+                                <!-- Vérifier si l'utilisateur est inscrit -->
+
+                                    {% for registration in registrations %}
+
+                                        {# registration.participant.id #}
+                                        {#app.user.id #}
+                                        {% if(registration.participant.id == app.user.id) and (trip.id == registration.trips.id) %}
+                                            X
+                                        {% endif %}
+
+                                    
+                                {% endfor %}
+                            </td>
+                            <td>
+                                <a href="{{ path('profileShow',{ 'id' : trip.organizer.id }) }}">{{ trip.organizer }}</a>
+                            </td>
                             <td><a href="{{ path('tripShow',{ 'id': trip.id }) }}">Afficher</a></td>
                         </tr>
                     {% endfor %}
