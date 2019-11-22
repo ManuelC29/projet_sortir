@@ -44,6 +44,7 @@ class TripsRepository extends ServiceEntityRepository
             //->setMaxResults(10)
             ->getQuery()
             ->getResult()
+            //->getOneOrNullResult();
         ;
     }
 

@@ -10,11 +10,17 @@
         {% endblock %}
         {% block stylesheetsAdd %}{% endblock %}
 
-        {% include '_navbar.html.twig' %}
+    {% include '_navbar.html.twig' %}
 
-    </head>
-    <body>
-        {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
-    </body>
+</head>
+<body>
+{% for label, messages in app.flashes %}
+    {% for message in messages %}
+        <div class="alert-{{ label }}">{{ message }}</div>
+    {% endfor %}
+{% endfor %}
+
+{% block body %}{% endblock %}
+{% block javascripts %}{% endblock %}
+</body>
 </html>

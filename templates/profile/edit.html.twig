@@ -6,21 +6,10 @@
     <div class="container">
         <h2>Edit du profil</h2>
         {%if is_granted('IS_AUTHENTICATED_FULLY') %}
-            toto
-            <label>id</label>
-            {{ app.user.id }}
-            <label>nickname</label>
-            {{ app.user.nickname }}
-            <label>lastname</label>
-            {{ app.user.lastname }}
-            <label>firstname</label>
-            {{ app.user.firstname }}
-            <label>phone</label>
-            {{ app.user.phone }}
-            <lablel>mail</lablel>
-            {{ app.user.mail }}
-            {{ app.user.mail }}
+            {{ form_start(form) }}
+            {{ form_widget(form) }}
+            <input type="submit" class="btn btn-primary" value="Modifer">
+            {{ form_end(form) }}
         {% endif %}
-
     </div>
 {% endblock %}

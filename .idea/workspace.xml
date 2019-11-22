@@ -2,21 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="97bbd9ab-9de5-4256-99ba-423462af9bf8" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/public/css/personalisation.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/css/reset.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Migrations/Version20191122084738.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/packages/security.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/packages/security.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/packages/sonata_admin.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/packages/sonata_admin.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/services.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/services.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/WelcomeController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/WelcomeController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/Participants.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Participants.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Form/RegistrationType.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Form/RegistrationType.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Form/TripType.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Form/TripType.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Repository/ParticipantsRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/ParticipantsRepository.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/css/personalisation.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/personalisation.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/ProfileController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/ProfileController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Repository/TripsRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/TripsRepository.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/base.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/welcome/welcome.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/welcome/welcome.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/profile/edit.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/profile/edit.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/profile/show.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/profile/show.html.twig" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
