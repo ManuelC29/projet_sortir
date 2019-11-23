@@ -60,11 +60,12 @@
                     </tr>
 
                     {% for trip in trips %}
-                        <tr>
+                        <tr id="{{ trip.id }}" class="ligne">
                             <td>{{ trip.name }}</td>
                             <td>{{ trip.dateStart|date("d/m/Y H:i") }}</td>
                             <td>{{ trip.dateClosing|date("d/m/Y H:i") }}</td>
-                            <td><!-- Compter le nombre d'inscript en fonction du voyage -->
+                            <td>
+                                <!-- Compter le nombre d'inscript en fonction du voyage -->
                                 {% set count = 0 %}
                                 {% for registration in registrations %}
                                     {% if(registration.trips.id == trip.id) %}
@@ -84,14 +85,32 @@
                             <td>
                                 <a href="{{ path('profileShow',{ 'id' : trip.organizer.id }) }}">{{ trip.organizer }}</a>
                             </td>
-                            <td><a href="{{ path('tripShow',{ 'id': trip.id }) }}">Afficher</a></td>
+                            <td>
+                                <a href="{{ path('tripShow',{ 'id': trip.id }) }}">Afficher</a>
+                                <a href="#">S'inscrire</a>
+                                <a href="#">Se désister</a>
+                            </td>
                         </tr>
+
+                        <tr id="hidethis{{ trip.id }}" class="hidethis">
+                            <td colspan="1">Participants</td>
+                            <td colspan="7">
+                                <!--Lister les participants du voyage -->
+                                {% for registration in registrations %}
+                                    {% if(registration.trips.id == trip.id) %}
+                                        <a href="{{ path('profileShow',{ 'id' : registration.participant.id })}}">{{ registration.participant.nickname }}</a>
+                                    {% endif %}
+                                {% endfor %}
+                            </td>
+                        </tr>
+
                     {% endfor %}
 
                 </table>
-                <a href="{{ path('tripAdd') }}"><input class="btn btn-primary" type="submit"
+                <a href="{{ path('tripAdd') }}"><input class="btn btn-primary search" type="submit"
                                                        value="Créer une sortie"></a>
             </div>
         {% endif %}
     </div>
 {% endblock %}
+{% block javascripts %}<script type="text/javascript" src="{{ asset('Js/welcome.js') }}"></script> {% endblock %}

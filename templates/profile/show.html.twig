@@ -4,22 +4,34 @@
 {% block stylesheetsAdd %}
     <link rel="stylesheet" href="{{ asset('css/profile.css') }}">{% endblock %}
 {% block body %}
-    <div class="container">
-        <h2>Affichage du profil</h2>
+
+
         {%if is_granted('IS_AUTHENTICATED_FULLY') %}
-            <label>id</label>
-            {{ participant.id }}
-            <label>nickname</label>
-            {{ participant.nickname }}
-            <label>lastname</label>
-            {{ participant.lastname }}
-            <label>firstname</label>
-            {{ participant.firstname }}
-            <label>phone</label>
-            {{ participant.phone }}
-            <label>mail</label>
-            {{ participant.mail }}
-            <a href="{{ path('profileModify') }}"><button class="btn btn-primary">Editer mon profil</button></a>
+            <h2>Affichage du profil</h2>
+
+            <div class="container">
+                <div class="side">
+                    <img src="http://www.benisoftindia.com/img/profile.jpg">
+                    <label class="label">pseudo : </label>
+                    <label class="data">{{ participant.nickname }}</label>
+                </div>
+                <div class="main">
+                    <label class="label">id</label>
+                    <label class="data">{{ participant.id }}</label>
+                    <label class="label">lastname</label>
+                    <label class="data">{{ participant.lastname }}</label>
+                    <label class="label">firstname</label>
+                    <label class="data">{{ participant.firstname }}</label>
+                    <label class="label">phone</label>
+                    <label class="data">{{ participant.phone }}</label>
+                    <label class="label">mail</label>
+                    <label class="data">{{ participant.mail }}</label>
+                </div>
+                <div class="button">
+                     <a href="{{ path('profileModify') }}"><button class="btn btn-primary">Editer mon profil</button></a>
+                </div>
+            </div>
+
         {% endif %}
-    </div>
+
 {% endblock %}
