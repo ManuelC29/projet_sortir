@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello SecurityController!{% endblock %}
+{% block title %}Login{% endblock %}
 {% block stylesheetsAdd %}
     <link rel="stylesheet" href="{{ asset('css/login.css') }}">{% endblock %}
 {% block body %}
@@ -10,11 +10,13 @@
         <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
     {% endif %}
 
+    <h1 class="neon">[ Login ]</h1>
+
     <form class="container" action="{{ path('login') }}" method="post">
-        <h2>Login</h2>
-        <label for="username">Username:</label>
+
+        <label for="username">Pseudo ou mail :</label>
         <input type="text" id="username" name="_username" value="{{ last_username }}"/>
-        <label for="password">Password:</label>
+        <label for="password">Password :</label>
         <input type="password" id="password" name="_password"/>
         <div>
             <input type="checkbox" id="remember_me" name="_remember_me" checked/>

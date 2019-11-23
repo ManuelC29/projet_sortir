@@ -1,14 +1,8 @@
-.container{
-    display: flex;
-    border: 1px solid #d4d4d4;
-    padding: 1em;
-    box-shadow: 0 0 15px red;
-    flex-wrap: wrap;
-}
-img{
+.img{
     width: 10rem;
     margin: 1em;
 }
+
 .side{
     display: flex;
     flex-direction: column;
@@ -27,7 +21,7 @@ h2{
     text-align: center;
 }
 label{
-    margin: 1em 1em 1em 1em;
+    margin: 1em 0.5em 1em 1em;
 }
 
 .label{

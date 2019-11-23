@@ -27,6 +27,7 @@ class SecurityController extends Controller
         $error = $authenticationUtils->getLastAuthenticationError();
         $participant = $security->getUser();
 
+
         // last username entered by the user
         $lastUsername = $authenticationUtils->getLastUsername();
 

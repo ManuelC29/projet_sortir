@@ -1,15 +1,35 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <img src="{{ asset('images/logo.png') }}" style="width: 50px;height: 50px;" >
-            <a class="nav-item nav-link active" href="{{ path('welcome') }}">Sortir.com</a>
-                {%if is_granted('IS_AUTHENTICATED_FULLY') %}
-                <!--Si l'user est authentifié -->
-                        <a href="{{ path('profileShow', {'id': app.user.id}) }}">Mon profil</a>
-                        <a class="nav-item nav-link active" href="{{ path('tripAdd') }}">Créer une Sortie</a>
-                        <a class="nav-item nav-link active" href="{{ path('logout') }}">Se déconnecter</a>
-                    <!-- TODO Ajouter un lien vers la page admin si on est admin -->
+    <a class="span" href="{{ path('welcome') }}">Sortir.com</a>
 
-                {% else %}
-                        <a class="nav-item nav-link active" href="{{ path('registration') }}">S'enregistrer</a>
-                        <a class="nav-item nav-link active" href="{{ path('login') }}">Se connecter</a>
-                {% endif %}
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText"
+            aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    {# Revoir les liens en fonctions des roles (manu)#}
+    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+        <div class="collapse navbar-collapse" id="navbarText">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('profileShow', {'id': app.user.id}) }}">Mon
+                    profil</a>
+                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('tripAdd') }}">Créer une Sortie</a>
+                </li>
+                <li>
+                    <a class="nav-link" href="{{ path('logout') }}">Se déconnecter</a>
+                </li>
+    {% else %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('registration') }}">S'enregistrer</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('login') }}">Se connecter</a>
+                </li>
+            </ul>
+        </div>
+    {% endif %}
 </nav>
+
+

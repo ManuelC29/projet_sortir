@@ -1,116 +1,119 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello WelcomeController!{% endblock %}
+{% block title %}Accueil{% endblock %}
 
-
+{% block stylesheetsAdd %}
+    <link rel="stylesheet" href="{{ asset('css/welcome.css') }}">{% endblock %}
 {% block body %}
-    <div class="container">
-        <h1>Welcome</h1>
+    <h1 class="neon">[ Accueil ]</h1>
+    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+        <div class="container">
+            <div class="full">
+                <div class="date">Date du Jour : {{ "now"|date("d/m/Y H:i") }} </div>
+                <div class="user"> Participant : {{ app.user.nickname }}</div>
+                <form action="{{ path('welcome') }}" class="filters" method="post">
+                    <div>
+                        <h4>Filtrer les sorties</h4>
+                        <label for="search">Site</label>
 
-        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-            <div class="date">Date du Jour : {{ "now"|date("d/m/Y H:i") }} </div>
-            <div class="user"> Participant : {{ app.user.nickname }}</div>
-            <form action="{{ path('welcome') }}" class="filters" method="post">
+
+                        <select name="site">
+                            {% for site in sites %}
+                                <option value="{{ site.id }}">{{ site.nameSite }}</option>
+                            {% endfor %}
+                        </select>
+
+                        <label for="search">Le nom de la sortie contient :</label>
+                        <input type="text" name="search" placeholder="Rechercher"/>
+                        <input type="datetime-local" name="debut"/>
+                        <input type="datetime-local" name="fin"/>
+                    </div>
+
+                    <div>
+                        <input type="checkbox" name="orgaTrip"/>
+                        <label for="orgaTrip">Sorties dont je suis l'organisateur/trice</label>
+                        <input type="checkbox" name="regiTrip"/>
+                        <label for="regiTrip">Sorties auxquelles je suis inscrit/e</label>
+                        <input type="checkbox" name="noreTrip"/>
+                        <label for="noreTrip">Sorties auxquelles je ne suis pas inscrit/e</label>
+                        <input type="checkbox" name="oldsTrip"/>
+                        <label for="oldsTrip">Sorties passées</label>
+                    </div>
+
+
+                    <div>
+                        <input class="btn btn-primary" type="submit" value="Rechercher">
+                    </div>
+                </form>
+                <!-- Enlever ce <br> dégeulasse lors de la mise en forme -->
+                <br>
                 <div>
-                    <h4>Filtrer les sorties</h4>
-                    <label for="search">Site</label>
+                    <table class="table table-striped table-dark table-hover table-bordered">
+                        <tr class="thead-light">
+                            <th>Nom de la sortie</th>
+                            <th>Date de sortie</th>
+                            <th>Clôture</th>
+                            <th>inscrits/places</th>
+                            <th>État</th>
+                            <th>Inscrit</th>
+                            <th>Organisateur</th>
+                            <th>Actions</th>
+                        </tr>
 
+                        {% for trip in trips %}
+                            <tr id="{{ trip.id }}" class="ligne">
+                                <td>{{ trip.name }}</td>
+                                <td>{{ trip.dateStart|date("d/m/Y H:i") }}</td>
+                                <td>{{ trip.dateClosing|date("d/m/Y H:i") }}</td>
+                                <td>
+                                    <!-- Compter le nombre d'inscript en fonction du voyage -->
+                                    {% set count = 0 %}
+                                    {% for registration in registrations %}
+                                        {% if(registration.trips.id == trip.id) %}
+                                            {% set count = count + 1 %}
+                                        {% endif %}
+                                    {% endfor %}
+                                    {{ count }}/ {{ trip.maxRegistration }}</td>
+                                <td>{{ trip.status }}</td>
+                                <td>
+                                    <!-- Vérifier si l'utilisateur est inscrit -->
+                                    {% for registration in registrations %}
+                                        {% if(registration.participant.id == app.user.id) and (trip.id == registration.trips.id) %}
+                                            X
+                                        {% endif %}
+                                    {% endfor %}
+                                </td>
+                                <td>
+                                    <a href="{{ path('profileShow',{ 'id' : trip.organizer.id }) }}">{{ trip.organizer }}</a>
+                                </td>
+                                <td>
+                                    <a href="{{ path('tripShow',{ 'id': trip.id }) }}">Afficher</a>
+                                    <a href="#">S'inscrire</a>
+                                    <a href="#">Se désister</a>
+                                </td>
+                            </tr>
 
-                    <select name="site">
-                        {% for site in sites %}
-                            <option value="{{ site.id }}">{{ site.nameSite }}</option>
+                            <tr id="hidethis{{ trip.id }}" class="hidethis">
+                                <td colspan="1">Participants</td>
+                                <td colspan="7">
+                                    <!--Lister les participants du voyage -->
+                                    {% for registration in registrations %}
+                                        {% if(registration.trips.id == trip.id) %}
+                                            <a href="{{ path('profileShow',{ 'id' : registration.participant.id }) }}">{{ registration.participant.nickname }}</a>
+                                        {% endif %}
+                                    {% endfor %}
+                                </td>
+                            </tr>
+
                         {% endfor %}
-                    </select>
 
-                    <label for="search">Le nom de la sortie contient :</label>
-                    <input type="text" name="search" placeholder="Rechercher"/>
-                    <input type="datetime-local" name="debut"/>
-                    <input type="datetime-local" name="fin"/>
+                    </table>
+                    <a href="{{ path('tripAdd') }}"><input class="btn btn-primary search" type="submit"
+                                                           value="Créer une sortie"></a>
                 </div>
-
-                <div>
-                    <input type="checkbox" name="orgaTrip"/>
-                    <label for="orgaTrip">Sorties dont je suis l'organisateur/trice</label>
-                    <input type="checkbox" name="regiTrip"/>
-                    <label for="regiTrip">Sorties auxquelles je suis inscrit/e</label>
-                    <input type="checkbox" name="noreTrip"/>
-                    <label for="noreTrip">Sorties auxquelles je ne suis pas inscrit/e</label>
-                    <input type="checkbox" name="oldsTrip"/>
-                    <label for="oldsTrip">Sorties passées</label>
-                </div>
-
-
-                <div>
-                    <input class="btn btn-primary" type="submit" value="Rechercher">
-                </div>
-            </form>
-            <!-- Enlever ce <br> dégeulasse lors de la mise en forme -->
-            <br>
-            <div>
-                <table class="table table-striped table-dark table-hover table-bordered">
-                    <tr class="thead-light">
-                        <th>Nom de la sortie</th>
-                        <th>Date de sortie</th>
-                        <th>Clôture</th>
-                        <th>inscrits/places</th>
-                        <th>État</th>
-                        <th>Inscrit</th>
-                        <th>Organisateur</th>
-                        <th>Actions</th>
-                    </tr>
-
-                    {% for trip in trips %}
-                        <tr id="{{ trip.id }}" class="ligne">
-                            <td>{{ trip.name }}</td>
-                            <td>{{ trip.dateStart|date("d/m/Y H:i") }}</td>
-                            <td>{{ trip.dateClosing|date("d/m/Y H:i") }}</td>
-                            <td>
-                                <!-- Compter le nombre d'inscript en fonction du voyage -->
-                                {% set count = 0 %}
-                                {% for registration in registrations %}
-                                    {% if(registration.trips.id == trip.id) %}
-                                        {% set count = count + 1 %}
-                                    {% endif %}
-                                {% endfor %}
-                                {{ count }}/ {{ trip.maxRegistration }}</td>
-                            <td>{{ trip.status }}</td>
-                            <td>
-                                <!-- Vérifier si l'utilisateur est inscrit -->
-                                {% for registration in registrations %}
-                                    {% if(registration.participant.id == app.user.id) and (trip.id == registration.trips.id) %}
-                                        X
-                                    {% endif %}
-                                {% endfor %}
-                            </td>
-                            <td>
-                                <a href="{{ path('profileShow',{ 'id' : trip.organizer.id }) }}">{{ trip.organizer }}</a>
-                            </td>
-                            <td>
-                                <a href="{{ path('tripShow',{ 'id': trip.id }) }}">Afficher</a>
-                                <a href="#">S'inscrire</a>
-                                <a href="#">Se désister</a>
-                            </td>
-                        </tr>
-
-                        <tr id="hidethis{{ trip.id }}" class="hidethis">
-                            <td colspan="1">Participants</td>
-                            <td colspan="7">
-                                <!--Lister les participants du voyage -->
-                                {% for registration in registrations %}
-                                    {% if(registration.trips.id == trip.id) %}
-                                        <a href="{{ path('profileShow',{ 'id' : registration.participant.id })}}">{{ registration.participant.nickname }}</a>
-                                    {% endif %}
-                                {% endfor %}
-                            </td>
-                        </tr>
-
-                    {% endfor %}
-
-                </table>
-                <a href="{{ path('tripAdd') }}"><input class="btn btn-primary search" type="submit"
-                                                       value="Créer une sortie"></a>
             </div>
-        {% endif %}
-    </div>
+        </div>
+    {% endif %}
 {% endblock %}
-{% block javascripts %}<script type="text/javascript" src="{{ asset('Js/welcome.js') }}"></script> {% endblock %}
+{% block javascripts %}
+    <script type="text/javascript" src="{{ asset('Js/welcome.js') }}"></script> {% endblock %}

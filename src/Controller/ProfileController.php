@@ -48,7 +48,7 @@ class ProfileController extends Controller
             return $this->redirectToRoute('welcome');
         }
 
-        return $this->render('profile/edit.html.twig', [
+        return $this->render('profile/modify.html.twig', [
             'form'=>$form->createView()
         ]);
     }
