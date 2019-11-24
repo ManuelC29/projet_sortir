@@ -81,6 +81,13 @@ class Trips implements FormTypeInterface
      */
     private $organizer;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $cancelReason;
+
+    
+
     public function __construct()
     {
         $this->registration = new ArrayCollection();
@@ -321,6 +328,18 @@ class Trips implements FormTypeInterface
     public function setOrganizer(?Participants $organizer): self
     {
         $this->organizer = $organizer;
+
+        return $this;
+    }
+
+    public function getCancelReason(): ?string
+    {
+        return $this->cancelReason;
+    }
+
+    public function setCancelReason(?string $cancelReason): self
+    {
+        $this->cancelReason = $cancelReason;
 
         return $this;
     }

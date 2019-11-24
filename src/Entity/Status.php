@@ -26,10 +26,6 @@ class Status implements FormTypeInterface
      */
     private $label = "unknown";
 
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $reason;
 
     public function __toString()
     {
@@ -144,15 +140,5 @@ class Status implements FormTypeInterface
         // TODO: Implement getParent() method.
     }
 
-    public function getReason(): ?string
-    {
-        return $this->reason;
-    }
 
-    public function setReason(?string $reason): self
-    {
-        $this->reason = $reason;
-
-        return $this;
-    }
 }

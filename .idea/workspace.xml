@@ -2,11 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="55e53fc4-d23b-4342-886c-47a43f8ccc1d" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/Entity/StatusEnum.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/trip/cancel.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/TripController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/TripController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/trip/add.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/trip/add.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/trip/modify.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/trip/modify.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Status.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Status.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Trips.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Trips.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -163,11 +161,6 @@
       <path value="$PROJECT_DIR$/vendor/symfony/debug-bundle" />
     </include_path>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
-    <option name="x" value="-8" />
-    <option name="width" value="1722" />
-    <option name="height" value="1056" />
-  </component>
   <component name="ProjectId" id="1Tmnn840dFHcNaO2RC9PXNFtg0R" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="Add" />
@@ -177,6 +170,7 @@
     <property name="DatabaseDriversLRU" value="mysql" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="com.jetbrains.php.lang.actions.generation.PhpGenerateFieldAccessorHandlerBase$MyMemberChooser.fluent.setters.last.selected" value="true" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="preferences.editor" />
   </component>
