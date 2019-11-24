@@ -23,11 +23,11 @@
                             {% endfor %}
                         </select>
 
-                        <label for="search">Le nom de la sortie contient :</label>
-                        <input type="text" name="search" placeholder="Rechercher"/>
-                        <input type="datetime-local" name="debut"/>
-                        <input type="datetime-local" name="fin"/>
-                    </div>
+                    <label for="search">Le nom de la sortie contient :</label>
+                    <input type="text" name="search" placeholder="Rechercher"/>
+                    <input name="debut" type="date" value="{{ "now" | date_modify('first day of this month') | date('Y-m-d')}}" />
+                    <input type="date" name="fin" value="{{ "now" | date_modify('last day of this month') | date('Y-m-d')}}"/>
+                </div>
 
                     <div>
                         <input type="checkbox" name="orgaTrip"/>

@@ -27,27 +27,18 @@ class WelcomeController extends Controller
 
         // si un participant est loggé
         if($participant !== null ){
-
-            $registrations = $registrationsRepository->findAll();
-
             //TODO AJout de filtres
-            if ($request->request->get('site') !== null){
-                //['place' => .... ]
-                $trips = $tripsRepository->findByCity($request->request->get('site'));
-            }
-            if ($request->request->get('search') !== null){
-                
-            }
-            else{
-                //all trips recupération
-                //todo EN COURS (manu) si on a pas de sélection activé
-                $trips = $entityManager->getRepository(Trips::class)->findAll();
-            }
+            $idSites = $request->request->get('site');
+            $search = $request->request->get('search');
+            $debut = $request->request->get('debut');
+            $fin = $request->request->get('fin');
+            $orgaTrip = $request->request->get('orgaTrip');
+            $trips = $tripsRepository->findByFilters($idSites,$search, $debut, $fin, $orgaTrip);
 
-
-
-            $sites = $entityManager->getRepository(Sites::class)->findAll();
         }
+               $registrations = $registrationsRepository->findAll();
+        $sites = $entityManager->getRepository(Sites::class)->findAll();
+
 
         return $this->render('welcome/welcome.html.twig', compact('participant','sites','trips','registrations'));
     }

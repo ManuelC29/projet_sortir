@@ -7,6 +7,7 @@ use App\Entity\Trips;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\ORM\Query\Expr\Join;
+use Symfony\Component\Validator\Constraints\Date;
 
 /**
  * @method Trips|null find($id, $lockMode = null, $lockVersion = null)
@@ -25,6 +26,35 @@ class TripsRepository extends ServiceEntityRepository
       * @return Trips[] Returns an array of Trips objects
      *
      */
+
+    public function findByFilters($idSite = null, $search = null, $debut = null, $fin = null, $orgaTrip = null)
+    {
+        $queryBuilder = $this->createQueryBuilder('a');
+
+        if ($idSite !== null){
+            $queryBuilder->innerJoin(Participants::class,'p',Join::WITH,'p.id = a.organizer');
+            $queryBuilder->andWhere('p.site = :site');
+            $queryBuilder->setParameter('site', $idSite);
+        }
+        if ($search !== null){
+            $queryBuilder ->andWhere('a.name LIKE :search');
+            $queryBuilder->setParameter('search', '%' .$search. '%');
+        }
+        if ($debut !== null or $fin !== null){
+            $queryBuilder->andWhere('a.date_start >= :debut');
+            $queryBuilder->andWhere('a.date_closing <= :fin');
+            $queryBuilder->setParameter('debut', $debut);
+            $queryBuilder->setParameter('fin', $fin);
+        }
+        if ($orgaTrip !== null){
+            $queryBuilder->andWhere('a.organizer = :orgaTrip');
+            $queryBuilder->setParameter('orgaTrip', $orgaTrip);
+        }
+        $query = $queryBuilder->getQuery();
+        return $query->getResult();
+    }
+
+
      public function findByCity($idSite)
  {
         //récupère le
@@ -49,9 +79,28 @@ class TripsRepository extends ServiceEntityRepository
     public function findByName($search = null)
     {
         return $this->createQueryBuilder('a')
-
             ->andWhere('a.name LIKE :search')
-            ->setParameter('search', $search)
+            ->setParameter('search', '%' .$search. '%')
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function findByDate($debut , $fin)
+    {
+        return $this->createQueryBuilder('d')
+            ->andWhere('d.date_start >= :debut')
+            ->andWhere('d.date_closing <= :fin')
+            ->setParameter('debut', $debut)
+            ->setParameter('fin', $fin)
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function findByOrga($idOrga)
+    {
+        return$this->createQueryBuilder('o')
+            ->andWhere('o.organizer = :orga')
+            ->setParameter('orga', $idOrga)
             ->getQuery()
             ->getResult();
     }
