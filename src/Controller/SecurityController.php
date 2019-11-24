@@ -65,9 +65,7 @@ class SecurityController extends Controller
         // hydratation du participant avec les données saisies sur le formulaire
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid())
-            // gestion du chiffrement du mot de passe
-        {
+        if ($form->isSubmitted() && $form->isValid()){
             $password = $encoder->encodePassword($participant, $participant->getPassword());
             $participant->setPassword($password);
             $entityManager->persist($participant);

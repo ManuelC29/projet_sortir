@@ -16,7 +16,7 @@ use Symfony\Component\Security\Core\Security;
 class RegistrationController extends Controller
 {
     /**
-     * @Route("registration/{id}", name="registration")
+     * @Route("registration/{id}", name="r")
      */
     public function show($id,Security $user, EntityManagerInterface $entityManager)
     {

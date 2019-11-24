@@ -5,18 +5,23 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormTypeInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ParticipantsRepository")
- *
+ * @UniqueEntity(
+ *     fields={"mail", "nickname"},
+ *     errorPath="mail", message="Ce mail est déjà utilisé",
+ *     errorPath="nickname", message="Ce pseudo est déjà utilisé"
+ * )
  */
-
 class Participants implements UserInterface, FormTypeInterface
 {
     /**
@@ -57,9 +62,33 @@ class Participants implements UserInterface, FormTypeInterface
     private $mail;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, unique=true)
+     * @Assert\Length(min="2", minMessage="Votre mot de passe doit au minimum avoir 2 caractères")
      */
     private $password;
+
+    /**
+     * @Assert\EqualTo(propertyPath="password", message="Vous n'avez pas tapé le même mot de passe")
+     */
+    private $confirmPassword;
+
+    /**
+     * @return mixed
+     */
+    public function getConfirmPassword()
+    {
+        return $this->confirmPassword;
+    }
+
+    /**
+     * @param mixed $confirmPassword
+     * @return Participants
+     */
+    public function setConfirmPassword($confirmPassword)
+    {
+        $this->confirmPassword = $confirmPassword;
+        return $this;
+    }
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)

@@ -10,43 +10,45 @@
             {{ form_start(form) }}
             <div class="form-row">
                 <div class="form-group col-md-6">
-                    {{ form_row(form.nickname) }}
+                    {{ form_row(form.nickname, { 'attr' : {'placeholder' : 'Pseudo'}}) }}
                 </div>
             </div>
 
             <div class="form-row">
                 <div class="form-group col-md-6">
-                    {{ form_row(form.firstname) }}
+                    {{ form_row(form.firstname, { 'attr' : {'placeholder' : 'Prénom'}}) }}
                 </div>
                 <div class="form-group col-md-6">
-                    {{ form_row(form.lastname ) }}
+                    {{ form_row(form.lastname , { 'attr' : {'placeholder' : 'Nom'}}) }}
                 </div>
             </div>
 
             <div class="form-row">
                 <div class="form-group col-md-6">
-                    {{ form_row(form.mail) }}
-
+                    {{ form_row(form.mail, { 'attr' : {'placeholder' : 'email'}}) }}
                 </div>
                 <div class="form-group col-md-6">
-                    {{ form_row(form.phone) }}
+                    {{ form_row(form.phone, { 'attr' : {'placeholder' : 'Nunméro de Téléphone'}}) }}
                 </div>
             </div>
 
             <div class="form-row">
                 <div class="form-group col-md-6">
-                    {{ form_row(form.password) }}
+                    {{ form_row(form.password, { 'attr' : {'placeholder' : 'password'}}) }}
                 </div>
                 <div class="form-group col-md-6">
-                    {{ form_row(form.url_photo) }}
+                    {{ form_row(form.confirmPassword, { 'attr' : {'placeholder' : 'Confirmer le password'}}) }}
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    {{ form_row(form.url_photo, { 'attr' : {'placeholder' : 'url de votre photo'}}) }}
+                </div>
+                <div class="form-group col-md-6">
+                    {{ form_row(form.site, { 'attr' : {'placeholder' : 'Site internet'}}) }}
                 </div>
             </div>
 
-            <div class="form-row">
-                <div class="form-group col-md-6">
-                    {{ form_row(form.site) }}
-                </div>
-            </div>
             <input class="btn btn-primary" type="submit" name="Créer" value="S'enregistrer">
             {{ form_end(form) }}
         </div>
