@@ -1,30 +1,19 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}
-    Annulation d'une sortie
-{% endblock %}
+{% block title %} Annulation de la sortie "{{ form.vars.value.name }}" {% endblock %}
 
 {% block body %}
-    <div class="container" >
-        <h1>Annulation de la sortie "{{ trip.name }}"</h1>
-        <div>
-            <dl>
-                <dt>Nom de la sortie :</dt>
-                <dd>{{ trip.name }}</dd>
-                <dt>Date de la sortie :</dt>
-                <dd>{{ trip.dateStart|date('d/m/Y') }}</dd>
-                <dt>Ville organisatrice :</dt>
-                <dd>{{ trip.organizer.site.nameSite }}</dd>
-                <dt>Lieu :</dt>
-                <dd>{{ trip.place.namePlace }}</dd>
 
-            </dl>
+    <div class="container">
+
+        <div>
+            <h1>Annuler de la sortie "{{ form.vars.value.name }}"</h1>
+            {{ form_start(form) }}
+            {{ form_widget(form) }}
+            <input type="submit" class="btn btn-primary" name="Annuler" value="Annuler la sortie">
+            {{ form_end(form) }}
         </div>
-        <form action="{{ path('tripCancel', {"id":trip.id}) }}" method="post">
-            <dl>Motif : <textarea name="reason" placeholder="motif de l'annulation"></textarea>
-            </dl>
-            <input type="submit" class="btn btn-danger"name="Annuler" value="Annuler la sortie">
-        </form>
 
     </div>
+
 {% endblock %}

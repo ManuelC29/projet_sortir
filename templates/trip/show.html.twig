@@ -11,6 +11,8 @@
     <dl>
         <dt>Nom de la sortie :</dt>
         <dd>{{ trip.name }}</dd>
+        <dt>Etat de la sortie :</dt>
+        <dd>{{ trip.status.label }}</dd>
         <dt>Date et heure de la sortie :</dt>
         <dd>{{ trip.dateStart|date('d/m/Y H:i') }}</dd>
         <dt>Date limite d'inscription :</dt>

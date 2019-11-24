@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Registrations;
 use App\Entity\Status;
 use App\Entity\Trips;
+use App\Form\TripCancelType;
 use App\Form\TripType;
 use App\Repository\RegistrationsRepository;
 use App\Repository\StatusRepository;
@@ -52,7 +53,7 @@ class TripController extends Controller
             return $this->redirectToRoute('welcome', compact('participant'));
         }
 
-        return $this->render('trip/add.html.twig',[
+        return $this->render('trip/add.html.twig', [
             'form' => $form->createView()
         ]);
     }
@@ -60,7 +61,7 @@ class TripController extends Controller
     /**
      * @Route("/trip/modify/{id}", name="tripModify", requirements={"id":"\d+"})
      */
-    public function modify (Trips $trip, Request $request, EntityManagerInterface $entityManager)
+    public function modify(Trips $trip, Request $request, EntityManagerInterface $entityManager)
     {
 
         $form = $this->createForm(TripType::class, $trip);
@@ -69,10 +70,11 @@ class TripController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
             $this->addFlash('success', 'Votre sortie est modifiée !');
-            return $this->redirectToRoute('tripModify', ['id'=> $trip->getId()]);
+            return $this->redirectToRoute('tripModify', ['id' => $trip->getId()]);
         }
 
-        return $this->render('trip/modify.html.twig', ['ad' =>$trip,
+        // TODO pourquoi 'ad' et pas 'trip'
+        return $this->render('trip/modify.html.twig', ['ad' => $trip,
             'form' => $form->createView()
         ]);
     }
@@ -94,21 +96,29 @@ class TripController extends Controller
     /**
      * @Route("/trip/cancel/{id}", name="tripCancel", requirements={"id":"\d+"})
      */
-    public function cancel($id, StatusRepository $statusRepository, RegistrationsRepository $registrationsRepository, Request $request, Trips $trip, EntityManagerInterface $entityManager)
+    public function cancel2($id, StatusRepository $statusRepository, RegistrationsRepository $registrationsRepository, Request $request, Trips $trip, EntityManagerInterface $entityManager)
     {
-        $trip = $entityManager
-            ->getRepository(Trips::class)
-            ->find($id)
-            ;
-        $status = $statusRepository->findBy(6);
-        $trip->setStatus($status);
-        /* TODO a revoir
-        */
 
+        $form = $this->createForm(TripCancelType::class, $trip);
+        $form->handleRequest($request);
 
-        return $this->render('trip/cancel.html.twig', compact('trip', 'listRegistrations'));
+        if ($form->isSubmitted() && $form->isValid()) {
 
+            $status = $statusRepository->find(6);
+            dump($status);
+            $trip->setStatus($status);
+
+            $this->entityManager->flush();
+
+            $this->addFlash('success', 'Votre sortie est annulée !');
+            return $this->redirectToRoute('welcome', compact('participant'));;
+
+        }
+        return $this->render('trip/cancel.html.twig', ['ad' => $trip,
+            'form' => $form->createView()
+        ]);
     }
 
-
 }
+
+

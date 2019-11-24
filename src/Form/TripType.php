@@ -23,12 +23,10 @@ class TripType extends AbstractType
             ->add('date_start', DateTimeType::class, [
                 'label' => 'Date et heure de la sortie'
             ])
-
             ->add('date_closing', DateType::class, [
                 'widget' => 'single_text',
                 'label' => 'Date limite d\'inscription',
             ])
-
             ->add('max_registration', NumberType::class, [
                     'label' => 'Nombre de places',
                 ])
@@ -40,6 +38,7 @@ class TripType extends AbstractType
                           ])
             ->add('place')
 
+            // TODO : à supprimer dans la version client
             ->add('organizer')
             ->add('status')
         ;
