@@ -3,9 +3,11 @@
 namespace App\Controller;
 
 use App\Entity\Registrations;
+use App\Entity\Status;
 use App\Entity\Trips;
 use App\Form\TripType;
 use App\Repository\RegistrationsRepository;
+use App\Repository\StatusRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -77,7 +79,7 @@ class TripController extends Controller
 
 
     /**
-     * @Route("/trip/show/{id}",name="tripShow")
+     * @Route("/trip/show/{id}",name="tripShow", requirements={"id":"\d+"})
      */
     public function show($id, RegistrationsRepository $registrationsRepository, Request $request, Trips $trip)
     {
@@ -89,7 +91,24 @@ class TripController extends Controller
 
     }
 
+    /**
+     * @Route("/trip/cancel/{id}", name="tripCancel", requirements={"id":"\d+"})
+     */
+    public function cancel($id, StatusRepository $statusRepository, RegistrationsRepository $registrationsRepository, Request $request, Trips $trip, EntityManagerInterface $entityManager)
+    {
+        $trip = $entityManager
+            ->getRepository(Trips::class)
+            ->find($id)
+            ;
+        $status = $statusRepository->findBy(6);
+        $trip->setStatus($status);
+        /* TODO a revoir
+        */
 
+
+        return $this->render('trip/cancel.html.twig', compact('trip', 'listRegistrations'));
+
+    }
 
 
 }
