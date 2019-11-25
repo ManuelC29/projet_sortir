@@ -25,7 +25,7 @@ class RegistrationType extends AbstractType
             ->add('mail', EmailType::class, ['label' => 'E-mail'])
             ->add('phone', TelType::class, ['label' => 'Numéro de téléphone', 'empty_data' => 'Votre téléphone'])
             ->add('password', PasswordType::class, ['label' => 'Password'])
-            ->add('confirmPassword', PasswordType::class, ['label' => 'Confiramtion Password'])
+            ->add('confirmPassword', PasswordType::class, ['label' => 'Confirmation Password'])
             ->add('url_photo')
             ->add('site')
         ;
