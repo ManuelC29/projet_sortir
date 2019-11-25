@@ -73,8 +73,8 @@ class TripController extends Controller
             return $this->redirectToRoute('tripModify', ['id' => $trip->getId()]);
         }
 
-        // TODO pourquoi 'ad' et pas 'trip'
-        return $this->render('trip/modify.html.twig', ['ad' => $trip,
+
+        return $this->render('trip/modify.html.twig', ['trip' => $trip,
             'form' => $form->createView()
         ]);
     }
@@ -96,7 +96,7 @@ class TripController extends Controller
     /**
      * @Route("/trip/cancel/{id}", name="tripCancel", requirements={"id":"\d+"})
      */
-    public function cancel2($id, StatusRepository $statusRepository, RegistrationsRepository $registrationsRepository, Request $request, Trips $trip, EntityManagerInterface $entityManager)
+    public function cancel($id, StatusRepository $statusRepository, RegistrationsRepository $registrationsRepository, Request $request, Trips $trip, EntityManagerInterface $entityManager)
     {
 
         $form = $this->createForm(TripCancelType::class, $trip);
@@ -111,12 +111,34 @@ class TripController extends Controller
             $this->entityManager->flush();
 
             $this->addFlash('success', 'Votre sortie est annulée !');
-            return $this->redirectToRoute('welcome', compact('participant'));;
+            return $this->redirectToRoute('welcome', compact('participant'));
 
         }
         return $this->render('trip/cancel.html.twig', ['ad' => $trip,
             'form' => $form->createView()
         ]);
+    }
+
+    /**
+     * @Route("/trip/delete/{id}", name="tripDelete", requirements={"id":"\d+"})
+     */
+    public function remove ($id, Request $request, EntityManagerInterface $entityManager)
+    {
+        $trip = $entityManager
+            ->getRepository(Trips::class)
+            ->find($id);
+
+
+        if (!$trip instanceof Trips) {
+            throw $this->createNotFoundException();
+        }
+
+        $entityManager->remove($trip);
+        $entityManager->flush();
+
+        $this->addFlash('success', 'Votre sortie est supprimée !');
+        return $this->redirectToRoute('welcome', compact('participant'));
+
     }
 
 }

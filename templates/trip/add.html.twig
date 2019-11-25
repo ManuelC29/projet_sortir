@@ -1,25 +1,31 @@
 {% extends 'base.html.twig' %}
 
+{% block title %}Création d'une sortie{% endblock %}
+{% block stylesheetsAdd %}
+    <link rel="stylesheet" href="{{ asset('css/profileShow.css') }}">
+{% endblock %}
 {% block body %}
-
+    <h1 class="neon">[ Création d'une sortie ]</h1>
 
     <div class="container">
+        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
 
-        <div>
-            <h1>Créer une sortie</h1>
-                {{ form_start(form) }}
-                {{ form_widget(form) }}
-                <input type="submit" class="btn btn-primary" name="Enregistrer" value="Enregistrer">
-                {{ form_end(form) }}
-        </div>
+        <div class="fullTrip">
+        {{ form_start(form) }}
 
-        <div>
-            <input type="submit" class=" btn btn-success"name="Publier" value="Publier la sortie">
-        </div>
-        <div>
-            <a href="{{ path('welcome') }}"><button class="btn btn-warning">Annuler</button></a>
-        </div>
+        {{ form_widget(form) }}
 
+        <input type="submit" class="btn btn-primary" name="Enregistrer" value="Enregistrer">
+        <input type="submit" class=" btn btn-success" name="Publier" value="Publier la sortie">
+        <a href="{{ path('welcome') }}">
+            <button class="btn btn-warning">Annuler</button>
+        </a>
+        {{ form_end(form) }}
+        </div>
+        {% endif %}
     </div>
 
+
 {% endblock %}
+
+

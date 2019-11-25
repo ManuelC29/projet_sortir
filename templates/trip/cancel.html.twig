@@ -4,16 +4,16 @@
 
 {% block body %}
 
-    <div class="container">
+    <h1 class="neon">[ Annulation de la sortie "{{ form.vars.value.name }}" ]</h1>
 
-        <div>
-            <h1>Annuler de la sortie "{{ form.vars.value.name }}"</h1>
+    <div class="container">
+        <div class="full">
             {{ form_start(form) }}
             {{ form_widget(form) }}
-            <input type="submit" class="btn btn-primary" name="Annuler" value="Annuler la sortie">
+            <input type="submit" class="btn btn-primary" name="AnnulerSortie" value="Enregistrer l'annulation de  la sortie">
+            <a href="{{ path('welcome') }}"><button class="btn btn-warning">Annuler</button></a>
             {{ form_end(form) }}
         </div>
-
     </div>
 
 {% endblock %}

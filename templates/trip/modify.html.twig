@@ -1,32 +1,82 @@
- {% extends 'base.html.twig' %}
+{% extends 'base.html.twig' %}
 
-{% block title %} Modification de la sortie "{{ form.vars.value.name }}" {% endblock %}
-
+{% block title %}Modification de la sortie "{{ form.vars.value.name }}"{% endblock %}
+{% block stylesheetsAdd %}
+    <link rel="stylesheet" href="{{ asset('css/profileShow.css') }}">
+{% endblock %}
 {% block body %}
+    <h1 class="neon">[ Modification de la sortie "{{ form.vars.value.name }}" ]</h1>
 
     <div class="container">
+        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+        <div class="full">
 
-        <div>
-            <h1>Modifier de la sortie "{{ form.vars.value.name }}"</h1>
             {{ form_start(form) }}
-            {{ form_widget(form) }}
+
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    {{ form_row(form.name) }}
+                </div>
+                <div class="form-group col-md-6">
+                    {{ form_row(form.organizer) }}
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    {{ form_row(form.date_start) }}
+                </div>
+                <div class="form-group col-md-6">
+                    {{ form_row(form.place) }}
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    {{ form_row(form.date_closing) }}
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    {{ form_row(form.max_registration) }}
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    {{ form_row(form.duration) }}
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    {{ form_row(form.description_infos) }}
+                </div>
+            </div>
+
+
             <input type="submit" class="btn btn-primary" name="Enregistrer" value="Enregistrer">
+
+
             {{ form_end(form) }}
-        </div>
+            // TODO A MODIFIER
+            {#
+                         <a href="{{ path('tripPublish', {'id': trip.id}) }}">
+             <button class="btn btn-warning">Publier la sortie</button>
+            </a>
+            #}
 
-        <div>
-            <input type="submit" class="btn btn-success"name="Publier" value="Publier la sortie">
+            <a href="{{ path('tripDelete', {'id': trip.id}) }}">
+                <button class="btn btn-warning">Supprimer la sortie</button>
+            </a>
+            <a href="{{ path('welcome') }}">
+                <button class="btn btn-warning">Annuler</button>
+            </a>
         </div>
-        <div>
-            <input type="submit" class="btn btn-danger"name="Supprimer" value="Supprimer la sortie">
-        </div>
-        <div>
-            <a href="{{ path('welcome') }}"><button class="btn btn-warning">Annuler</button></a>
-        </div>
-
+        {% endif %}
     </div>
 
 {% endblock %}
-
 
 

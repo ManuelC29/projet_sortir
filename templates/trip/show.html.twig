@@ -5,60 +5,76 @@
 {% endblock %}
 
 {% block body %}
-    <div class="container" >
-    <h1>Affichage de la sortie "{{ trip.name }}"</h1>
-    <div>
-    <dl>
-        <dt>Nom de la sortie :</dt>
-        <dd>{{ trip.name }}</dd>
-        <dt>Etat de la sortie :</dt>
-        <dd>{{ trip.status.label }}</dd>
-        <dt>Date et heure de la sortie :</dt>
-        <dd>{{ trip.dateStart|date('d/m/Y H:i') }}</dd>
-        <dt>Date limite d'inscription :</dt>
-        <dd>{{ trip.dateClosing|date('d/m/Y') }}</dd>
-        <dt>Nombre de place :</dt>
-        <dd>{{ trip.maxRegistration }} </dd>
-        <dt>Durée :</dt>
-        <dd>{{ trip.duration }} minutes </dd>
-        <dt>Description et infos :</dt>
-        <dd>{{ trip.descriptionInfos }} </dd>
-    </dl>
-    </div>
-    <div>
-    <dl>
-        <dt>Ville organisatrice :</dt>
-        <dd>{{ trip.organizer.site.nameSite }}</dd>
-        <dt>Lieu :</dt>
-        <dd>{{ trip.place.namePlace }}</dd>
-        <dt>Rue :</dt>
-        <dd>{{ trip.place.street }}</dd>
-        <dt>Code postal :</dt>
-        <dd>{{ trip.place.city.zip }}</dd>
-        <dt>Latitude :</dt>
-        <dd>{{ trip.place.latitude }}</dd>
-        <dt>Longitude :</dt>
-        <dd>{{ trip.place.longitude }} </dd>
-    </dl>
-    </div>
+    <h1 class="neon">[ Affichage de la sortie "{{ trip.name }}" ]</h1>
+    <div class="container">
 
-    <h2>Liste des participants inscrits :</h2>
-    <div>
-        <table class="table thead-dark table-bordered table-striped table-hover table-success">
-            <thead class="thead-dark">
-            <tr>
-                <th style="width:20%;">Pseudo</th>
-                <th style="width:80%;">Nom</th>
+        <div class="fullTrip">
+            <div class="showTrip">
+                <dl>
+                    <dt>Nom de la sortie :</dt>
+                    <dd>{{ trip.name }}</dd>
+                    <dt>Etat de la sortie :</dt>
+                    <dd>{{ trip.status.label }}</dd>
+                    <dt>Date et heure de la sortie :</dt>
+                    <dd>{{ trip.dateStart|date('d/m/Y H:i') }}</dd>
+                    <dt>Date limite d'inscription :</dt>
+                    <dd>{{ trip.dateClosing|date('d/m/Y') }}</dd>
+                    <dt>Nombre de place :</dt>
+                    <dd>{{ trip.maxRegistration }} </dd>
+                    <dt>Durée :</dt>
+                    <dd>{{ trip.duration }} minutes</dd>
+                    <dt>Description et infos :</dt>
+                    <dd>{{ trip.descriptionInfos }} </dd>
+                </dl>
+            </div>
+            <div class="showTrip">
+                <dl>
+                    <dt>Ville organisatrice :</dt>
+                    <dd>{{ trip.organizer.site.nameSite }}</dd>
+                    <dt>Lieu :</dt>
+                    <dd>{{ trip.place.namePlace }}</dd>
+                    <dt>Rue :</dt>
+                    <dd>{{ trip.place.street }}</dd>
+                    <dt>Code postal :</dt>
+                    <dd>{{ trip.place.city.zip }}</dd>
+                    <dt>Latitude :</dt>
+                    <dd>{{ trip.place.latitude }}</dd>
+                    <dt>Longitude :</dt>
+                    <dd>{{ trip.place.longitude }} </dd>
+                </dl>
+            </div>
+        </div>
 
-            </tr>
-            </thead>
-            {% for r in listRegistrations %}
-            <tr>
-                <td>{{r.participant.nickname}}</td>
-                <td>{{r.participant.lastname}}</td>
-            </tr>
-            {% endfor %}
-        </table>
-    </div>
+        <div class="fullTrip">
+            <div class="showTrip">
+                <h3>Liste des participants inscrits :</h3>
+                <table class="table thead-dark table-bordered table-striped table-hover table-success">
+                    <thead class="thead-dark">
+                    <tr>
+                        <th style="width:20%;">Pseudo</th>
+                        <th style="width:80%;">Nom</th>
+
+                    </tr>
+                    </thead>
+                    {% for registration in listRegistrations %}
+                        {% if(registration.trips.id == trip.id) %}
+
+                            <tr>
+                                <td>
+                                    <a href="{{ path('profileShow',{ 'id' : registration.participant.id }) }}">{{ registration.participant.nickname }}</a>
+                                </td>
+                                <td>
+                                    <a href="{{ path('profileShow',{ 'id' : registration.participant.id }) }}">{{ registration.participant.lastname }}</a>
+                                </td>
+                            </tr>
+
+                        {% endif %}
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
     </div>
 {% endblock %}
+
+
+
