@@ -16,11 +16,8 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ParticipantsRepository")
- * @UniqueEntity(
- *     fields={"mail", "nickname"},
- *     errorPath="mail", message="Ce mail est déjà utilisé",
- *     errorPath="nickname", message="Ce pseudo est déjà utilisé"
- * )
+ * @UniqueEntity( fields={"mail"}, errorPath="mail", message="Ce mail est déjà utilisé")
+ * @UniqueEntity( fields={"nickname"}, errorPath="nickname", message="Ce pseudo est déjà utilisé")
  */
 class Participants implements UserInterface, FormTypeInterface
 {
@@ -32,7 +29,7 @@ class Participants implements UserInterface, FormTypeInterface
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=50, unique=true)
+     * @ORM\Column(type="string", length=50)
      */
     private $nickname;
 
@@ -57,7 +54,7 @@ class Participants implements UserInterface, FormTypeInterface
     private $phone;
 
     /**
-     * @ORM\Column(type="string", length=50, unique=true)
+     * @ORM\Column(type="string", length=50)
      */
     private $mail;
 

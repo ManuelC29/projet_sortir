@@ -3,10 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="55e53fc4-d23b-4342-886c-47a43f8ccc1d" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/WelcomeController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/WelcomeController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Repository/ParticipantsRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/ParticipantsRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Repository/TripsRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/TripsRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/welcome/welcome.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/welcome/welcome.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Participants.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Participants.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -193,7 +190,7 @@
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="97bbd9ab-9de5-4256-99ba-423462af9bf8" name="Default Changelist" comment="" />
+      <changelist id="55e53fc4-d23b-4342-886c-47a43f8ccc1d" name="Default Changelist" comment="" />
       <created>1574074302871</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
@@ -208,6 +205,7 @@
       <workItem from="1574458583861" duration="25524000" />
       <workItem from="1574509334275" duration="10181000" />
       <workItem from="1574527968467" duration="11959000" />
+      <workItem from="1574668416211" duration="1465000" />
     </task>
     <servers />
   </component>
