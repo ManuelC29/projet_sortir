@@ -45,6 +45,7 @@ final class ParticipantsAdmin extends AbstractAdmin
             ->add('site')
             ->add('active')
             ->add('administrator')
+            ->add('id')
         ;
     }
 }

@@ -3,10 +3,13 @@
 namespace App\Repository;
 
 use App\Entity\Participants;
+use App\Entity\Registrations;
+use App\Entity\Status;
 use App\Entity\Trips;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\ORM\Query\Expr\Join;
+use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Validator\Constraints\Date;
 
 /**
@@ -27,9 +30,10 @@ class TripsRepository extends ServiceEntityRepository
      *
      */
 
-    public function findByFilters($idSite = null, $search = null, $debut = null, $fin = null, $orgaTrip = null)
+    public function findByFilters(Participants $user, $idSite, $search, $debut, $fin, $orgaTrip, $regiTrip, $noreTrip )
     {
         $queryBuilder = $this->createQueryBuilder('a');
+
 
         if ($idSite !== null){
             $queryBuilder->innerJoin(Participants::class,'p',Join::WITH,'p.id = a.organizer');
@@ -48,62 +52,31 @@ class TripsRepository extends ServiceEntityRepository
         }
         if ($orgaTrip !== null){
             $queryBuilder->andWhere('a.organizer = :orgaTrip');
-            $queryBuilder->setParameter('orgaTrip', $orgaTrip);
+            $queryBuilder->setParameter('orgaTrip', $user->getId());
         }
+        if ($regiTrip !== null){
+            $queryBuilder->innerJoin(Registrations::class,'r',Join::WITH,'r.trips = a.id');
+            $queryBuilder->innerJoin(Participants::class, 'z', Join::WITH, 'z.id = r.participant');
+            $queryBuilder->andWhere('r.participant = :regiTrip');
+            $queryBuilder->setParameter('regiTrip', $user->getId());
+        }
+        if ($noreTrip !== null){
+            $queryBuilder->innerJoin(Registrations::class,'r',Join::WITH,'r.trips = a.id');
+            $queryBuilder->innerJoin(Participants::class, 'z', Join::WITH, 'z.id = r.participant');
+            $queryBuilder->andWhere('z.id = :noreTrip');
+            $queryBuilder->setParameter('noreTrip', !$user->getId());
+        }
+        /*if ($oldsTrip !== null){
+            $queryBuilder->innerJoin(StatusRepository::class,'s',Join::WITH,'s.id = a.status');
+            $queryBuilder->andWhere('s.id = :oldsTrip');
+            $queryBuilder->setParameter('oldsTrip', $status->getLabel('Passée'));
+        }*/
+
+
         $query = $queryBuilder->getQuery();
         return $query->getResult();
     }
 
-
-     public function findByCity($idSite)
- {
-        //récupère le
-        return $this->createQueryBuilder('t')
-            ->innerJoin(Participants::class,'p',Join::WITH,'p.id = t.organizer')
-            //->innerJoin(Registrations::class,'r',Join::WITH, 'r.participant = p.id')
-            ->andWhere('p.site = :id')
-            ->setParameter('id', $idSite)
-            //->innerJoin(CitiesRepository::class,'c',Join::ON, 'c.id = ')
-            //->setParameter('val', $value)
-            //->innerJoin('AppBundle:GroupUser', 'gu', Join::ON, 'g.id = gu.group_id')
-            //->andWhere('t.exampleField = :val')
-            //->setParameter('val', $value)
-            //->orderBy('t.id', 'ASC')
-            //->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-            //->getOneOrNullResult();
-        ;
-    }
-
-    public function findByName($search = null)
-    {
-        return $this->createQueryBuilder('a')
-            ->andWhere('a.name LIKE :search')
-            ->setParameter('search', '%' .$search. '%')
-            ->getQuery()
-            ->getResult();
-    }
-
-    public function findByDate($debut , $fin)
-    {
-        return $this->createQueryBuilder('d')
-            ->andWhere('d.date_start >= :debut')
-            ->andWhere('d.date_closing <= :fin')
-            ->setParameter('debut', $debut)
-            ->setParameter('fin', $fin)
-            ->getQuery()
-            ->getResult();
-    }
-
-    public function findByOrga($idOrga)
-    {
-        return$this->createQueryBuilder('o')
-            ->andWhere('o.organizer = :orga')
-            ->setParameter('orga', $idOrga)
-            ->getQuery()
-            ->getResult();
-    }
 
     /*
     public function findOneBySomeField($value): ?Trips

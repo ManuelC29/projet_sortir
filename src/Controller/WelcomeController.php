@@ -5,8 +5,11 @@ namespace App\Controller;
 use App\Entity\Participants;
 use App\Entity\Registrations;
 use App\Entity\Sites;
+use App\Entity\Status;
 use App\Entity\Trips;
+use App\Repository\ParticipantsRepository;
 use App\Repository\RegistrationsRepository;
+use App\Repository\StatusRepository;
 use App\Repository\TripsRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -22,14 +25,17 @@ class WelcomeController extends Controller
      */
     public function index(RegistrationsRepository $registrationsRepository,
                           TripsRepository $tripsRepository,
+                          ParticipantsRepository $participantsRepository,
                           Request $request,
                           EntityManagerInterface $entityManager,
                           TokenStorageInterface $tokenStorage,
                           Security $security
     )
+
     {
 
         $participant = $security->getUser();
+
 
         // si un participant est loggé
         if($participant !== null ){
@@ -39,7 +45,10 @@ class WelcomeController extends Controller
             $debut = $request->request->get('debut');
             $fin = $request->request->get('fin');
             $orgaTrip = $request->request->get('orgaTrip');
-            $trips = $tripsRepository->findByFilters($idSites,$search, $debut, $fin, $orgaTrip);
+            $regiTrip = $request->request->get('regiTrip');
+            $noreTrip = $request->request->get('noreTrip');
+            $user = $entityManager->getRepository(Participants::class)->find($this->getUser()->getId());
+            $trips = $tripsRepository->findByFilters($user, $idSites,$search, $debut, $fin, $orgaTrip, $regiTrip, $noreTrip);
 
             // si on a cliqué sur s'inscrire
             if($request->get('inscription') != null){
@@ -90,6 +99,10 @@ class WelcomeController extends Controller
 
             }
 
+            $regiTrip = $request->request->get('regiTrip');
+            $noreTrip = $request->request->get('noreTrip');
+            $user = $entityManager->getRepository(Participants::class)->find($this->getUser()->getID());
+            $trips = $tripsRepository->findByFilters($user, $idSites,$search, $debut, $fin, $orgaTrip, $regiTrip, $noreTrip);
         }
 
         $registrations = $registrationsRepository->findAll();
