@@ -88,8 +88,8 @@
                                 </td>
                                 <td>
                                     <a href="{{ path('tripShow',{ 'id': trip.id }) }}">Afficher</a>
-                                    <a href="#">S'inscrire</a>
-                                    <a href="#">Se désister</a>
+                                    <a href="{{ path('welcome') }}?inscription={{ trip.id }}">S'inscrire</a>
+                                    <a href="{{ path('welcome') }}?desist={{ trip.id }}">Se désister</a>
                                 </td>
                             </tr>
 

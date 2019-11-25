@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Participants;
+use App\Entity\Registrations;
 use App\Form\RegistrationType;
 use App\Form\TripType;
 use Doctrine\ORM\EntityManagerInterface;
@@ -16,13 +17,27 @@ use Symfony\Component\Security\Core\Security;
 class RegistrationController extends Controller
 {
     /**
-     * @Route("registration/{id}", name="r")
+     * @Route("registration/add/{id}", name="registrationAdd")
      */
-    public function show($id,Security $user, EntityManagerInterface $entityManager)
+    public function show(Security $user, EntityManagerInterface $entityManager)
     {
+        //TODO conditionnel
+        $registration = new Registrations();
+        dump($user);
+        // set l'id de l'user
+        //$registration->setParticipant($user);
 
-        //TODO faire l'enreistrement
+        //$entityManager->persist($registration);
         //$entityManager->flush();
+
+        //récupérer site trip et registration
+
+
+        //$entityManager->flush();
+
+
+
+        $this->redirectToRoute('welcome');
 
         return $this->render('welcome/welcome.html.twig');
     }
