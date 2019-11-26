@@ -125,7 +125,8 @@
                                     <a href="{{ path('tripShow',{ 'id': trip.id }) }}"><button class="btn-primary">Afficher</button></a>
 
                                     {# On peut modifier seulement si on est l'organisateur de la sortie #}
-                                    {% if( trip.organizer.id == app.user.id)%}
+                                    {# A TESTER LES CONDITIONS #}
+                                    {% if( trip.organizer.id == app.user.id) and ( trip.status == "Créée") %}
                                         <a href="{{ path('tripModify', {'id' : trip.id }) }}"><button class="btn-warning">Modifier</button></a>
                                     {% endif %}
 

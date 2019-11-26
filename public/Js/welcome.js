@@ -13,3 +13,10 @@ $('.ligne').click(function(event){
 function sortirPanneau(idrow){
                 $( "#hidethis" + parseInt(idrow)).toggle("fast");
 }
+
+
+$('nomdetaclass').change(foncA);
+
+function foncA() {
+    console.log('texte');
+}

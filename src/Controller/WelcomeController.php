@@ -39,7 +39,7 @@ class WelcomeController extends Controller
 
 
         // si un participant est loggé
-        if($participant !== null){
+        if($participant !== null ){
             //TODO AJout de filtres
 
             $idSites = $request->request->get('site');
@@ -64,42 +64,50 @@ class WelcomeController extends Controller
 
                 //TODO EN COURS (Manu)
                 /* On peut s'inscrire seuleument si ... #}
-                    condition 1 : le statut du trip doit être publié == Ouverte
-                    condition 2 : le nombre de place ne doit pas être atteint == maxRegistration
-                    condition 3 : la date limite d’inscription ne soit pas dépassée
-                    condition 4 : l'heure de la sortie n'est pas dépassé
-                    condition 5 : on est pas déjà inscrit */
+                   X condition 1 : le statut du trip doit être publié == Ouverte
+                   O condition 2 : le nombre de place ne doit pas être atteint == maxRegistration
+                   O condition 3 : la date limite d’inscription ne soit pas dépassée
+                   O condition 4 : l'heure de la sortie n'est pas dépassé
+                   X condition 5 : on est pas déjà inscrit */
 
 
-                    $user = $entityManager->getRepository(Participants::class)->find($this->getUser());
+                $user = $entityManager->getRepository(Participants::class)->find($this->getUser());
+                $sortie = $entityManager->getRepository(Trips::class)->find($request->get('inscription'));
+                $regis = $entityManager->getRepository(Registrations::class)->find($sortie->getId());
 
-                    // Création d'un objet registration
-                    $registration = new Registrations();
-                    // set l'id de l'user
-                    $registration->setParticipant($entityManager->getRepository(Participants::class)->find($this->getUser()));
-                    //$isOn = false;
 
-                   // foreach ($registration->getParticipant()){
-                     //   if ($user->getId() == $registration->getId() ){
-                       //     $isOn = true;
-                         //   break;
-                        //}
-                    //}
+                // Création d'un objet registration
+                $registration = new Registrations();
+                // set l'id de l'user
+                $registration->setParticipant($entityManager->getRepository(Participants::class)->find($this->getUser()));
 
-                    //dump($registration);
+
+                    //Si l'user est déjà inscrit sur le trip
+//                if (in_array($user->getId(), (array)$registration->getParticipant())) {
+//                    $this->addFlash('danger', 'Vous êtes déjà inscrit à la sortie'. $user->getId());
+//                    //$this->redirectToRoute("welcome");
+//
+//                    // Si la sortie n'a pas l'état Ouvert [OK]
+/*                if ($entityManager->getRepository(Trips::class)->find($request->get('inscription'))->getStatus()->getId() != 2) {
+                    $this->addFlash('danger', 'Le statut de la sortie n\'est pas Ouvert');
+                    $this->redirectToRoute("welcome");*/
+
+//                    //Si le nombre d'enregistration n'est pas atteint [ PAS BON A REVOIR ]
+                if (count((array)$sortie->getId()) >= $sortie->getMaxRegistration()) {
+                    $this->addFlash('danger', 'Il n\'y à plus de place dans cette Sortie');
+                    $this->redirectToRoute("welcome");
+                }else{
+
                     // set l'id de la sortie
                     $sortie = $entityManager->getRepository(Trips::class)->find($request->get('inscription'));
                     $registration->setTrips($sortie);
                     // set la date d'inscription a ce trip
                     $registration->setDateRegistration(new \DateTime());
-
-                    //if($entityManager->getRepository(Participants::class->find($this->getUser())) ){
-                        //TODO
-                    //}
+                    // je persist et je flush en BDD
                     $entityManager->persist($registration);
                     $entityManager->flush();
                     $this->addFlash('success', 'Vous avez bien été enregistré sur la sortie ' . $sortie->getName());
-
+                }
 
             }
 
@@ -144,7 +152,7 @@ class WelcomeController extends Controller
             $regiTrip = $request->request->get('regiTrip');
             $noreTrip = $request->request->get('noreTrip');
             $user = $entityManager->getRepository(Participants::class)->find($this->getUser()->getID());
-            $trips = $tripsRepository->findByFilters($user, $idSites,$search, $debut, $fin, $orgaTrip, $regiTrip, $noreTrip, $oldsTrip);
+            $trips = $tripsRepository->findByFilters($user, $idSites, $search, $debut, $fin, $orgaTrip, $regiTrip, $noreTrip, $oldsTrip);
         }
 
         $registrations = $registrationsRepository->findAll();
