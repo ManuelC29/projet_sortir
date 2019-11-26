@@ -77,8 +77,6 @@
 
 
                     </div>
-
-
                 <!-- Enlever ce <br> dégeulasse lors de la mise en forme -->
                 <br>
                 <div>
@@ -95,12 +93,13 @@
                         </tr>
 
                         {% for trip in trips %}
+                            {% set isOn = false %}
                             <tr id="{{ trip.id }}" class="ligne">
                                 <td>{{ trip.name }}</td>
                                 <td>{{ trip.dateStart|date("d/m/Y H:i") }}</td>
                                 <td>{{ trip.dateClosing|date("d/m/Y") }}</td>
                                 <td>
-                                    <!-- Compter le nombre d'inscript en fonction du voyage -->
+                                    {# Compter le nombre d'inscript en fonction du voyage #}
                                     {% set count = 0 %}
                                     {% for registration in registrations %}
                                         {% if(registration.trips.id == trip.id) %}
@@ -110,10 +109,11 @@
                                     {{ count }}/ {{ trip.maxRegistration }}</td>
                                 <td>{{ trip.status }}</td>
                                 <td>
-                                    <!-- Vérifier si l'utilisateur est inscrit -->
+                                    {# Vérifier si l'utilisateur est inscrit #}
                                     {% for registration in registrations %}
                                         {% if(registration.participant.id == app.user.id) and (trip.id == registration.trips.id) %}
                                             X
+                                            {% set isOn = true %}
                                         {% endif %}
                                     {% endfor %}
                                 </td>
@@ -132,23 +132,33 @@
                                     {# On peut s'inscrire seuleument si ... #}
                                     {# condition 1 : le statut du trip doit être publié == Ouverte #}
                                     {# condition 2 : le nombre de place ne doit pas être atteint == maxRegistration #}
-                                    {# condition 3 : la date limite d’inscription ne soit pas dépassée#}
-                                    {# condition 4 : #}
-                                    {% if (trip.status == "Ouverte") and (count < trip.maxRegistration) and (trip.dateClosing|date("Y/m/d") >= "now"|date("Y/m/d") and (trip.dateStart|date("Y/m/d H:i") >= "now"|date("Y/m/d H:i"))) %}
-                                        <a href="{{ path('welcome') }}?inscription={{ trip.id }}"><button class="btn-success">S'inscrire</button></a>
+                                    {# condition 3 : la date limite d’inscription ne soit pas dépassée #}
+                                    {# condition 4 : l'heure de la sortie n'est pas dépassé #}
+                                    {# condition 5 : on est pas déjà inscrit #}
+                                    {% if (trip.status == "Ouverte")
+                                        and (count < trip.maxRegistration)
+                                        and (trip.dateClosing|date("Y/m/d") >= "now"|date("Y/m/d")
+                                        and (trip.dateStart|date("Y/m/d H:i") >= "now"|date("Y/m/d H:i")))
+                                        and (isOn == false)
+                                    %}
+                                            {# Affichage du bouton S'inscrire #}
+                                            <a href="{{ path('welcome') }}?inscription={{ trip.id }}"><button class="btn-success">S'inscrire</button></a>
                                     {% endif %}
 
-
-
-                                    <a href="{{ path('welcome') }}?desist={{ trip.id }}"><button class="btn-danger">Se désister</button></a>
-
+                                    {# On peut se désister si ... #}
+                                    {# condition 1 : Si la sortie n'est pas commencé #}
+                                    {# condition 2 : Si on est inscrit à la sortie #}
+                                    {# condition 3 : Si la sortie est passéé  and ( in_array(app.user.id, registrations.participant.id) #}
+                                    {% if(trip.status != "Activité en cours") and ( isOn == true)%}
+                                        <a href="{{ path('welcome') }}?desist={{ trip.id }}"><button class="btn-danger">Se désister</button></a>
+                                    {% endif %}
                                 </td>
                             </tr>
 
                             <tr id="hidethis{{ trip.id }}" class="hidethis">
                                 <td colspan="1">Participants</td>
                                 <td colspan="7">
-                                    <!--Lister les participants du voyage -->
+                                    {# Lister les participants du voyage #}
                                     {% for registration in registrations %}
                                         {% if(registration.trips.id == trip.id) %}
                                             <a href="{{ path('profileShow',{ 'id' : registration.participant.id }) }}">{{ registration.participant.nickname }}</a>

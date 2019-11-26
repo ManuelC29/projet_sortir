@@ -8,6 +8,7 @@ use App\Entity\Trips;
 use App\Repository\CitiesRepository;
 use Doctrine\DBAL\Types\ArrayType;
 use Doctrine\ORM\EntityRepository;
+
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
@@ -41,10 +42,9 @@ class TripType extends AbstractType
                           ])
             ->add('place')
 
-            //->add('nameCity', EntityType::class, [
-              //  'class' => Cities::class,
-                //'nameCity' => 'nameCity',
-            //])
+            ->add('nameCity', TextType::class, [
+                'class' => CitiesRepository::class,
+            ])
 
             // TODO : à supprimer dans la version client
             ->add('organizer')
