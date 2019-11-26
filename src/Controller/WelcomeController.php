@@ -73,8 +73,11 @@ class WelcomeController extends Controller
 
                 $user = $entityManager->getRepository(Participants::class)->find($this->getUser());
                 $sortie = $entityManager->getRepository(Trips::class)->find($request->get('inscription'));
-                $regis = $entityManager->getRepository(Registrations::class)->find($sortie->getId());
+                $regis = $entityManager->getRepository(Registrations::class)->findByIdTrip($request->get('inscription'));
 
+                dump($request->get('inscription'));
+
+                dump($regis);
 
                 // Création d'un objet registration
                 $registration = new Registrations();
@@ -83,19 +86,19 @@ class WelcomeController extends Controller
 
 
                     //Si l'user est déjà inscrit sur le trip
-//                if (in_array($user->getId(), (array)$registration->getParticipant())) {
-//                    $this->addFlash('danger', 'Vous êtes déjà inscrit à la sortie'. $user->getId());
-//                    //$this->redirectToRoute("welcome");
+                //if ( in_array($regis,[$user->getId()]) ) {
+                  //  $this->addFlash('danger', 'Vous êtes déjà inscrit à la sortie');
+                    //$this->redirectToRoute("welcome");
 //
 //                    // Si la sortie n'a pas l'état Ouvert [OK]
 /*                if ($entityManager->getRepository(Trips::class)->find($request->get('inscription'))->getStatus()->getId() != 2) {
                     $this->addFlash('danger', 'Le statut de la sortie n\'est pas Ouvert');
                     $this->redirectToRoute("welcome");*/
 
-//                    //Si le nombre d'enregistration n'est pas atteint [ PAS BON A REVOIR ]
-                if (count((array)$sortie->getId()) >= $sortie->getMaxRegistration()) {
+//                    //Si le nombre d'enregistration n'est pas atteint [OK]
+/*                if (count($regis) >= $sortie->getMaxRegistration()) {
                     $this->addFlash('danger', 'Il n\'y à plus de place dans cette Sortie');
-                    $this->redirectToRoute("welcome");
+                    $this->redirectToRoute("welcome");*/
                 }else{
 
                     // set l'id de la sortie
