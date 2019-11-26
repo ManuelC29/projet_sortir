@@ -26,7 +26,6 @@ class TripController extends Controller
         $this->entityManager = $entityManager;
     }
 
-
     /**
      * @Route("/trip", name="trip")
      */
@@ -40,22 +39,35 @@ class TripController extends Controller
     /**
      * @Route("/trip/add", name="tripAdd")
      */
-    public function add(Request $request, EntityManagerInterface $entityManager)
+    public function add(Security $user, Request $request, StatusRepository $statusRepository, EntityManagerInterface $entityManager)
     {
         $cities = $entityManager->getRepository(Cities::class)->findAll();
         $trip = new Trips();
         $form = $this->createForm(TripType::class, $trip);
 
+        $participant = $user->getUser();
+        $trip->setOrganizer($participant);
+
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+
+            if(isset($_POST['Publier'])) {
+                $status = $statusRepository->find(2);
+                $trip->setStatus($status);
+                $this->addFlash('success', 'Votre sortie est publiée !');
+
+            }
+            elseif (isset($_POST['Enregistrer'])){
+            $status = $statusRepository->find(1);
+            $trip->setStatus($status);
+            $this->addFlash('success', 'Votre sortie est ajoutée !');
+            }
+
             $this->entityManager->persist($trip);
             $this->entityManager->flush();
 
-
-            $this->addFlash('success', 'Votre sortie est ajoutée !');
             return $this->redirectToRoute('welcome', compact('participant'));
         }
-
         return $this->render('trip/add.html.twig', [ 'cities' => $cities,
             'form' => $form->createView()
         ]);
@@ -64,42 +76,39 @@ class TripController extends Controller
     /**
      * @Route("/trip/modify/{id}", name="tripModify", requirements={"id":"\d+"})
      */
-    public function modify(Trips $trip, Request $request, EntityManagerInterface $entityManager)
+    public function modify(Security $user, Trips $trip, Request $request, EntityManagerInterface $entityManager)
     {
+        $cities = $entityManager->getRepository(Cities::class)->findAll();
 
         $form = $this->createForm(TripType::class, $trip);
         $form->handleRequest($request);
+
+        $participant = $user->getUser();
+        $trip->setOrganizer($participant);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
             $this->addFlash('success', 'Votre sortie est modifiée !');
             return $this->redirectToRoute('tripModify', ['id' => $trip->getId()]);
         }
-
-
-        return $this->render('trip/modify.html.twig', ['trip' => $trip,
+        return $this->render('trip/modify.html.twig', ['trip' => $trip,'cities' => $cities,
             'form' => $form->createView()
         ]);
     }
 
-
     /**
      * @Route("/trip/show/{id}",name="tripShow", requirements={"id":"\d+"})
      */
-    public function show($id, RegistrationsRepository $registrationsRepository, Request $request, Trips $trip)
+    public function show($id, RegistrationsRepository $registrationsRepository, Trips $trip)
     {
         $listRegistrations = $registrationsRepository->findByIdTrip($id);
-        dump($id);
-        dump($listRegistrations);
-
         return $this->render('trip/show.html.twig', compact('trip', 'listRegistrations'));
-
     }
 
     /**
      * @Route("/trip/cancel/{id}", name="tripCancel", requirements={"id":"\d+"})
      */
-    public function cancel($id, StatusRepository $statusRepository, RegistrationsRepository $registrationsRepository, Request $request, Trips $trip, EntityManagerInterface $entityManager)
+    public function cancel($id, StatusRepository $statusRepository, Request $request, Trips $trip)
     {
 
         $form = $this->createForm(TripCancelType::class, $trip);
@@ -108,7 +117,6 @@ class TripController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
 
             $status = $statusRepository->find(6);
-            dump($status);
             $trip->setStatus($status);
 
             $this->entityManager->flush();
@@ -125,12 +133,11 @@ class TripController extends Controller
     /**
      * @Route("/trip/delete/{id}", name="tripDelete", requirements={"id":"\d+"})
      */
-    public function remove ($id, Request $request, EntityManagerInterface $entityManager)
+    public function remove ($id, EntityManagerInterface $entityManager)
     {
         $trip = $entityManager
             ->getRepository(Trips::class)
             ->find($id);
-
 
         if (!$trip instanceof Trips) {
             throw $this->createNotFoundException();
@@ -141,9 +148,25 @@ class TripController extends Controller
 
         $this->addFlash('success', 'Votre sortie est supprimée !');
         return $this->redirectToRoute('welcome', compact('participant'));
+    }
 
+    /**
+     * @Route("/trip/publish/{id}", name="tripPublish", requirements={"id":"\d+"})
+     */
+    public function publish($id, StatusRepository $statusRepository, EntityManagerInterface $entityManager)
+    {
+        $trip = $entityManager
+            ->getRepository(Trips::class)
+            ->find($id);
+
+        $status = $statusRepository->find(2);
+        $trip->setStatus($status);
+
+        $this->entityManager->flush();
+
+        $this->addFlash('success', 'Votre sortie est publiée !');
+        return $this->redirectToRoute('welcome', compact('participant'));
     }
 
 }
-
 

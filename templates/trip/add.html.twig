@@ -36,8 +36,16 @@
                     <div class="form-group col-md-6">
                         {{ form_row(form.date_closing) }}
                     </div>
-                    <div class="form-group col-md-4">
-                        {{ form_row(form.place) }}<button> + </button>
+                    <div class="form-group col-md-6">
+                        <label for="place">Lieu</label><br>
+                        <select name="place">
+                            {#
+                            {% for place in places %}
+                                <option>{{ place.namePlace }}</option>
+                            {% endfor %}
+                            #}
+                        </select>
+                        <button> +</button>
                     </div>
 
                 </div>
@@ -60,15 +68,21 @@
                     </div>
                 </div>
 
-
-
+                {#
                 <input type="submit" class="btn btn-primary" name="Enregistrer" value="Enregistrer">
-                <input type="submit" class=" btn btn-success" name="Publier" value="Publier la sortie">
+                #}
+
+                <button class="btn btn-primary" name="Enregistrer">Enregistrer la sortie sans la publier</button>
+                <button class="btn btn-primary" name="Publier">Enregistrer et publier la sortie</button>
+
                 <a href="{{ path('welcome') }}">
-                    <button class="btn btn-warning">Annuler</button>
+                    <button type="button" class="btn btn-warning">Annuler</button>
                 </a>
+
                 {{ form_end(form) }}
+
             </div>
+
         {% endif %}
     </div>
 

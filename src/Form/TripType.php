@@ -8,7 +8,6 @@ use App\Entity\Trips;
 use App\Repository\CitiesRepository;
 use Doctrine\DBAL\Types\ArrayType;
 use Doctrine\ORM\EntityRepository;
-
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
@@ -40,15 +39,19 @@ class TripType extends AbstractType
             ->add('description_infos', TextType::class, [
                 'label' => 'Description et infos'
                           ])
-            ->add('place')
 
-            //->add('nameCity', TextType::class, [
-            //    'class' => Cities::class,
-            //])
+            // TODO : comment récupérer la liste des villes ?
+        /*
+            ->add('Cities', EntityType::class, [
+                'class' => 'App\Entity\Cities',
+                'choice_label => nameCity',
+            ])
+        */
 
             // TODO : à supprimer dans la version client
-            ->add('organizer')
-            ->add('status')
+            ->add('place')
+            //->add('organizer')
+            //->add('status')
         ;
     }
 
