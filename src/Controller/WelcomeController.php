@@ -24,6 +24,7 @@ class WelcomeController extends Controller
      * @Route("/", name="welcome")
      */
     public function index(RegistrationsRepository $registrationsRepository,
+                          StatusRepository $statusRepository,
                           TripsRepository $tripsRepository,
                           ParticipantsRepository $participantsRepository,
                           Request $request,
@@ -38,7 +39,7 @@ class WelcomeController extends Controller
 
 
         // si un participant est loggé
-        if ($participant !== null) {
+        if($participant !== null ){
             //TODO AJout de filtres
             $idSites = $request->request->get('site');
             $search = $request->request->get('search');
@@ -47,8 +48,9 @@ class WelcomeController extends Controller
             $orgaTrip = $request->request->get('orgaTrip');
             $regiTrip = $request->request->get('regiTrip');
             $noreTrip = $request->request->get('noreTrip');
+            $oldsTrip = $request->request->get('oldsTrip');
             $user = $entityManager->getRepository(Participants::class)->find($this->getUser()->getId());
-            $trips = $tripsRepository->findByFilters($user, $idSites, $search, $debut, $fin, $orgaTrip, $regiTrip, $noreTrip);
+            $trips = $tripsRepository->findByFilters($user, $idSites, $search, $debut, $fin, $orgaTrip, $regiTrip, $noreTrip, $oldsTrip);
 
             // si on a cliqué sur s'inscrire
             if ($request->get('inscription') != null) {
@@ -83,14 +85,15 @@ class WelcomeController extends Controller
                 $registration = new Registrations();
                 // récupération de l'utilisateur
                 $userEnCours = $entityManager->getRepository(Participants::class)->find($this->getUser());
+                dump($userEnCours);
                 // récupérer la registration
                 $trip = $entityManager->getRepository(Trips::class)->find($request->get('desist'));
+                dump($trip);
 
                 $registration->setParticipant($userEnCours);
                 $registration->setTrips($trip);
 
                 $registration = $entityManager->getRepository(Registrations::class)->findBy(['participant' => $userEnCours->getId(), 'trips' => $trip->getId()]);
-
 
                 //si il n'y une registration correspondante.
                 if (!empty($registration)) {
@@ -114,7 +117,7 @@ class WelcomeController extends Controller
             $regiTrip = $request->request->get('regiTrip');
             $noreTrip = $request->request->get('noreTrip');
             $user = $entityManager->getRepository(Participants::class)->find($this->getUser()->getID());
-            $trips = $tripsRepository->findByFilters($user, $idSites, $search, $debut, $fin, $orgaTrip, $regiTrip, $noreTrip);
+            $trips = $tripsRepository->findByFilters($user, $idSites,$search, $debut, $fin, $orgaTrip, $regiTrip, $noreTrip, $oldsTrip);
         }
 
         $registrations = $registrationsRepository->findAll();

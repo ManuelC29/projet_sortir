@@ -34,7 +34,7 @@ final class TripsAdmin extends AbstractAdmin
             ->add('organizer')
             ->add('place')
             ->add('status')
-           ;
+            ;
     }
 
     protected function configureListFields(ListMapper $listMapper)
