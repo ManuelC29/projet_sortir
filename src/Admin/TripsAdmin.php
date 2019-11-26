@@ -40,6 +40,7 @@ final class TripsAdmin extends AbstractAdmin
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper->addIdentifier('name')
+            ->add('id')
             ->add('dateStart', 'datetime',array('date_format' => 'yyyy-MM-dd HH:mm:ss'))
             ->add('duration')
             ->add('descriptionInfos', TextareaType::class)

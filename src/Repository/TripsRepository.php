@@ -32,6 +32,7 @@ class TripsRepository extends ServiceEntityRepository
     public function findByFilters(Participants $user, $idSite, $search, $debut, $fin, $orgaTrip, $regiTrip, $noreTrip, $oldsTrip )
     {
         $queryBuilder = $this->createQueryBuilder('a');
+
         $subQueryBuilder = $this->getEntityManager()->createQueryBuilder();
         $subQuery = $subQueryBuilder
             ->select(['t.id'])
@@ -52,8 +53,8 @@ class TripsRepository extends ServiceEntityRepository
             if ($idSite !== null) {
                 $queryBuilder->innerJoin(Participants::class, 'p', Join::WITH, 'p.id = a.organizer');
                 $queryBuilder->andWhere('p.site = :site');
-                $queryBuilder->setParameter('site', $idSite);
-            }
+                $queryBuilder->setParameter('site', $idSite);}
+
             if ($search !== null) {
                 $queryBuilder->andWhere('a.name LIKE :search');
                 $queryBuilder->setParameter('search', '%' . $search . '%');

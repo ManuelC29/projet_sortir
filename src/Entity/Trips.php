@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
@@ -14,7 +15,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 /**
  * @ORM\Entity(repositoryClass="App\Repository\TripsRepository")
  */
-class Trips implements FormTypeInterface
+class Trips implements FormTypeInterface, EventSubscriber
 {
     /**
      * @ORM\Id()
@@ -72,7 +73,7 @@ class Trips implements FormTypeInterface
 
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Registrations", mappedBy="trips")
+     * @ORM\OneToMany(targetEntity="App\Entity\Registrations", mappedBy="trips", orphanRemoval=true)
      */
     private $registration;
 
@@ -230,6 +231,7 @@ class Trips implements FormTypeInterface
         return $this;
     }
 
+
     /**
      * Builds the form.
      *
@@ -345,4 +347,13 @@ class Trips implements FormTypeInterface
         return $this;
     }
 
+    /**
+     * Returns an array of events this subscriber wants to listen to.
+     *
+     * @return string[]
+     */
+    public function getSubscribedEvents()
+    {
+        // TODO: Implement getSubscribedEvents() method.
+    }
 }

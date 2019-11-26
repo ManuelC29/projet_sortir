@@ -39,7 +39,7 @@ class WelcomeController extends Controller
 
 
         // si un participant est loggé
-        if($participant !== null ){
+        if($participant !== null){
             //TODO AJout de filtres
 
             $idSites = $request->request->get('site');

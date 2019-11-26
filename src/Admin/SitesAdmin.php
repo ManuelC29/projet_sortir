@@ -7,6 +7,7 @@ use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use function Sodium\add;
 
 final class SitesAdmin extends AbstractAdmin
 {
@@ -22,6 +23,7 @@ final class SitesAdmin extends AbstractAdmin
 
     protected function configureListFields(ListMapper $listMapper)
     {
-        $listMapper->addIdentifier('nameSite');
+        $listMapper->addIdentifier('nameSite')
+                    ->add('id');
     }
 }
