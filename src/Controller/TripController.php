@@ -48,6 +48,8 @@ class TripController extends Controller
         $participant = $user->getUser();
         $trip->setOrganizer($participant);
 
+        dump($trip->getOrganizer());
+
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
 
@@ -68,7 +70,7 @@ class TripController extends Controller
 
             return $this->redirectToRoute('welcome', compact('participant'));
         }
-        return $this->render('trip/add.html.twig', [ 'cities' => $cities,
+        return $this->render('trip/add.html.twig', [ 'cities' => $cities, 'trip' => $trip,
             'form' => $form->createView()
         ]);
     }

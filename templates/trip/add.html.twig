@@ -16,6 +16,10 @@
                     <div class="form-group col-md-6">
                         {{ form_row(form.name) }}
                     </div>
+                    <div class="form-group col-md-6">
+                        <label for="ville">Ville organisatrice</label><br>
+                        {{ trip.organizer.site.nameSite }}
+                    </div>
                 </div>
 
                 <div class="form-row">
@@ -23,7 +27,7 @@
                         {{ form_row(form.date_start) }}
                     </div>
                     <div class="form-group col-md-6">
-                        <label for="ville">Ville</label><br>
+                        <label for="ville">Ville de la sortie</label><br>
                         <select name="ville">
                             {% for city in cities %}
                                 <option>{{ city.nameCity }}</option>
@@ -47,7 +51,6 @@
                         </select>
                         <button> +</button>
                     </div>
-
                 </div>
 
                 <div class="form-row">
@@ -67,10 +70,6 @@
                         {{ form_row(form.description_infos) }}
                     </div>
                 </div>
-
-                {#
-                <input type="submit" class="btn btn-primary" name="Enregistrer" value="Enregistrer">
-                #}
 
                 <button class="btn btn-primary" name="Enregistrer">Enregistrer la sortie sans la publier</button>
                 <button class="btn btn-primary" name="Publier">Enregistrer et publier la sortie</button>
