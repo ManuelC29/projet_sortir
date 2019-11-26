@@ -99,7 +99,7 @@ class WelcomeController extends Controller
 /*                if (count($regis) >= $sortie->getMaxRegistration()) {
                     $this->addFlash('danger', 'Il n\'y à plus de place dans cette Sortie');
                     $this->redirectToRoute("welcome");*/
-                }else{
+                //}else{
 
                     // set l'id de la sortie
                     $sortie = $entityManager->getRepository(Trips::class)->find($request->get('inscription'));
@@ -110,7 +110,7 @@ class WelcomeController extends Controller
                     $entityManager->persist($registration);
                     $entityManager->flush();
                     $this->addFlash('success', 'Vous avez bien été enregistré sur la sortie ' . $sortie->getName());
-                }
+                //}
 
             }
 
