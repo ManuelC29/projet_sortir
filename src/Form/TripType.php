@@ -42,9 +42,9 @@ class TripType extends AbstractType
                           ])
             ->add('place')
 
-            ->add('nameCity', TextType::class, [
-                'class' => CitiesRepository::class,
-            ])
+            //->add('nameCity', TextType::class, [
+            //    'class' => Cities::class,
+            //])
 
             // TODO : à supprimer dans la version client
             ->add('organizer')
