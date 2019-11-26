@@ -10,6 +10,9 @@ body{
     color: white;
     align-items: center;
 }
+.nav-item{
+    margin-left: 50px;
+}
 
 .span {
     align-items: center;
@@ -21,7 +24,20 @@ body{
     animation: blink 12s infinite;
     -webkit-animation: blink 12s infinite;
 }
-
+.createTrip{
+    margin-top: 15px;
+    width: 100%;
+}
+.boite{
+    /*border: 1px solid blue;*/
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+}
+.gboite{
+    display: flex;
+    justify-content: center;
+}
 nav{
     position: fixed;
     top:0;
@@ -91,6 +107,7 @@ form{
     width: 100%;
 }
 .container{
+    width: 100%;
     background-color: #001f3f;
     display: flex;
     border: 1px solid #d4d4d4;
@@ -98,8 +115,22 @@ form{
     box-shadow: 0 0 15px red;
     flex-wrap: wrap;
     border-radius: 15px;
+    max-width: 90%;
+    animation : hallo 6s infinite alternate;
+    -webkit-animation: hallo 6s infinite;
+}
+.alert{
+    text-align: center;
 }
 
+a{
+    text-decoration: none;
+    color: red ;
+}
+a:hover{
+    text-decoration: none;
+    color: white;
+}
 .full{
     width: 100%;
     border: 1px solid #d4d4d4;
@@ -135,6 +166,30 @@ h2{
     }
 }
 
+@keyframes hallo{
+    20% {
+        box-shadow: 0 0 10px red;
+    }
+    30%,
+    50% {
+        box-shadow: 0 0 5px red;
+    }
+
+    0%,
+    20% {
+        box-shadow: 0 0 30px red;
+    }
+    40%,
+    50% {
+        box-shadow: 0 0 10px red;
+    }
+    80%,
+    100% {
+        box-shadow: 0 0 30px red;
+    }
+
+    
+}
 @-webkit-keyframes blink {
     20%,
     24%,

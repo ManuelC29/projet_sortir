@@ -26,6 +26,7 @@ class Cities implements FormTypeInterface
      */
     private $nameCity;
 
+
     public function __toString()
     {
         return $this->nameCity;

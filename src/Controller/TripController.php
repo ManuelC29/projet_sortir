@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Cities;
 use App\Entity\Registrations;
 use App\Entity\Status;
 use App\Entity\Trips;
@@ -39,8 +40,9 @@ class TripController extends Controller
     /**
      * @Route("/trip/add", name="tripAdd")
      */
-    public function add(Request $request)
+    public function add(Request $request, EntityManagerInterface $entityManager)
     {
+        $cities = $entityManager->getRepository(Cities::class)->findAll();
         $trip = new Trips();
         $form = $this->createForm(TripType::class, $trip);
 
@@ -49,11 +51,12 @@ class TripController extends Controller
             $this->entityManager->persist($trip);
             $this->entityManager->flush();
 
+
             $this->addFlash('success', 'Votre sortie est ajoutée !');
             return $this->redirectToRoute('welcome', compact('participant'));
         }
 
-        return $this->render('trip/add.html.twig', [
+        return $this->render('trip/add.html.twig', [ 'cities' => $cities,
             'form' => $form->createView()
         ]);
     }

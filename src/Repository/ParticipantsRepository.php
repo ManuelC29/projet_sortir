@@ -3,9 +3,11 @@
 namespace App\Repository;
 
 use App\Entity\Participants;
+use App\Entity\Sites;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\ORM\NonUniqueResultException;
+use Doctrine\ORM\Query\Expr\Join;
 use Symfony\Bridge\Doctrine\Security\User\UserLoaderInterface;
 
 /**
@@ -37,22 +39,20 @@ class ParticipantsRepository extends ServiceEntityRepository implements UserLoad
 
 
 
-    // /**
-    //  * @return Participants[] Returns an array of Participants objects
-    //  */
-    /*
-    public function findByExampleField($value)
+   ///**
+   // * @return Participants[] Returns an array of Participants objects
+   // */
+
+   /* public function findByUserId($value)
     {
         return $this->createQueryBuilder('p')
-            ->andWhere('p.exampleField = :val')
+            ->innerJoin(Sites::class,'s',Join::WITH,'p.site = s.id')
+            ->andWhere('p.id = :val')
             ->setParameter('val', $value)
-            ->orderBy('p.id', 'ASC')
-            ->setMaxResults(10)
             ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
+            ->getResult();
+    }*/
+
 
     /*
     public function findOneBySomeField($value): ?Participants

@@ -4,13 +4,10 @@ namespace App\Repository;
 
 use App\Entity\Participants;
 use App\Entity\Registrations;
-use App\Entity\Status;
 use App\Entity\Trips;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\ORM\Query\Expr\Join;
-use Symfony\Component\Security\Core\Security;
-use Symfony\Component\Validator\Constraints\Date;
 
 /**
  * @method Trips|null find($id, $lockMode = null, $lockVersion = null)

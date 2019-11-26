@@ -17,16 +17,17 @@
                 <div class="main">
                     <label class="label">id</label>
                     <label class="data">{{ participant.id }}</label>
-                    <label class="label">lastname</label>
-                    <label class="data">{{ participant.lastname }}</label>
-                    <label class="label">firstname</label>
+                    <label class="label">Prénom</label>
                     <label class="data">{{ participant.firstname }}</label>
+                    <label class="label">Nom</label>
+                    <label class="data">{{ participant.lastname }}</label>
                     <label class="label">phone</label>
                     <label class="data">{{ participant.phone }}</label>
                     <label class="label">mail</label>
                     <label class="data">{{ participant.mail }}</label>
+                    <label class="label">Ville de rattachement</label>
+                    <label class="data">{{ participant.site.nameSite }}</label>
                 </div>
-                {# TEST #}
                 {% if ( participant.id == app.user.id) %}
                 <div class="button">
                      <a href="{{ path('profileModify') }}"><button class="btn btn-primary">Editer mon profil</button></a>

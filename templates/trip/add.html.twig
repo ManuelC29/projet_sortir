@@ -10,18 +10,65 @@
     <div class="container">
         {% if is_granted('IS_AUTHENTICATED_FULLY') %}
 
-        <div class="fullTrip">
-        {{ form_start(form) }}
+            <div class="fullTrip">
+                {{ form_start(form) }}
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        {{ form_row(form.name) }}
+                    </div>
+                </div>
 
-        {{ form_widget(form) }}
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        {{ form_row(form.date_start) }}
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="ville">Ville</label><br>
+                        <select name="ville">
+                            {% for city in cities %}
+                                <option>{{ city.nameCity }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
 
-        <input type="submit" class="btn btn-primary" name="Enregistrer" value="Enregistrer">
-        <input type="submit" class=" btn btn-success" name="Publier" value="Publier la sortie">
-        <a href="{{ path('welcome') }}">
-            <button class="btn btn-warning">Annuler</button>
-        </a>
-        {{ form_end(form) }}
-        </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        {{ form_row(form.date_closing) }}
+                    </div>
+                    <div class="form-group col-md-4">
+                        {{ form_row(form.place) }}<button> + </button>
+                    </div>
+
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group col-md-3">
+                        {{ form_row(form.max_registration) }}
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group col-md-3">
+                        {{ form_row(form.duration) }}
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        {{ form_row(form.description_infos) }}
+                    </div>
+                </div>
+
+
+
+                <input type="submit" class="btn btn-primary" name="Enregistrer" value="Enregistrer">
+                <input type="submit" class=" btn btn-success" name="Publier" value="Publier la sortie">
+                <a href="{{ path('welcome') }}">
+                    <button class="btn btn-warning">Annuler</button>
+                </a>
+                {{ form_end(form) }}
+            </div>
         {% endif %}
     </div>
 

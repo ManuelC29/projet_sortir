@@ -27,6 +27,7 @@ class Trips implements FormTypeInterface
      * @ORM\Column(type="string", length=50)
      */
     private $name;
+
     public function __toString()
     {
         return $this->name;

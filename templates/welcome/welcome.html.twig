@@ -2,49 +2,83 @@
 
 {% block title %}Accueil{% endblock %}
 
-{% block stylesheetsAdd %}
-    <link rel="stylesheet" href="{{ asset('css/welcome.css') }}">{% endblock %}
 {% block body %}
     <h1 class="neon">[ Accueil ]</h1>
+    <div class="bird-container bird-container--one">
+        <div class="bird bird--one"></div>
+    </div>
+
+    <div class="bird-container bird-container--two">
+        <div class="bird bird--two"></div>
+    </div>
+
+    <div class="bird-container bird-container--three">
+        <div class="bird bird--three"></div>
+    </div>
+
+    <div class="bird-container bird-container--four">
+        <div class="bird bird--four"></div>
+    </div>
     {% if is_granted('IS_AUTHENTICATED_FULLY') %}
         <div class="container">
             <div class="full">
                 <div class="date">Date du Jour : {{ "now"|date("d/m/Y H:i") }} </div>
                 <div class="user"> Participant : {{ app.user.nickname }}</div>
                 <form action="{{ path('welcome') }}" class="filters" method="post">
-                    <div>
-                        <h4>Filtrer les sorties</h4>
-                        <label for="search">Site</label>
+                    <h4>Filtrer les sorties</h4>
+                    <div class="gboite">
+                        <div class="boite">
+                            <div class="rowWelcome">
+                                <label for="search">Site </label>
+                                <select name="site">
+                                    {% for site in sites %}
+                                        <option value="{{ site.id }}">{{ site.nameSite }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="rowWelcome">
+                                <label for="search">Le nom de la sortie contient :</label>
+                                <input type="text" name="search" placeholder="Rechercher"/>
+                            </div>
+                            <div class="rowWelcome">
+                                <label for="debut">Entre</label>
+                                <input name="debut" type="date"
+                                       value="{{ "now" | date_modify('first day of this month') | date('Y-m-d') }}"/>
+                                <label for="fin">et</label>
+                                <input type="date" name="fin"
+                                       value="{{ "now" | date_modify('last day of this month') | date('Y-m-d') }}"/>
+                            </div>
+                        </div>
+                        <div class="boite">
+                            <div class="rowWelcome">
+                                <div>
+                                    <input type="checkbox" name="orgaTrip"/>
+                                    <label for="orgaTrip">Sorties dont je suis l'organisateur/trice</label>
+                                </div>
+                                <div>
+                                    <input type="checkbox" name="regiTrip"/>
+                                    <label for="regiTrip">Sorties auxquelles je suis inscrit/e</label>
+                                </div>
+                                <div>
+                                    <input type="checkbox" name="noreTrip"/>
+                                    <label for="noreTrip">Sorties auxquelles je ne suis pas inscrit/e</label>
+                                </div>
+                                <div>
+                                    <input type="checkbox" name="oldsTrip"/>
+                                    <label for="oldsTrip">Sorties passées</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="boite">
+                            <input class="btn btn-primary" type="submit" value="Rechercher"></form>
+                            <a href="{{ path('tripAdd') }}"><button type="button" class="btn btn-success search createTrip"
+                                                                    value="Créer une sortie">Créer une sortie</button></a>
+                        </div>
 
 
-                        <select name="site">
-                            {% for site in sites %}
-                                <option value="{{ site.id }}">{{ site.nameSite }}</option>
-                            {% endfor %}
-                        </select>
-
-                    <label for="search">Le nom de la sortie contient :</label>
-                    <input type="text" name="search" placeholder="Rechercher"/>
-                    <input name="debut" type="date" value="{{ "now" | date_modify('first day of this month') | date('Y-m-d')}}" />
-                    <input type="date" name="fin" value="{{ "now" | date_modify('last day of this month') | date('Y-m-d')}}"/>
-                </div>
-
-                    <div>
-                        <input type="checkbox" name="orgaTrip"/>
-                        <label for="orgaTrip">Sorties dont je suis l'organisateur/trice</label>
-                        <input type="checkbox" name="regiTrip"/>
-                        <label for="regiTrip">Sorties auxquelles je suis inscrit/e</label>
-                        <input type="checkbox" name="noreTrip"/>
-                        <label for="noreTrip">Sorties auxquelles je ne suis pas inscrit/e</label>
-                        <input type="checkbox" name="oldsTrip"/>
-                        <label for="oldsTrip">Sorties passées</label>
                     </div>
 
 
-                    <div>
-                        <input class="btn btn-primary" type="submit" value="Rechercher">
-                    </div>
-                </form>
                 <!-- Enlever ce <br> dégeulasse lors de la mise en forme -->
                 <br>
                 <div>
@@ -87,10 +121,23 @@
                                     <a href="{{ path('profileShow',{ 'id' : trip.organizer.id }) }}">{{ trip.organizer }}</a>
                                 </td>
                                 <td>
-                                    <a href="{{ path('tripShow',{ 'id': trip.id }) }}">Afficher</a>
-                                    <a href="{{ path('tripModify', {'id' : trip.id }) }}">Modifier</a>
-                                    <a href="{{ path('welcome') }}?inscription={{ trip.id }}">S'inscrire</a>
-                                    <a href="{{ path('welcome') }}?desist={{ trip.id }}">Se désister</a>
+                                    {# Tout le monde peut afficher la sortie #}
+                                    <a href="{{ path('tripShow',{ 'id': trip.id }) }}"><button class="btn-primary">Afficher</button></a>
+
+                                    {# On peut modifier seulement si on est l'organisateur de la sortie #}
+                                    {% if( trip.organizer.id == app.user.id)%}
+                                        <a href="{{ path('tripModify', {'id' : trip.id }) }}"><button class="btn-warning">Modifier</button></a>
+                                    {% endif %}
+
+                                    {# On peut s'inscrire seuleument si ... #}
+                                    {# condition 1 #}
+                                    {# condition 2 #}
+                                    {# condition 3 #}
+                                    <a href="{{ path('welcome') }}?inscription={{ trip.id }}"><button class="btn-success">S'inscrire</button></a>
+
+
+
+                                    <a href="{{ path('welcome') }}?desist={{ trip.id }}"><button class="btn-danger">Se désister</button></a>
 
                                 </td>
                             </tr>
@@ -110,8 +157,7 @@
                         {% endfor %}
 
                     </table>
-                    <a href="{{ path('tripAdd') }}"><input class="btn btn-primary search" type="submit"
-                                                           value="Créer une sortie"></a>
+
                 </div>
             </div>
         </div>

@@ -20,7 +20,9 @@ class ProfileController extends Controller
      */
     public function show($id,Participants $participant, EntityManagerInterface $entityManager)
     {
-        //$participant = $entityManager->getRepository(Participants::class)->find($id);
+
+        //$ville = $entityManager->getRepository(Participants::class)->findByUserId($id);
+
 
         return $this->render('profile/show.html.twig',['participant' => $participant]);
     }

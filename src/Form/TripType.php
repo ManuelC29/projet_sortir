@@ -2,9 +2,12 @@
 
 namespace App\Form;
 
+use App\Entity\Cities;
 use App\Entity\Places;
 use App\Entity\Trips;
+use App\Repository\CitiesRepository;
 use Doctrine\DBAL\Types\ArrayType;
+use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
@@ -37,6 +40,11 @@ class TripType extends AbstractType
                 'label' => 'Description et infos'
                           ])
             ->add('place')
+
+            //->add('nameCity', EntityType::class, [
+              //  'class' => Cities::class,
+                //'nameCity' => 'nameCity',
+            //])
 
             // TODO : à supprimer dans la version client
             ->add('organizer')

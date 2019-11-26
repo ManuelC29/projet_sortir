@@ -19,13 +19,13 @@ class RegistrationType extends AbstractType
     {
         $builder
             // UserLoginType::class, [ 'attr' => ['class' => 'class-css'],'label' => 'Pseudo']
-            ->add('nickname', TextType::class,  ['label' => 'Pseudo', 'empty_data' => 'Votre Pseudo'] )
-            ->add('lastname', TextType::class, ['label' => 'Nom', 'empty_data' => 'Votre nom'])
-            ->add('firstname', TextType::class, ['label' => 'Prénom', 'empty_data' => 'Votre prenom'])
-            ->add('mail', EmailType::class, ['label' => 'E-mail'])
-            ->add('phone', TelType::class, ['label' => 'Numéro de téléphone', 'empty_data' => 'Votre téléphone'])
-            ->add('password', PasswordType::class, ['label' => 'Password'])
-            ->add('confirmPassword', PasswordType::class, ['label' => 'Confirmation Password'])
+            ->add('nickname', TextType::class,  ['label' => 'Pseudo', 'empty_data' => 'Votre Pseudo', 'attr' => ['placeholder' => 'Pseudo'] ] )
+            ->add('lastname', TextType::class, ['label' => 'Nom', 'empty_data' => 'Votre nom', 'attr' => ['placeholder' => 'Nom']])
+            ->add('firstname', TextType::class, ['label' => 'Prénom', 'empty_data' => 'Votre prenom', 'attr' => ['placeholder' => 'Prénom']])
+            ->add('mail', EmailType::class, ['label' => 'E-mail', 'attr' => ['placeholder' => 'email']])
+            ->add('phone', TelType::class, ['label' => 'Numéro de téléphone', 'empty_data' => 'Votre téléphone', 'attr' => ['placeholder' => 'téléphone']])
+            ->add('password', PasswordType::class, ['label' => 'Password', 'attr' => ['placeholder' => 'password']])
+            ->add('confirmPassword', PasswordType::class, ['label' => 'Confirmation Password', 'attr' => ['placeholder' => 'confirmation password']])
             ->add('url_photo')
             ->add('site')
         ;
@@ -38,3 +38,5 @@ class RegistrationType extends AbstractType
         ]);
     }
 }
+
+
