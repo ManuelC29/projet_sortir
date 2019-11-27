@@ -8,8 +8,10 @@ use App\Entity\Status;
 use App\Entity\Trips;
 use App\Form\TripCancelType;
 use App\Form\TripType;
+use App\Repository\PlacesRepository;
 use App\Repository\RegistrationsRepository;
 use App\Repository\StatusRepository;
+use App\Repository\TripsRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -39,23 +41,32 @@ class TripController extends Controller
     /**
      * @Route("/trip/add", name="tripAdd")
      */
-    public function add(Security $user, Request $request, StatusRepository $statusRepository, EntityManagerInterface $entityManager)
+    public function add(Security $user, Request $request, StatusRepository $statusRepository, PlacesRepository $placesRepository, EntityManagerInterface $entityManager)
     {
         $cities = $entityManager->getRepository(Cities::class)->findAll();
         $trip = new Trips();
         $form = $this->createForm(TripType::class, $trip);
 
         $participant = $user->getUser();
+        dump($participant);
         $trip->setOrganizer($participant);
 
-        dump($trip->getOrganizer());
-
         $form->handleRequest($request);
+
         if ($form->isSubmitted() && $form->isValid()) {
 
+            $idPlace = $request->request->get('place');
+            dump($request->request->get('place'));
+            $place = $placesRepository->find($idPlace);
+            dump($place);
+
+            $trip->setPlace($place);
+
             if(isset($_POST['Publier'])) {
+
                 $status = $statusRepository->find(2);
                 $trip->setStatus($status);
+
                 $this->addFlash('success', 'Votre sortie est publiée !');
 
             }

@@ -47,6 +47,7 @@ function getApiPlace(idPlace) {
 
                 var obj = JSON.parse(data);
                 $("#resPlace").html("<option value=" + obj.id + ">" + obj.namePlace + "</option>");
+                $("#street").val(obj.street);
 
 
                 //Pour tester
@@ -84,6 +85,7 @@ function recherche() {
                                 $('#div4').text(data['features'][0]['properties']['population']);*/
                // console.log(data['features'][0]['geometry']['coordinates'][0]);
                // console.log(data['features'][0]['geometry']['coordinates'][1]);
+                             $('#street').val(data['features'][0]['properties']['label']);
                              $('#zip').val(data['features'][0]['properties']['postcode']);
                              $('#latitude').val(data['features'][0]['geometry']['coordinates'][0]);
                              $('#longitude').val(data['features'][0]['geometry']['coordinates'][1]);

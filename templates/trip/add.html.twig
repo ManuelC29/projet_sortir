@@ -18,14 +18,13 @@
                     </div>
                     <div class="form-group col-md-6">
                         <label for="ville">Ville organisatrice</label><br>
-                        <input class="latInput" type="text" disabled value="{{ trip.organizer.site.nameSite }}">
+                        <input class="formatting" type="text" disabled value="{{ trip.organizer.site.nameSite }}">
                     </div>
                 </div>
 
                 <div class="form-row">
                     <div class="form-group col-md-6">
                         {{ form_row(form.date_start) }}
-
                     </div>
                     <div class="form-group col-md-6">
                         <label for="citySel">Ville de la sortie</label><br>
@@ -55,8 +54,8 @@
                         {{ form_row(form.max_registration) }}
                     </div>
                     <div class="form-group col-md-6">
-                        <label for="latitude">Lattitude</label>
-                       <input class="latInput" type="text" id="latitude" disabled>
+                        <label for="street">Rue</label>
+                        <input type="text" name="street" id="street" class="formatting">
                     </div>
                 </div>
 
@@ -65,8 +64,8 @@
                         {{ form_row(form.duration) }}
                     </div>
                     <div class="form-group col-md-6">
-                        <label for="#longitude">Longitude</label>
-                        <input class="longInput" type="text" id="longitude" disabled>
+                        <label for="zip">Code postal</label>
+                        <input type="text" name="zip" id="zip" class="formatting">
                     </div>
                 </div>
 
@@ -74,8 +73,18 @@
                     <div class="form-group col-md-6">
                         {{ form_row(form.description_infos) }}
                     </div>
+                    <div class="form-group col-md-6">
+                        <label for="latitude">Lattitude</label>
+                        <input class="formatting" type="text" name="latitude" id="latitude" disabled>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="#longitude">Longitude</label>
+                        <input class="formatting" type="text" name="longitude" id="longitude" disabled>
+                    </div>
 
-                    <input type="text" name="zip" id="zip" class="formatting" hidden="true">
+                    {# <input type="text" name="zip" id="zip" class="formatting" hidden> #}
+
+
                 </div>
                 <div id='map' style='width: 600px; height: 300px;'></div>
                 <button class="btn btn-primary" name="Enregistrer">Enregistrer la sortie sans la publier</button>

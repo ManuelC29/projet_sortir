@@ -49,7 +49,7 @@ class TripType extends AbstractType
         */
 
             // TODO : à supprimer dans la version client
-            ->add('place')
+            //->add('place')
             //->add('organizer')
             //->add('status')
         ;
