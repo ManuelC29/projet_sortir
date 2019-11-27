@@ -84,7 +84,7 @@ function recherche() {
                                 $('#div4').text(data['features'][0]['properties']['population']);*/
                // console.log(data['features'][0]['geometry']['coordinates'][0]);
                // console.log(data['features'][0]['geometry']['coordinates'][1]);
-
+                             $('#zip').val(data['features'][0]['properties']['postcode']);
                              $('#latitude').val(data['features'][0]['geometry']['coordinates'][0]);
                              $('#longitude').val(data['features'][0]['geometry']['coordinates'][1]);
 
