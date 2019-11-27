@@ -18,7 +18,7 @@
                     </div>
                     <div class="form-group col-md-6">
                         <label for="ville">Ville organisatrice</label><br>
-                        {{ trip.organizer.site.nameSite }}
+                        <input class="latInput" type="text" disabled value="{{ trip.organizer.site.nameSite }}">
                     </div>
                 </div>
 
@@ -51,14 +51,22 @@
                 </div>
 
                 <div class="form-row">
-                    <div class="form-group col-md-3">
+                    <div class="form-group col-md-6">
                         {{ form_row(form.max_registration) }}
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="latitude">Lattitude</label>
+                       <input class="latInput" type="text" id="latitude" disabled>
                     </div>
                 </div>
 
                 <div class="form-row">
-                    <div class="form-group col-md-3">
+                    <div class="form-group col-md-6">
                         {{ form_row(form.duration) }}
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="#longitude">Longitude</label>
+                        <input class="longInput" type="text" id="longitude" disabled>
                     </div>
                 </div>
 
