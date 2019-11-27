@@ -13,54 +13,53 @@ VILLE ORGANISATRICE, LIEU; RUE; CP; latitude et longitude
 
 <div class="container">
     {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-    <div class="full">
 
-        {{ form_start(form) }}
+        <div class="fullTrip">
+            {{ form_start(form) }}
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    {{ form_row(form.name) }}
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="ville">Ville organisatrice</label><br>
+                    <input class="formatting" type="text" disabled value="{{ trip.organizer.site.nameSite }}">
+                </div>
+            </div>
 
-        <div class="form-row">
-            <div class="form-group col-md-6" >
-                <a disabled="disabled">{{ form_row(form.name)}}</a>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    {{ form_row(form.date_start) }}
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="citySel">Ville de la sortie</label><br>
+                    <select id="citySel">
+                        {% for city in cities %}
+                            <option value="{{ city.id }}">{{ city.nameCity }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
             </div>
-            <div class="form-group col-md-6">
-                <label for="ville">Ville organisatrice</label><br>
-                <a disabled="disabled">{{ trip.organizer.site.nameSite }}</a>
-            </div>
-        </div>
 
-        <div class="form-row">
-            <div class="form-group col-md-6">
-                {{ form_row(form.date_start) }}
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    {{ form_row(form.date_closing) }}
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="resPlace">Lieu</label><br>
+                    <select name="place" id="resPlace">
+                        {# Magic #}
+                    </select>
+                    <button class="btn btn-info"> +</button>
+                </div>
             </div>
-            <div class="form-group col-md-6">
-                <label for="ville">Ville de la sortie</label><br>
-                <select name="ville">
-                    {% for city in cities %}
-                        <option>{{ city.nameCity }}</option>
-                    {% endfor %}
-                </select>
-            </div>
-        </div>
-
-        <div class="form-row">
-            <div class="form-group col-md-6">
-                {{ form_row(form.date_closing) }}
-            </div>
-            <div class="form-group col-md-6">
-                <label for="place">Lieu</label><br>
-                <select name="place">
-                    {#
-                    {% for place in places %}
-                        <option>{{ place.namePlace }}</option>
-                    {% endfor %}
-                    #}
-                </select>
-                <button> +</button>
-            </div>
-        </div>
 
             <div class="form-row">
                 <div class="form-group col-md-6">
                     {{ form_row(form.max_registration) }}
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="street">Rue</label>
+                    <input type="text" name="street" id="street" class="formatting">
                 </div>
             </div>
 
@@ -68,17 +67,42 @@ VILLE ORGANISATRICE, LIEU; RUE; CP; latitude et longitude
                 <div class="form-group col-md-6">
                     {{ form_row(form.duration) }}
                 </div>
+                <div class="form-group col-md-6">
+                    <label for="zip">Code postal</label>
+                    <input type="text" name="zip" id="zip" class="formatting">
+                </div>
             </div>
 
             <div class="form-row">
                 <div class="form-group col-md-6">
                     {{ form_row(form.description_infos) }}
                 </div>
+                <div class="form-group col-md-6">
+                    <label for="latitude">Lattitude</label>
+                    <input class="formatting" type="text" name="latitude" id="latitude" disabled>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="#longitude">Longitude</label>
+                    <input class="formatting" type="text" name="longitude" id="longitude" disabled>
+                </div>
+
+                {# <input type="text" name="zip" id="zip" class="formatting" hidden> #}
+
+
             </div>
+
+            {# affichage de la carte avec position de la ville #}
+            <div id='map' style='width: 600px; height: 300px;'></div>
 
             <input type="submit" class="btn btn-primary" name="Enregistrer" value="Enregistrer">
 
             {{ form_end(form) }}
+
+
+
+
+
+
 
             {# condition d'affichage du bouton "publier" uniquement si la sortie est en statut "créée" #}
             {% if (trip.status == "Créée") %}
@@ -98,5 +122,6 @@ VILLE ORGANISATRICE, LIEU; RUE; CP; latitude et longitude
     </div>
 
     {% endblock %}
-
+{% block javascripts %}
+    <script type="text/javascript" src="{{ asset('Js/welcome.js') }}"></script> {% endblock %}
 

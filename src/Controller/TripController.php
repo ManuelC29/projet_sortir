@@ -80,7 +80,7 @@ class TripController extends Controller
     /**
      * @Route("/trip/modify/{id}", name="tripModify", requirements={"id":"\d+"})
      */
-    public function modify(Security $user, Trips $trip, Request $request, EntityManagerInterface $entityManager)
+    public function modify(Security $user, Trips $trip, Request $request, PlacesRepository $placesRepository, EntityManagerInterface $entityManager)
     {
         $cities = $entityManager->getRepository(Cities::class)->findAll();
 
@@ -89,11 +89,22 @@ class TripController extends Controller
 
         $participant = $user->getUser();
         $trip->setOrganizer($participant);
+        dump($trip);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $idPlace = $request->request->get('place');
+            dump($request->request->get('place'));
+            $place = $placesRepository->find($idPlace);
+            dump($place);
+
+            $trip->setPlace($place);
+            dump($trip);
+
             $entityManager->flush();
+
             $this->addFlash('success', 'Votre sortie est modifiée !');
-            return $this->redirectToRoute('tripModify', ['id' => $trip->getId()]);
+            //return $this->redirectToRoute('tripModify', ['id' => $trip->getId()]);
         }
         return $this->render('trip/modify.html.twig', ['trip' => $trip,'cities' => $cities,
             'form' => $form->createView()
