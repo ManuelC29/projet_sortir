@@ -15,6 +15,12 @@ function sortirPanneau(idrow) {
 }
 
 
+$(document).ready(function (event) {
+    getApiPlace($('#citySel').val());
+    recherche();
+});
+
+
 // Fonction pour récupérer le Place quand on change la valeur de la liste déroulant
 // qui a un id = citySel
 $('#citySel').change(function (event) {
@@ -61,7 +67,6 @@ function getApiPlace(idPlace) {
 function recherche() {
     //paramétrage d'entrée de la ville
     let ville = $('#citySel option:selected').text();
-    console.log(ville);
 
     // récupération dans l'API geo.gouv
     $.ajax({
