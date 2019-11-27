@@ -109,7 +109,7 @@ class Participants implements UserInterface, FormTypeInterface
     private $site;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Registrations", mappedBy="participant")
+     * @ORM\OneToMany(targetEntity="App\Entity\Registrations", mappedBy="participant", orphanRemoval=true)
      */
     private $registrations;
 
@@ -117,6 +117,11 @@ class Participants implements UserInterface, FormTypeInterface
      * @ORM\OneToMany(targetEntity="App\Entity\Trips", mappedBy="organizer")
      */
     private $trips;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $resetToken;
 
 
     public function __construct()
@@ -459,4 +464,19 @@ class Participants implements UserInterface, FormTypeInterface
 
         return $this;
     }
+
+    public function getResetToken(): ?string
+    {
+        return $this->resetToken;
+    }
+
+    public function setResetToken(?string $resetToken): self
+    {
+        $this->resetToken = $resetToken;
+
+        return $this;
+    }
+
+
+
 }

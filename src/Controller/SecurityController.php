@@ -7,13 +7,17 @@ namespace App\Controller;
 
 use App\Entity\Participants;
 use App\Form\RegistrationType;
+use Symfony\Component\HttpFoundation\Response;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Core\Security;
+use Symfony\Component\Security\Core\User\User;
+use Symfony\Component\Security\Csrf\TokenGenerator\TokenGeneratorInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class SecurityController extends Controller
@@ -91,8 +95,91 @@ class SecurityController extends Controller
         ]);
     }
 
+    /**
+     * @Route("/forgottenPassword", name="app_forgotten_password")
+     */
 
+        public function forgottenPassword(Request $request, UserPasswordEncoderInterface $encoder, \Swift_Mailer $mailer, TokenGeneratorInterface $tokenGenerator): Response
+        {
+            if ($request->isMethod('POST')) {
 
+                $email = $request->request->get('email');
+
+                 $entityManager = $this->getDoctrine()->getManager();
+                 $user = $entityManager->getRepository(Participants::class)->findOneByEmail($email);
+
+                 if ($user === null) {
+                     $this->addFlash('danger', 'Email Inconnu, recommence !');
+                    return $this->redirectToRoute('app_forgotten_password');
+                 }
+
+                 $token = $tokenGenerator->generateToken();
+
+                 try{
+                     $user->setResetToken($token);
+                     $entityManager->flush();
+                 } catch (\Exception $e) {
+                     $this->addFlash('warning', $e->getMessage());
+                     return $this->redirectToRoute('welcome');
+                 }
+
+                 $url = $this->generateUrl('app_reset_password', array('token' => $token), UrlGeneratorInterface::ABSOLUTE_URL);
+
+                 $message = (new \Swift_Message('Oubli de mot de passe - Réinisialisation'))
+                     ->setFrom(array('loisss.barre@gmail.com' => 'Loïc Barré'))
+                     ->setTo($user->getMail())
+                     ->setReplyTo($email)
+                     ->setSubject('Mot de passe oublié')
+                     ->setBody(
+                         $this->renderView(
+                             'security/emails/resetPasswordMail.html.twig',
+                             [
+                                 'user'=>$user,
+                                 'url'=>$url
+                             ]
+                         ),
+                         'text/html'
+                     );
+                 $mailer->send($message);
+
+                 $this->addFlash('notice', 'Mail envoyé, tu vas pouvoir te connecter à nouveau !');
+
+                 return $this->redirectToRoute('login');
+             }
+
+            return $this->render('security/forgotten_password.html.twig');
+        }
+
+        /** Réinisialiation du mot de passe par mail
+         * @Route("/reinitialiser-mot-de-passe/{token}", name="app_reset_password")
+         */
+        public function resetPassword(Request $request, string $token, UserPasswordEncoderInterface $passwordEncoder)
+        {
+            //Reset avec le mail envoyé
+            if ($request->isMethod('POST')) {
+                $entityManager = $this->getDoctrine()->getManager();
+
+                $user = $entityManager->getRepository(Participants::class)->find($token);
+                /* @var $user User */
+
+                if ($user === null) {
+                    $this->addFlash('danger', 'Mot de passe non reconnu');
+                    return $this->redirectToRoute('welcome');
+                }
+
+                $user->setResetToken(null);
+                $user->setPassword($passwordEncoder->encodePassword($user, $request->request->get('password')));
+                $entityManager->flush();
+
+                $this->addFlash('notice', 'Mot de passe mis à jour !');
+
+                return $this->redirectToRoute('login');
+            }else {
+
+                return $this->render('security/emails/resetPasswordMail.html.twig', ['token' => $token]);
+            }
+
+        }
 
 
 

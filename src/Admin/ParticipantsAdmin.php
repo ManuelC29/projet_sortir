@@ -22,6 +22,7 @@ final class ParticipantsAdmin extends AbstractAdmin
             ->add('urlPhoto', TextType::class)
             ->add('site')
             ->add('administrator')
+            ->add('active')
         ;
     }
 

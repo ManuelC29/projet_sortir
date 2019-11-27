@@ -38,20 +38,17 @@ class ParticipantsRepository extends ServiceEntityRepository implements UserLoad
     }
 
 
-
-   ///**
-   // * @return Participants[] Returns an array of Participants objects
-   // */
-
-   /* public function findByUserId($value)
+   public function findOneByEmail($email): ?Participants
     {
-        return $this->createQueryBuilder('p')
-            ->innerJoin(Sites::class,'s',Join::WITH,'p.site = s.id')
-            ->andWhere('p.id = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getResult();
-    }*/
+        try {
+            return $this->createQueryBuilder('p')
+                ->andWhere('p.mail = :val')
+                ->setParameter('val', $email)
+                ->getQuery()
+                ->getOneOrNullResult();
+        } catch (NonUniqueResultException $e) {
+        }
+    }
 
 
     /*
