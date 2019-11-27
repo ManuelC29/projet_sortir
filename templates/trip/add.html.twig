@@ -25,12 +25,13 @@
                 <div class="form-row">
                     <div class="form-group col-md-6">
                         {{ form_row(form.date_start) }}
+
                     </div>
                     <div class="form-group col-md-6">
-                        <label for="ville">Ville de la sortie</label><br>
-                        <select name="ville">
+                        <label for="citySel">Ville de la sortie</label><br>
+                        <select id="citySel">
                             {% for city in cities %}
-                                <option>{{ city.nameCity }}</option>
+                                <option value="{{ city.id }}">{{ city.nameCity }}</option>
                             {% endfor %}
                         </select>
                     </div>
@@ -41,15 +42,11 @@
                         {{ form_row(form.date_closing) }}
                     </div>
                     <div class="form-group col-md-6">
-                        <label for="place">Lieu</label><br>
-                        <select name="place">
-                            {#
-                            {% for place in places %}
-                                <option>{{ place.namePlace }}</option>
-                            {% endfor %}
-                            #}
+                        <label for="resPlace">Lieu</label><br>
+                        <select name="place" id="resPlace">
+                           {# Magic #}
                         </select>
-                        <button> +</button>
+                        <button class="btn btn-info"> +</button>
                     </div>
                 </div>
 
@@ -70,7 +67,7 @@
                         {{ form_row(form.description_infos) }}
                     </div>
                 </div>
-
+                <div id='map' style='width: 600px; height: 300px;'></div>
                 <button class="btn btn-primary" name="Enregistrer">Enregistrer la sortie sans la publier</button>
                 <button class="btn btn-primary" name="Publier">Enregistrer et publier la sortie</button>
 
@@ -82,10 +79,12 @@
 
             </div>
 
+
         {% endif %}
     </div>
 
 
 {% endblock %}
-
+{% block javascripts %}
+    <script type="text/javascript" src="{{ asset('Js/welcome.js') }}"></script> {% endblock %}
 
