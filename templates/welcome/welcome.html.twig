@@ -79,7 +79,7 @@
                     </div>
                 <!-- Enlever ce <br> dégeulasse lors de la mise en forme -->
                 <br>
-                <div>
+                <div class="listTrip">
                     <table class="table table-striped table-dark table-hover table-bordered">
                         <tr class="thead-light">
                             <th>Nom de la sortie</th>
@@ -151,7 +151,10 @@
                                     {# condition 2 : Si on est inscrit à la sortie #}
                                     {# condition 3 : Si la sortie est passéé  and ( in_array(app.user.id, registrations.participant.id) #}
                                     {% if(trip.status != "Activité en cours") and ( isOn == true)%}
-                                        <a href="{{ path('welcome') }}?desist={{ trip.id }}"><button class="btn-danger">Se désister</button></a>
+                                        <a href="{{ path('welcome') }}?desist={{ trip.id }}"><button class="btn-secondary">Se désister</button></a>
+                                    {% endif %}
+                                    {% if( trip.organizer.id == app.user.id) and ( trip.status.id <= 3 ) %}
+                                        <a href="{{ path('tripCancel',{'id' : trip.id}) }}"><button class="btn-danger">Annuler la Sortie</button></a>
                                     {% endif %}
                                 </td>
                             </tr>

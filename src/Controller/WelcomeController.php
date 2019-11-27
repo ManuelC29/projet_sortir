@@ -40,7 +40,6 @@ class WelcomeController extends Controller
 
         // si un participant est loggé
         if($participant !== null ){
-            //TODO AJout de filtres
 
             $idSites = $request->request->get('site');
             $search = $request->request->get('search');
@@ -51,16 +50,12 @@ class WelcomeController extends Controller
             $noreTrip = $request->request->get('noreTrip');
             $oldsTrip = $request->request->get('oldsTrip');
 
-
             $user = $entityManager->getRepository(Participants::class)->find($this->getUser()->getId());
             $trips = $tripsRepository->findByFilters($user, $idSites, $search, $debut, $fin, $orgaTrip, $regiTrip, $noreTrip, $oldsTrip);
 
             // si on a cliqué sur s'inscrire
             if ($request->get('inscription') != null) {
                 //TODO conditionnelle d'inscription à faire
-
-                //TODO Si je suis déjà inscrit passer et afficher un message
-                //Liste de participants
 
                 //TODO EN COURS (Manu)
                 /* On peut s'inscrire seuleument si ... #}
@@ -70,13 +65,11 @@ class WelcomeController extends Controller
                    O condition 4 : l'heure de la sortie n'est pas dépassé
                    X condition 5 : on est pas déjà inscrit */
 
-
                 $user = $entityManager->getRepository(Participants::class)->find($this->getUser());
                 $sortie = $entityManager->getRepository(Trips::class)->find($request->get('inscription'));
                 $regis = $entityManager->getRepository(Registrations::class)->findByIdTrip($request->get('inscription'));
 
                 dump($request->get('inscription'));
-
                 dump($regis);
 
                 // Création d'un objet registration
@@ -84,8 +77,22 @@ class WelcomeController extends Controller
                 // set l'id de l'user
                 $registration->setParticipant($entityManager->getRepository(Participants::class)->find($this->getUser()));
 
+                $isOn = false;
+                //TODO A REVOIR NOT OK : on est pas déjà inscrit
+                foreach ($regis as $reg) {
+                    if ($user->getId() == $reg->getParticipant()->getId()) {
+                        $this->addFlash('danger', 'Vous êtes déjà inscrit !');
+                        $this->redirectToRoute("welcome");
+                        $isOn = true;
+                        dump('OUI');
+                        break;
+                    }
+                }
 
-                    //Si l'user est déjà inscrit sur le trip
+                dump('toto');
+
+
+                //Si l'user est déjà inscrit sur le registration
                 //if ( in_array($regis,[$user->getId()]) ) {
                   //  $this->addFlash('danger', 'Vous êtes déjà inscrit à la sortie');
                     //$this->redirectToRoute("welcome");

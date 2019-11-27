@@ -183,9 +183,12 @@ a:hover{
     margin-bottom: 2em;
 }
 
+.listTrip{
+    height: 600px;
+    overflow:auto;
+}
 
 .formatting{
-
     display: block;
     width: 100%;
     height: calc(1.5em + .75rem + 2px);

@@ -28,15 +28,6 @@ class TripController extends Controller
         $this->entityManager = $entityManager;
     }
 
-    /**
-     * @Route("/trip", name="trip")
-     */
-    public function index()
-    {
-        return $this->render('trip/index.html.twig', [
-            'controller_name' => 'TripController',
-        ]);
-    }
 
     /**
      * @Route("/trip/add", name="tripAdd")

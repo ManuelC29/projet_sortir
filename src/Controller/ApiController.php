@@ -17,15 +17,7 @@ class ApiController extends Controller
      */
     public function show($id, EntityManagerInterface $entityManager, SerializerInterface $serializer)
     {
-
         $places = $entityManager->getRepository(Places::class)->find($id);
-
-
-
-        /*foreach ($places as $key => $place){
-            $datas[$key]['id'] = $place->getId();
-            $datas[$key]['lieu'] = $place->getNamePlace();
-        }*/
 
         return new JsonResponse($serializer->serialize($places, 'json'));
     }

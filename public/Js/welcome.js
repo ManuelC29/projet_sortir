@@ -46,6 +46,7 @@ function getApiPlace(idPlace) {
 
 
                 var obj = JSON.parse(data);
+
                 $("#resPlace").html("<option value=" + obj.id + ">" + obj.namePlace + "</option>");
                 $("#street").val(obj.street);
 

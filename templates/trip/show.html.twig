@@ -15,6 +15,9 @@
                     <dd>{{ trip.name }}</dd>
                     <dt>Etat de la sortie :</dt>
                     <dd>{{ trip.status.label }}</dd>
+                    {% if(trip.status.label == "Annulée") %}
+                        <dd class="alert alert-danger">Motif d'annulation : {{ trip.cancelReason }}</dd>
+                    {% endif %}
                     <dt>Date et heure de la sortie :</dt>
                     <dd>{{ trip.dateStart|date('d/m/Y H:i') }}</dd>
                     <dt>Date limite d'inscription :</dt>
