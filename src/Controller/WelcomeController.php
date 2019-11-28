@@ -146,7 +146,7 @@ class WelcomeController extends Controller
                         //sinon je lui dit qu'il n'ait pas registré
                         $this->addFlash('danger', 'Vous n\'êtes pas inscrit sur cette sortie');
                     }
-     
+
             }
 
             $regiTrip = $request->request->get('regiTrip');
