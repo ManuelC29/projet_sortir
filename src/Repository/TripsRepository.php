@@ -44,7 +44,6 @@ class TripsRepository extends ServiceEntityRepository
             ->getArrayResult()
         ;
 
-
             if ($oldsTrip !== null){
                 $queryBuilder->innerJoin(Status::class,'s',Join::WITH,'s.id = a.status');
                 $queryBuilder->andWhere('s.id = :oldsTrip');
@@ -79,9 +78,6 @@ class TripsRepository extends ServiceEntityRepository
                $queryBuilder->andWhere($queryBuilder->expr()->notIn('a.id', ':subQuery'));
                $queryBuilder->setParameter('subQuery', $subQuery);
             }
-
-
-
 
         $query = $queryBuilder->getQuery();
         return $query->getResult();

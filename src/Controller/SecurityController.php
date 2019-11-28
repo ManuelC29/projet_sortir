@@ -102,19 +102,14 @@ class SecurityController extends Controller
         public function forgottenPassword(Request $request, UserPasswordEncoderInterface $encoder, \Swift_Mailer $mailer, TokenGeneratorInterface $tokenGenerator): Response
         {
             if ($request->isMethod('POST')) {
-
                 $email = $request->request->get('email');
-
                  $entityManager = $this->getDoctrine()->getManager();
                  $user = $entityManager->getRepository(Participants::class)->findOneByEmail($email);
-
                  if ($user === null) {
                      $this->addFlash('danger', 'Email Inconnu, recommence !');
                     return $this->redirectToRoute('app_forgotten_password');
                  }
-
                  $token = $tokenGenerator->generateToken();
-
                  try{
                      $user->setResetToken($token);
                      $entityManager->flush();
@@ -122,9 +117,7 @@ class SecurityController extends Controller
                      $this->addFlash('warning', $e->getMessage());
                      return $this->redirectToRoute('welcome');
                  }
-
                  $url = $this->generateUrl('app_reset_password', array('token' => $token), UrlGeneratorInterface::ABSOLUTE_URL);
-
                  $message = (new \Swift_Message('Oubli de mot de passe - Réinisialisation'))
                      ->setFrom(array('loisss.barre@gmail.com' => 'Loïc Barré'))
                      ->setTo($user->getMail())
@@ -141,12 +134,9 @@ class SecurityController extends Controller
                          'text/html'
                      );
                  $mailer->send($message);
-
                  $this->addFlash('primary', 'Mail envoyé, tu vas pouvoir te connecter à nouveau !');
-
                  return $this->redirectToRoute('app_reset_password');
              }
-
             return $this->render('security/forgotten_password.html.twig');
         }
 
@@ -167,17 +157,13 @@ class SecurityController extends Controller
                     $this->addFlash('danger', 'Email Inconnu, recommence !');
                     return $this->redirectToRoute('app_reset_password');
                 }
-
                 $confirm = $request->request->get('confirm');
-
                 if ($confirm !== '1349') {
                     $this->addFlash('danger', 'Code de confirmation incorrect');
                     return $this->redirectToRoute('app_reset_password');
                 }
-
                 $user->setPassword($passwordEncoder->encodePassword($user, $request->request->get('password')));
                 $entityManager->flush();
-
                 $password = $request->request->get('password');
                 $confirmpass = $request->request->get('confpass');
 
@@ -185,14 +171,9 @@ class SecurityController extends Controller
                     $this->addFlash('danger', 'Le mot de passe de confirmation ne correspond pas au mot de passe saisi');
                     return $this->redirectToRoute('app_reset_password');
                 };
-
-
-
                 $this->addFlash('notice', 'Mot de passe mis à jour !');
-
                 return $this->redirectToRoute('login');
             }else {
-
                 return $this->render('security/emails/resetPasswordMail.html.twig');
             }
 
