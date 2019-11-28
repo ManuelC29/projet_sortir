@@ -19,22 +19,21 @@ class PlacesRepository extends ServiceEntityRepository
         parent::__construct($registry, Places::class);
     }
 
-    // /**
-    //  * @return Places[] Returns an array of Places objects
-    //  */
-    /*
-    public function findByExampleField($value)
+     /**
+     * @return Places[] Returns an array of Places objects
+     */
+
+    public function findByCity($idCity)
     {
         return $this->createQueryBuilder('p')
-            ->andWhere('p.exampleField = :val')
-            ->setParameter('val', $value)
+            ->andWhere('p.city = :idCity')
+            ->setParameter('idCity', $idCity)
             ->orderBy('p.id', 'ASC')
-            ->setMaxResults(10)
             ->getQuery()
             ->getResult()
         ;
     }
-    */
+
 
     /*
     public function findOneBySomeField($value): ?Places

@@ -13,21 +13,27 @@ use Symfony\Component\Serializer\SerializerInterface;
 class ApiController extends Controller
 {
     /**
+     * @Route("street/{id}", name="street")
+     */
+    public function street($id, EntityManagerInterface $entityManager, SerializerInterface $serializer){
+
+        $street = $entityManager->getRepository(Places::class)->find($id);
+
+        return new JsonResponse($serializer->serialize($street, 'json'));
+    }
+
+
+    /**
      * @Route("api/{id}", name="api")
      */
     public function show($id, EntityManagerInterface $entityManager, SerializerInterface $serializer)
     {
 
-        $places = $entityManager->getRepository(Places::class)->find($id);
-
-
-
-        /*foreach ($places as $key => $place){
-            $datas[$key]['id'] = $place->getId();
-            $datas[$key]['lieu'] = $place->getNamePlace();
-        }*/
+        $places = $entityManager->getRepository(Places::class)->findByCity($id);
 
         return new JsonResponse($serializer->serialize($places, 'json'));
     }
+
+
 
 }

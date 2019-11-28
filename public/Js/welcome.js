@@ -1,59 +1,35 @@
-// on cache la case de la liste des participants
-$('.hidethis').hide();
+$('#resPlace').click(getApiStreet($('#resPlace').val()));
 
-// on programme un événement click sur chaque ligne de la liste des trips
-// et on récupère ou l'on clique pour le tester et ne rien faire si c'est un lien a
-$('.ligne').click(function (event) {
-    if ((event.target.nodeName !== "A") && (event.target.nodeName !== "BUTTON")) {
-        sortirPanneau($(this).attr('id'));
-    }
-});
-
-// Fonction qui toggle la liste des participants
-function sortirPanneau(idrow) {
-    $("#hidethis" + parseInt(idrow)).toggle("fast");
-}
-
-
+/////////////////////////////////////////////////////
+//  Lancement de script une fois la page chargé    //
+/////////////////////////////////////////////////////
 $(document).ready(function (event) {
     getApiPlace($('#citySel').val());
     recherche();
 });
 
-
-// Fonction pour récupérer le Place quand on change la valeur de la liste déroulant
-// qui a un id = citySel
-$('#citySel').change(function (event) {
-    //suppression de toutes les options du select
-    //$('#resPlace option').each(function(){
-    //      $(this).remove();
-    //});
-    //appel de la fonction ajax
-    getApiPlace($('#citySel').val());
-    recherche();
+/////////////////////////////////////////
+//  Quand on change la valeur du lieu  //
+/////////////////////////////////////////
+$('#resPlace').change(function (event) {
+    getApiStreet($('#resPlace').val());
 });
 
-// Fonction qui va chercher sur la route api les données envoyer en Json
-function getApiPlace(idPlace) {
-    // console.log(idPlace);
+/////////////////////////////////////////
+//      Va chercher la street          //
+/////////////////////////////////////////
+function getApiStreet(idPlace) {
     $.ajax({
-        url: 'http://sortir.local/api/' + idPlace,
+        url: 'http://sortir.local/street/' + idPlace,
         method: "GET"
     })
         .done(function (data, status, xhr) {
-            // je récupère l'objet
             try {
-
-
+                // je récupère l'objet
                 var obj = JSON.parse(data);
 
-                $("#resPlace").html("<option value=" + obj.id + ">" + obj.namePlace + "</option>");
                 $("#street").val(obj.street);
 
-
-                //Pour tester
-                //console.log(obj.id);
-                //console.log(obj.namePlace);
             } catch (error) {
                 $("#resPlace").html("<option value=>Pas de lieu</option>");
                 console.log("pas de donnée: " + error);
@@ -62,10 +38,58 @@ function getApiPlace(idPlace) {
         .fail(function (xhr, status, errorThrown) {
             console.log('Erreur dans l\'intérogation de l\'API');
         });
-
 }
 
-// fonction pour afficher la map en fonction de la ville sélectionner
+//////////////////////////////////////////////////////////////////////////////////////////
+// Fonction pour récupérer le Place quand on change la valeur de la liste déroulant     //
+// qui a un id = citySel                                                                //
+//////////////////////////////////////////////////////////////////////////////////////////
+$('#citySel').change(function (event) {
+    //appel de la fonction ajax
+    getApiPlace($('#citySel').val());
+    recherche();
+});
+
+
+////////////////////////////////////////////
+// Fonction qui va chercher sur la route  //
+// api les données  de la                 //
+//  ville demandé envoyer en Json         //
+////////////////////////////////////////////
+function getApiPlace(idPlace) {
+    // console.log(idPlace);
+    console.log(idPlace);
+    $.ajax({
+        url: 'http://sortir.local/api/' + idPlace,
+        method: "GET"
+    })
+        .done(function (data, status, xhr) {
+            // je récupère l'objet
+            try {
+
+                var obj = JSON.parse(data);
+
+                var liste="";
+                for (var i = 0; i < obj.length; i++) {
+                    liste += "<option value=" + obj[i].id + ">" + obj[i].namePlace + "</option>"
+                }
+
+                    $("#resPlace").html(liste);
+                    getApiStreet($('#resPlace').val());
+
+            } catch (error) {
+                $("#resPlace").html("<option value=>Pas de lieu</option>");
+                console.log("pas de donnée: " + error);
+            }
+        })
+        .fail(function (xhr, status, errorThrown) {
+            console.log('Erreur dans l\'intérogation de l\'API');
+        });
+}
+
+/////////////////////////////////////////////////////////////////////////
+// fonction pour afficher la map en fonction de la ville sélectionner  //
+/////////////////////////////////////////////////////////////////////////
 function recherche() {
     //paramétrage d'entrée de la ville
     let ville = $('#citySel option:selected').text();
@@ -80,18 +104,10 @@ function recherche() {
             initialiserMap();
             //console.log(data);
             try {
-                /*                $('#div1').text(data['features'][0]['properties']['id']);
-                                $('#div2').text(data['features'][0]['properties']['label']);
-                                $('#div3').text(data['features'][0]['properties']['postcode']);
-                                $('#div4').text(data['features'][0]['properties']['population']);*/
-               // console.log(data['features'][0]['geometry']['coordinates'][0]);
-               // console.log(data['features'][0]['geometry']['coordinates'][1]);
                              $('#street').val(data['features'][0]['properties']['label']);
                              $('#zip').val(data['features'][0]['properties']['postcode']);
                              $('#latitude').val(data['features'][0]['geometry']['coordinates'][0]);
                              $('#longitude').val(data['features'][0]['geometry']['coordinates'][1]);
-
-                               /* $('#div7').text(data['features'][0]['properties']['context']);*/
 
                 //ajout map
                 let map = L.map('map').setView([data['features'][0]['geometry']['coordinates'][1], data['features'][0]['geometry']['coordinates'][0]], 10);
@@ -120,8 +136,9 @@ function recherche() {
         });
 
 }
-
-//réinitialise la map
+/////////////////////////
+// Réinitialise la map //
+/////////////////////////
 function initialiserMap() {
     var container = L.DomUtil.get('map');
     if (container != null) {

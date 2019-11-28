@@ -54,6 +54,14 @@ body{
     transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
     width: 100%;
 }
+.label-welcome{
+    font-size: x-large;
+    margin: 0.2em;
+
+}
+.mdp{
+    text-align: center;
+}
 
 .span {
     align-items: center;
@@ -71,6 +79,7 @@ body{
 }
 .boite{
     /*border: 1px solid blue;*/
+    padding: 1em;
     width: 40%;
     display: flex;
     flex-direction: column;
@@ -136,7 +145,6 @@ h1{
     width: 90%;
 }
 .showTrip{
-    margin-left: 1em;
     flex: 6;
     display: flex;
     flex-direction: column;

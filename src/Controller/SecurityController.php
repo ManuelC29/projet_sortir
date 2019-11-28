@@ -142,7 +142,7 @@ class SecurityController extends Controller
                      );
                  $mailer->send($message);
 
-                 $this->addFlash('notice', 'Mail envoyé, tu vas pouvoir te connecter à nouveau !');
+                 $this->addFlash('primary', 'Mail envoyé, tu vas pouvoir te connecter à nouveau !');
 
                  return $this->redirectToRoute('login');
              }

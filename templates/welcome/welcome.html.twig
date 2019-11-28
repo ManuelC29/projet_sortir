@@ -30,42 +30,43 @@
                         <div class="boite">
                             <div class="rowWelcome">
                                 <label for="search">Site </label>
-                                <select name="site">
+                                <select class="form-control" name="site">
                                     {% for site in sites %}
                                         <option value="{{ site.id }}">{{ site.nameSite }}</option>
                                     {% endfor %}
                                 </select>
                             </div>
                             <div class="rowWelcome">
-                                <label for="search">Le nom de la sortie contient :</label>
-                                <input type="text" name="search" placeholder="Rechercher"/>
+                                <label class="label-welcome" for="search">Le nom de la sortie contient :</label>
+                                <input class="formatting" type="text" name="search" placeholder="Rechercher"/>
                             </div>
                             <div class="rowWelcome">
-                                <label for="debut">Entre</label>
-                                <input name="debut" type="date"
+                                <label class="label-welcome" for="debut">Entre</label>
+                                <input name="debut" type="date" class="formatting"
                                        value="{{ "now" | date_modify('first day of this month') | date('Y-m-d') }}"/>
-                                <label for="fin">et</label>
-                                <input type="date" name="fin"
+                                <label class="label-welcome" for="fin">et</label>
+                                <input type="date" name="fin" class="formatting"
                                        value="{{ "now" | date_modify('last day of this month') | date('Y-m-d') }}"/>
                             </div>
                         </div>
                         <div class="boite">
                             <div class="rowWelcome">
+                                <br>
                                 <div>
-                                    <input type="checkbox" name="orgaTrip"/>
-                                    <label for="orgaTrip">Sorties dont je suis l'organisateur/trice</label>
+                                    <input  type="checkbox" name="orgaTrip"/>
+                                    <label class="label-welcome" for="orgaTrip">Sorties dont je suis l'organisateur/trice</label>
                                 </div>
                                 <div>
                                     <input type="checkbox" name="regiTrip"/>
-                                    <label for="regiTrip">Sorties auxquelles je suis inscrit/e</label>
+                                    <label class="label-welcome" for="regiTrip">Sorties auxquelles je suis inscrit/e</label>
                                 </div>
                                 <div>
                                     <input type="checkbox" name="noreTrip"/>
-                                    <label for="noreTrip">Sorties auxquelles je ne suis pas inscrit/e</label>
+                                    <label class="label-welcome" for="noreTrip">Sorties auxquelles je ne suis pas inscrit/e</label>
                                 </div>
                                 <div>
                                     <input type="checkbox" name="oldsTrip"/>
-                                    <label for="oldsTrip">Sorties passées</label>
+                                    <label class="label-welcome" for="oldsTrip">Sorties passées</label>
                                 </div>
                             </div>
                         </div>
@@ -181,4 +182,4 @@
     {% endif %}
 {% endblock %}
 {% block javascripts %}
-    <script type="text/javascript" src="{{ asset('Js/welcome.js') }}"></script> {% endblock %}
+    <script type="text/javascript" src="{{ asset('Js/toggle.js') }}"></script> {% endblock %}
