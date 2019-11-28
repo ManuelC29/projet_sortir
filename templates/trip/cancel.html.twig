@@ -11,9 +11,11 @@
             {{ form_start(form) }}
             {{ form_widget(form) }}
             <input type="submit" class="btn btn-primary" name="AnnulerSortie" value="Enregistrer l'annulation de  la sortie">
-            <a href="{{ path('welcome') }}"><button class="btn btn-warning">Annuler</button></a>
             {{ form_end(form) }}
         </div>
+        <a href="{{ path('welcome') }}">
+            <button class="btn btn-secondary">Annuler</button>
+        </a>
     </div>
 
 {% endblock %}

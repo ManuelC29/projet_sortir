@@ -39,7 +39,6 @@ class TripController extends Controller
         $form = $this->createForm(TripType::class, $trip);
 
         $participant = $user->getUser();
-        dump($participant);
         $trip->setOrganizer($participant);
 
         $form->handleRequest($request);
@@ -47,10 +46,7 @@ class TripController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
 
             $idPlace = $request->request->get('place');
-            dump($request->request->get('place'));
             $place = $placesRepository->find($idPlace);
-            dump($place);
-
             $trip->setPlace($place);
 
             if(isset($_POST['Publier'])) {
@@ -82,24 +78,28 @@ class TripController extends Controller
      */
     public function modify(Security $user, Trips $trip, Request $request, PlacesRepository $placesRepository, EntityManagerInterface $entityManager)
     {
+
+        if ($trip->getOrganizer() !== $user->getUser()) {
+            $this->addFlash('warning', '\'Accès impossible car vous n\'êtes pas l\'organisateur de la sortie !');
+            return $this->redirectToRoute('welcome', compact('participant'));
+
+        } elseif ($trip->getStatus()->getId() !== 1) {
+            $this->addFlash('warning', 'Accès impossible car la sortie n\'est pas en statut "Créée" !');
+            return $this->redirectToRoute('welcome', compact('participant'));
+        }
+
+        else {
+
         $cities = $entityManager->getRepository(Cities::class)->findAll();
 
         $form = $this->createForm(TripType::class, $trip);
         $form->handleRequest($request);
 
-        $participant = $user->getUser();
-        $trip->setOrganizer($participant);
-        dump($trip);
-
         if ($form->isSubmitted() && $form->isValid()) {
 
             $idPlace = $request->request->get('place');
-            dump($request->request->get('place'));
             $place = $placesRepository->find($idPlace);
-            dump($place);
-
             $trip->setPlace($place);
-            dump($trip);
 
             $entityManager->flush();
 
@@ -109,6 +109,7 @@ class TripController extends Controller
         return $this->render('trip/modify.html.twig', ['trip' => $trip,'cities' => $cities,
             'form' => $form->createView()
         ]);
+        }
     }
 
     /**
@@ -120,49 +121,75 @@ class TripController extends Controller
         return $this->render('trip/show.html.twig', compact('trip', 'listRegistrations'));
     }
 
+
+    //( trip.organizer.id == app.user.id) and ( trip.status.id <= 3 )
+
     /**
      * @Route("/trip/cancel/{id}", name="tripCancel", requirements={"id":"\d+"})
      */
-    public function cancel($id, StatusRepository $statusRepository, Request $request, Trips $trip)
+    public function cancel(Security $user, StatusRepository $statusRepository, Request $request, Trips $trip)
     {
 
-        $form = $this->createForm(TripCancelType::class, $trip);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-
-            $status = $statusRepository->find(6);
-            $trip->setStatus($status);
-
-            $this->entityManager->flush();
-
-            $this->addFlash('success', 'Votre sortie est annulée !');
+        if ($trip->getOrganizer() !== $user->getUser()) {
+            $this->addFlash('warning', '\'Accès impossible car vous n\'êtes pas l\'organisateur de la sortie !');
             return $this->redirectToRoute('welcome', compact('participant'));
 
+        } elseif ($trip->getStatus()->getId() > 3) {
+            $this->addFlash('warning', 'Accès impossible car la sortie est en cours ou passée ou déjà annulée !');
+            return $this->redirectToRoute('welcome', compact('participant'));
         }
-        return $this->render('trip/cancel.html.twig', ['ad' => $trip,
-            'form' => $form->createView()
-        ]);
+
+        else {
+            $form = $this->createForm(TripCancelType::class, $trip);
+            $form->handleRequest($request);
+
+            if ($form->isSubmitted() && $form->isValid()) {
+
+                $status = $statusRepository->find(6);
+                $trip->setStatus($status);
+
+                $this->entityManager->flush();
+
+                $this->addFlash('success', 'Votre sortie est annulée !');
+                return $this->redirectToRoute('welcome', compact('participant'));
+
+            }
+            return $this->render('trip/cancel.html.twig', ['ad' => $trip,
+                'form' => $form->createView()
+            ]);
+        }
     }
 
     /**
      * @Route("/trip/delete/{id}", name="tripDelete", requirements={"id":"\d+"})
      */
-    public function remove ($id, EntityManagerInterface $entityManager)
+    public function remove (Security $user, Trips $trip, $id, EntityManagerInterface $entityManager)
     {
-        $trip = $entityManager
-            ->getRepository(Trips::class)
-            ->find($id);
 
-        if (!$trip instanceof Trips) {
-            throw $this->createNotFoundException();
+        if ($trip->getOrganizer() !== $user->getUser()) {
+            $this->addFlash('warning', '\'Accès impossible car vous n\'êtes pas l\'organisateur de la sortie !');
+            return $this->redirectToRoute('welcome', compact('participant'));
+
+        } elseif ($trip->getStatus()->getId() !== 1) {
+            $this->addFlash('warning', 'Accès impossible car la sortie n\'est pas en statut "Créée" !');
+            return $this->redirectToRoute('welcome', compact('participant'));
         }
 
-        $entityManager->remove($trip);
-        $entityManager->flush();
+        else {
+            $trip = $entityManager
+                ->getRepository(Trips::class)
+                ->find($id);
 
-        $this->addFlash('success', 'Votre sortie est supprimée !');
-        return $this->redirectToRoute('welcome', compact('participant'));
+            if (!$trip instanceof Trips) {
+                throw $this->createNotFoundException();
+            }
+
+            $entityManager->remove($trip);
+            $entityManager->flush();
+
+            $this->addFlash('success', 'Votre sortie est supprimée !');
+            return $this->redirectToRoute('welcome', compact('participant'));
+        }
     }
 
     /**
