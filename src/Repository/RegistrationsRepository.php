@@ -6,6 +6,7 @@ use App\Entity\Participants;
 use App\Entity\Registrations;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\Query\Expr\Join;
 
 /**
@@ -34,22 +35,22 @@ class RegistrationsRepository extends ServiceEntityRepository
     }
 
 
-    // /**
-    //  * @return Registrations[] Returns an array of Registrations objects
-    //  */
-    /*
-    public function findByExampleField($value)
+
+    // exemple de requête : SELECT * FROM registrations where participant_id = 2 and trips_id = 9
+    public function findOneByPartIdAndTripsId($idPart, $idTrips): ?Registrations
     {
-        return $this->createQueryBuilder('r')
-            ->andWhere('r.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('r.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
+        try {
+            return $this->createQueryBuilder('r')
+                ->andWhere('r.participant = :idPart AND r.trips = :idTrips')
+                ->setParameter('idPart', $idPart)
+                ->setParameter('idTrips', $idTrips)
+                ->getQuery()
+                ->getOneOrNullResult();
+        } catch (NonUniqueResultException $e) {
+        }
+
     }
-    */
+
 
     /*
     public function findOneBySomeField($value): ?Registrations

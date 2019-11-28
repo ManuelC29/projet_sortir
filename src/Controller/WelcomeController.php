@@ -55,61 +55,44 @@ class WelcomeController extends Controller
 
             // si on a cliqué sur s'inscrire
             if ($request->get('inscription') != null) {
-                //TODO conditionnelle d'inscription à faire
 
-                //TODO EN COURS (Manu)
+                //TODO OK (Manu)
                 /* On peut s'inscrire seuleument si ... #}
                    X condition 1 : le statut du trip doit être publié == Ouverte
-                   O condition 2 : le nombre de place ne doit pas être atteint == maxRegistration
-                   O condition 3 : la date limite d’inscription ne soit pas dépassée
-                   O condition 4 : l'heure de la sortie n'est pas dépassé
+                   X condition 2 : le nombre de place ne doit pas être atteint == maxRegistration
+                   X condition 3 : la date limite d’inscription ne soit pas dépassée
+                   X condition 4 : l'heure de la sortie n'est pas dépassée
                    X condition 5 : on est pas déjà inscrit */
 
                 $user = $entityManager->getRepository(Participants::class)->find($this->getUser());
                 $sortie = $entityManager->getRepository(Trips::class)->find($request->get('inscription'));
                 $regis = $entityManager->getRepository(Registrations::class)->findByIdTrip($request->get('inscription'));
 
-                dump($request->get('inscription'));
-                dump($regis);
-
                 // Création d'un objet registration
                 $registration = new Registrations();
                 // set l'id de l'user
                 $registration->setParticipant($entityManager->getRepository(Participants::class)->find($this->getUser()));
 
-                $isOn = false;
-                //TODO A REVOIR NOT OK : on est pas déjà inscrit
-/*                foreach ($regis as $reg) {
-                    if ($user->getId() == $reg->getParticipant()->getId()) {
-                        $this->addFlash('danger', 'Vous êtes déjà inscrit !');
-                        $this->redirectToRoute("welcome");
-                        $isOn = true;
-                        dump('OUI');
-                        break;
-                    }
-                }
+                    // la date limite d’inscription ne soit pas dépassée
+                if($sortie->getDateStart()<new \DateTime()) {
+                    $this->addFlash('danger', 'La date limite d\'inscription est dépassée');
+                    $this->redirectToRoute("welcome");
 
-                //findByOne 1 ou null
+                    //test si on est pas déjà inscrit [OK]
+                }elseif($entityManager->getRepository(Registrations::class)->findOneByPartIdAndTripsId($user->getId(),$request->get('inscription'))){
+                    $this->addFlash('danger', 'Vous êtes déjà inscrit à la sortie');
+                    $this->redirectToRoute("welcome");
 
-                dump('toto');*/
-
-
-                //Si l'user est déjà inscrit sur le registration
-                //if ( in_array($regis,[$user->getId()]) ) {
-                  //  $this->addFlash('danger', 'Vous êtes déjà inscrit à la sortie');
-                    //$this->redirectToRoute("welcome");
-//
-//                    // Si la sortie n'a pas l'état Ouvert [OK]
-/*                if ($entityManager->getRepository(Trips::class)->find($request->get('inscription'))->getStatus()->getId() != 2) {
+                    // Si la sortie n'a pas l'état Ouvert [OK]
+                }elseif ($entityManager->getRepository(Trips::class)->find($request->get('inscription'))->getStatus()->getId() != 2) {
                     $this->addFlash('danger', 'Le statut de la sortie n\'est pas Ouvert');
-                    $this->redirectToRoute("welcome");*/
+                    $this->redirectToRoute("welcome");
 
-//                    //Si le nombre d'enregistration n'est pas atteint [OK]
-/*                if (count($regis) >= $sortie->getMaxRegistration()) {
+                    //Si le nombre d'enregistration n'est pas atteint [OK]
+                }elseif(count($regis) >= $sortie->getMaxRegistration()) {
                     $this->addFlash('danger', 'Il n\'y à plus de place dans cette Sortie');
-                    $this->redirectToRoute("welcome");*/
-                //}else{
-
+                    $this->redirectToRoute("welcome");
+                }else{
                     // set l'id de la sortie
                     $sortie = $entityManager->getRepository(Trips::class)->find($request->get('inscription'));
                     $registration->setTrips($sortie);
@@ -119,8 +102,7 @@ class WelcomeController extends Controller
                     $entityManager->persist($registration);
                     $entityManager->flush();
                     $this->addFlash('success', 'Vous avez bien été enregistré sur la sortie ' . $sortie->getName());
-                //}
-
+                }
             }
 
             //si on a cliqué sur se désister
@@ -132,10 +114,9 @@ class WelcomeController extends Controller
                 $registration = new Registrations();
                 // récupération de l'utilisateur
                 $userEnCours = $entityManager->getRepository(Participants::class)->find($this->getUser());
-                dump($userEnCours);
+
                 // récupérer la registration
                 $trip = $entityManager->getRepository(Trips::class)->find($request->get('desist'));
-                dump($trip);
 
                 $registration->setParticipant($userEnCours);
                 $registration->setTrips($trip);
@@ -146,7 +127,6 @@ class WelcomeController extends Controller
                 if (!empty($registration)) {
                     //si on est déjà inscrit
 
-
                     //effacer la registration
                     $entityManager->remove($registration[0]);
                     $entityManager->flush();
@@ -155,9 +135,6 @@ class WelcomeController extends Controller
                     //sinon je lui dit qu'il n'ait pas registré
                     $this->addFlash('danger', 'Vous n\'êtes pas inscrit sur cette sortie');
                 }
-
-                dump($registration);
-
 
             }
 
