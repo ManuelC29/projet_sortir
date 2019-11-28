@@ -11,6 +11,7 @@ use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormTypeInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\TripsRepository")
@@ -25,6 +26,10 @@ class Trips implements FormTypeInterface, EventSubscriber
     private $id;
 
     /**
+     * @Assert\Length(
+     *     max="50",
+     *     maxMessage="Merci de donner un titre d'au plus 50 caractères à votre sortie"
+     * )
      * @ORM\Column(type="string", length=50)
      */
     private $name;
@@ -54,6 +59,10 @@ class Trips implements FormTypeInterface, EventSubscriber
     private $max_registration;
 
     /**
+     * @Assert\Length(
+     *     max="255",
+     *     maxMessage="Merci de donner une description d'au plus 255 caractères à votre sortie"
+     * )
      * @ORM\Column(type="string", length=255)
      */
     private $description_infos;
@@ -84,6 +93,10 @@ class Trips implements FormTypeInterface, EventSubscriber
     private $organizer;
 
     /**
+     * @Assert\Length(
+     *     max="50",
+     *     maxMessage="Merci de donner un motif d'annulation d'au plus 255 caractères"
+     * )
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $cancelReason;
@@ -334,6 +347,7 @@ class Trips implements FormTypeInterface, EventSubscriber
 
         return $this;
     }
+
 
     public function getCancelReason(): ?string
     {

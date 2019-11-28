@@ -34,7 +34,7 @@ class TripType extends AbstractType
                     'label' => 'Nombre de places',
                 ])
             ->add('duration', NumberType::class, [
-                'label' => 'Durée'
+                'label' => 'Durée en minutes'
             ])
             ->add('description_infos', TextType::class, [
                 'label' => 'Description et infos'
