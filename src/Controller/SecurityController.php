@@ -144,39 +144,56 @@ class SecurityController extends Controller
 
                  $this->addFlash('primary', 'Mail envoyé, tu vas pouvoir te connecter à nouveau !');
 
-                 return $this->redirectToRoute('login');
+                 return $this->redirectToRoute('app_reset_password');
              }
 
             return $this->render('security/forgotten_password.html.twig');
         }
 
         /** Réinisialiation du mot de passe par mail
-         * @Route("/reinitialiser-mot-de-passe/{token}", name="app_reset_password")
+         * @Route("/reinitialiser-mot-de-passe", name="app_reset_password")
          */
-        public function resetPassword(Request $request, string $token, UserPasswordEncoderInterface $passwordEncoder)
+        public function resetPassword(Request $request, UserPasswordEncoderInterface $passwordEncoder)
         {
             //Reset avec le mail envoyé
             if ($request->isMethod('POST')) {
-                $entityManager = $this->getDoctrine()->getManager();
 
-                $user = $entityManager->getRepository(Participants::class)->find($token);
-                /* @var $user User */
+                $email = $request->request->get('email');
+
+                $entityManager = $this->getDoctrine()->getManager();
+                $user = $entityManager->getRepository(Participants::class)->findOneByEmail($email);
 
                 if ($user === null) {
-                    $this->addFlash('danger', 'Mot de passe non reconnu');
-                    return $this->redirectToRoute('welcome');
+                    $this->addFlash('danger', 'Email Inconnu, recommence !');
+                    return $this->redirectToRoute('app_reset_password');
                 }
 
-                $user->setResetToken(null);
+                $confirm = $request->request->get('confirm');
+
+                if ($confirm !== '1349') {
+                    $this->addFlash('danger', 'Code de confirmation incorrect');
+                    return $this->redirectToRoute('app_reset_password');
+                }
+
                 $user->setPassword($passwordEncoder->encodePassword($user, $request->request->get('password')));
                 $entityManager->flush();
+
+                $password = $request->request->get('password');
+                $confirmpass = $request->request->get('confpass');
+
+                if ($password !== $confirmpass) {
+                    $this->addFlash('danger', 'Le mot de passe de confirmation ne correspond pas au mot de passe saisi');
+                    return $this->redirectToRoute('app_reset_password');
+                };
+
+
 
                 $this->addFlash('notice', 'Mot de passe mis à jour !');
 
                 return $this->redirectToRoute('login');
             }else {
 
-                return $this->render('security/emails/resetPasswordMail.html.twig', ['token' => $token]);
+                return $this->render('security/emails/resetPasswordMail.html.twig');
             }
 
         }

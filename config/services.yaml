@@ -19,14 +19,14 @@ services:
         class: App\Admin\StatusAdmin
         arguments: [~, App\Entity\Status, ~]
         tags:
-            - { name: sonata.admin, manager_type: orm, group: 'Sorties', label: Status }
+            - { name: sonata.admin, manager_type: orm, group: 'Sorties', label: Statuts }
 
 
     admin.cities:
         class: App\Admin\CitiesAdmin
         arguments: [~, App\Entity\Cities, ~]
         tags:
-            - { name: sonata.admin, manager_type: orm, group: 'Sorties', label: Cities }
+            - { name: sonata.admin, manager_type: orm, group: 'Sorties', label: Villes }
 
     admin.participants:
         class: App\Admin\ParticipantsAdmin
@@ -38,13 +38,13 @@ services:
         class: App\Admin\PlacesAdmin
         arguments: [~, App\Entity\Places, ~]
         tags:
-            - { name: sonata.admin, manager_type: orm, group: 'Sorties', label: Places }
+            - { name: sonata.admin, manager_type: orm, group: 'Sorties', label: Lieux }
 
     admin.registrations:
         class: App\Admin\RegistrationsAdmin
         arguments: [~, App\Entity\Registrations, ~]
         tags:
-            - { name: sonata.admin, manager_type: orm, group: 'Sorties',label: Registrations }
+            - { name: sonata.admin, manager_type: orm, group: 'Sorties',label: Inscriptions }
 
     admin.sites:
         class: App\Admin\SitesAdmin
@@ -56,7 +56,7 @@ services:
         class: App\Admin\TripsAdmin
         arguments: [~, App\Entity\Trips, ~]
         tags:
-            - { name: sonata.admin, manager_type: orm, group: 'Sorties',label: Trips }
+            - { name: sonata.admin, manager_type: orm, group: 'Sorties',label: Sorties }
 
 
 
