@@ -79,7 +79,7 @@ class WelcomeController extends Controller
 
                 $isOn = false;
                 //TODO A REVOIR NOT OK : on est pas déjà inscrit
-                foreach ($regis as $reg) {
+/*                foreach ($regis as $reg) {
                     if ($user->getId() == $reg->getParticipant()->getId()) {
                         $this->addFlash('danger', 'Vous êtes déjà inscrit !');
                         $this->redirectToRoute("welcome");
@@ -89,7 +89,7 @@ class WelcomeController extends Controller
                     }
                 }
 
-                dump('toto');
+                dump('toto');*/
 
 
                 //Si l'user est déjà inscrit sur le registration

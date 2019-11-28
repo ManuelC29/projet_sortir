@@ -57,8 +57,6 @@ $('#citySel').change(function (event) {
 //  ville demandé envoyer en Json         //
 ////////////////////////////////////////////
 function getApiPlace(idPlace) {
-    // console.log(idPlace);
-    console.log(idPlace);
     $.ajax({
         url: 'http://sortir.local/api/' + idPlace,
         method: "GET"
@@ -66,14 +64,12 @@ function getApiPlace(idPlace) {
         .done(function (data, status, xhr) {
             // je récupère l'objet
             try {
-
                 var obj = JSON.parse(data);
 
                 var liste="";
                 for (var i = 0; i < obj.length; i++) {
                     liste += "<option value=" + obj[i].id + ">" + obj[i].namePlace + "</option>"
                 }
-
                     $("#resPlace").html(liste);
                     getApiStreet($('#resPlace').val());
 

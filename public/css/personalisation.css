@@ -186,6 +186,12 @@ a:hover{
     padding: 1em;
 }
 
+.table {
+    width: 100%;
+    margin-bottom:0;
+    /*color: #212529;*/
+    color: white;
+}
 
 #map{
     margin-bottom: 2em;
