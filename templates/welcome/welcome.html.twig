@@ -98,6 +98,8 @@
 
 
                         {% for trip in trips %}
+                            {% if(app.user.id == trip.organizer.id) %}
+
                             {% set isOn = false %}
                             <tr id="{{ trip.id }}" class="ligne">
                                 <td>{{ trip.name }}</td>
@@ -176,7 +178,7 @@
                                     {% endfor %}
                                 </td>
                             </tr>
-
+                            {% endif %}
                         {% endfor %}
 
                     </table>

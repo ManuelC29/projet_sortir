@@ -34,7 +34,7 @@ class WelcomeController extends Controller
     )
 
     {
-
+        //TODO Si la sortie n'existe pas à rajouter
         $participant = $security->getUser();
 
 

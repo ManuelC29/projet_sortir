@@ -13,7 +13,7 @@ use Symfony\Component\Serializer\SerializerInterface;
 class ApiController extends Controller
 {
     /**
-     * @Route("street/{id}", name="street")
+     * @Route("street/{id}", name="street", requirements={"id":"\d+"})
      */
     public function street($id, EntityManagerInterface $entityManager, SerializerInterface $serializer){
 

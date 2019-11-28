@@ -16,7 +16,7 @@ use Symfony\Component\Security\Core\Security;
 class ProfileController extends Controller
 {
     /**
-     * @Route("profile/show/{id}", name="profileShow")
+     * @Route("profile/show/{id}", name="profileShow", requirements={"id":"\d+"})
      */
     public function show($id,Participants $participant, EntityManagerInterface $entityManager)
     {
