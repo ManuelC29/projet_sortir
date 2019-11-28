@@ -50,7 +50,6 @@ $('#citySel').change(function (event) {
     recherche();
 });
 
-
 ////////////////////////////////////////////
 // Fonction qui va chercher sur la route  //
 // api les données  de la                 //
@@ -104,7 +103,6 @@ function recherche() {
                              $('#zip').val(data['features'][0]['properties']['postcode']);
                              $('#latitude').val(data['features'][0]['geometry']['coordinates'][0]);
                              $('#longitude').val(data['features'][0]['geometry']['coordinates'][1]);
-
                 //ajout map
                 let map = L.map('map').setView([data['features'][0]['geometry']['coordinates'][1], data['features'][0]['geometry']['coordinates'][0]], 10);
 
