@@ -21,6 +21,7 @@ class CitiesRepository extends ServiceEntityRepository
 
     // /**
     //  * @return Cities[] Returns an array of Cities objects
+    //
     //  */
     /*
     public function findByExampleField($value)
