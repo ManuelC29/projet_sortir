@@ -98,7 +98,7 @@
 
 
                         {% for trip in trips %}
-                            {% if(app.user.id == trip.organizer.id) %}
+                            {% if(app.user.id == trip.organizer.id) or ((trip.status.id >= 2 ))  %}
 
                             {% set isOn = false %}
                             <tr id="{{ trip.id }}" class="ligne">
