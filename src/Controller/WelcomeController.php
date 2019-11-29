@@ -61,7 +61,7 @@ class WelcomeController extends Controller
             // si on a cliqué sur s'inscrire
             if ($request->get('inscription') != null) {
 
-
+                try{
                     //TODO OK (Manu)
                     /* On peut s'inscrire seuleument si ... #}
                        X condition 1 : le statut du trip doit être publié == Ouverte
@@ -112,6 +112,10 @@ class WelcomeController extends Controller
                         $entityManager->flush();
                         $this->addFlash('success', 'Vous avez bien été enregistré sur la sortie ' . $sortie->getName());
                     }
+                } catch (\Throwable $t) {
+                    $this->addFlash('danger', 'Donnée erronée !');
+                    $this->redirectToRoute("welcome");
+                }
 
             }
 
@@ -120,7 +124,7 @@ class WelcomeController extends Controller
             if ($request->get('desist') != null) {
 
                 //TODO Condition si jamais je suis pas senregistré sur le trip en cours
-
+                try{
 
                     $registration = new Registrations();
                     // récupération de l'utilisateur
@@ -146,6 +150,10 @@ class WelcomeController extends Controller
                         //sinon je lui dit qu'il n'ait pas registré
                         $this->addFlash('danger', 'Vous n\'êtes pas inscrit sur cette sortie');
                     }
+                } catch (\Throwable $t) {
+                    $this->addFlash('danger', 'Donnée erronée !');
+                    $this->redirectToRoute("welcome");
+                }
 
             }
 
