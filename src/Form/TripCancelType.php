@@ -2,7 +2,10 @@
 
 namespace App\Form;
 
+use App\Entity\Participants;
+use App\Entity\Places;
 use App\Entity\Trips;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
@@ -19,12 +22,8 @@ class TripCancelType extends AbstractType
             ->add('name', TextType::class, ['attr' => ['class' => 'class-css'],'label' => 'Nom de la sortie :'])
             ->add('date_start', DateTimeType::class, [
                 'label' => 'Date et heure de la sortie :'])
-            ->add('organizer', TextType::class, [
-                'label' => 'Organisateur :'
-            ])
-            ->add('place', TextType::class, [
-                'label' => 'Lieu :'
-            ])
+            ->add('organizer', null, ['label' => 'Organisateur :'])
+            ->add('place', null, ['label' => 'Lieu :'])
             ->add('cancelReason', TextType::class, [
                 'label' => 'Motif de l\'annulation :'
             ])
