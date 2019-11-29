@@ -6,7 +6,7 @@
 {% block body %}
     <h1 class="neon">[ Modification de {{ app.user.nickname }} ]</h1>
     <div class="container">
-    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+    {% if is_granted('IS_AUTHENTICATED_FULLY') or is_granted('IS_AUTHENTICATED_REMEMBERED') %}
 
         <div class="full">
             {{ form_start(form) }}

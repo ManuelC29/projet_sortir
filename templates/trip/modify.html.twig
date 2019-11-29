@@ -12,7 +12,7 @@ VILLE ORGANISATRICE, LIEU; RUE; CP; latitude et longitude
 #}
 
 <div class="container">
-    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+    {% if is_granted('IS_AUTHENTICATED_FULLY') or is_granted('IS_AUTHENTICATED_REMEMBERED') %}
 
         <div class="fullTrip">
             {{ form_start(form) }}

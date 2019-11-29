@@ -7,7 +7,7 @@
     </button>
 
     {# Revoir les liens en fonctions des roles (manu)#}
-    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+    {% if is_granted('IS_AUTHENTICATED_FULLY') or is_granted('IS_AUTHENTICATED_REMEMBERED') %}
         <div class="collapse navbar-collapse linknavbar" id="navbarText">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">

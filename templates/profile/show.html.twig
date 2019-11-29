@@ -5,7 +5,7 @@
     <link rel="stylesheet" href="{{ asset('css/profileShow.css') }}">{% endblock %}
 {% block body %}
 
-        {%if is_granted('IS_AUTHENTICATED_FULLY') %}
+        {%if is_granted('IS_AUTHENTICATED_FULLY') or is_granted('IS_AUTHENTICATED_REMEMBERED') %}
             <h1 class="neon">[ Profil de {{ participant.nickname }} ]</h1>
 
             <div class="container">
