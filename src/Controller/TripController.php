@@ -117,9 +117,6 @@ class TripController extends Controller
         return $this->render('trip/show.html.twig', compact('trip', 'listRegistrations'));
     }
 
-
-    //( trip.organizer.id == app.user.id) and ( trip.status.id <= 3 )
-
     /**
      * @Route("/trip/cancel/{id}", name="tripCancel", requirements={"id":"\d+"})
      */

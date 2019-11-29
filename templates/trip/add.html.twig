@@ -43,7 +43,7 @@
                     <div class="form-group col-md-6">
                         <label for="resPlace">Lieu</label><br>
                         <select name="place" id="resPlace">
-                           {# Magic #}
+                            {# Magic #}
                         </select>
                         <button class="btn btn-info"> +</button>
                     </div>
@@ -84,8 +84,8 @@
 
                     {# <input type="text" name="zip" id="zip" class="formatting" hidden> #}
 
-
                 </div>
+
                 <div id='map' style='width: 600px; height: 300px;'></div>
                 <button class="btn btn-primary" name="Enregistrer">Enregistrer la sortie sans la publier</button>
                 <button class="btn btn-primary" name="Publier">Enregistrer et publier la sortie</button>
@@ -93,15 +93,10 @@
                 <a href="{{ path('welcome') }}">
                     <button type="button" class="btn btn-secondary">Annuler</button>
                 </a>
-
                 {{ form_end(form) }}
-
             </div>
-
-
         {% endif %}
     </div>
-
 
 {% endblock %}
 {% block javascripts %}

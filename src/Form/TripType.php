@@ -37,24 +37,9 @@ class TripType extends AbstractType
                 'label' => 'Durée en minutes'
             ])
             ->add('description_infos', TextType::class, [
-                'label' => 'Description et infos'
-                          ])
-
-            // TODO : comment récupérer la liste des villes ?
-        /*
-            ->add('Cities', EntityType::class, [
-                'class' => 'App\Entity\Cities',
-                'choice_label => nameCity',
-            ])
-        */
-
-            // TODO : à supprimer dans la version client
-            //->add('place')
-            //->add('organizer')
-            //->add('status')
-        ;
+        'label' => 'Description et infos'
+    ]);
     }
-
 
     public function configureOptions(OptionsResolver $resolver)
     {
