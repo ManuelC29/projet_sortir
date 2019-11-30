@@ -60,7 +60,7 @@ class Participants implements UserInterface, FormTypeInterface
 
     /**
      * @ORM\Column(type="string", length=255, unique=true)
-     * @Assert\Length(min="2", minMessage="Votre mot de passe doit au minimum avoir 2 caractères")
+     * @Assert\Length(min="2", max="255", minMessage="Votre mot de passe doit au minimum avoir 2 caractères")
      */
     private $password;
 

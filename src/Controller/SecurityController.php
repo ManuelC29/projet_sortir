@@ -52,15 +52,12 @@ class SecurityController extends Controller
     }
 
 
-
-
     /**
      * @Route("/registration", name="registration")
      */
     public function registration(
         Request $request,
         UserPasswordEncoderInterface $encoder,
-        TokenStorageInterface $tokenStorage,
         EntityManagerInterface $entityManager
     ) {
         $participant = new Participants();
@@ -70,22 +67,15 @@ class SecurityController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()){
+            //Encodage du password
             $password = $encoder->encodePassword($participant, $participant->getPassword());
+            //On set le password encoder
             $participant->setPassword($password);
+            //On l'enregistre en base de donnée
             $entityManager->persist($participant);
             $entityManager->flush();
-            // possibilité d'ajouter un token pour conserver la connexion
-            /*
-                          $token = new UsernamePasswordToken(
-                          $participant,
-                          $password,
-                          'main',
-                          $participant->getRoles()
-                        );
-                        $tokenStorage->setToken($token);
-                        $request->getSession()->set('_security_main', serialize($token));
-            */
 
+            //on met un addflash et on le renvoie au welcome
             $this->addFlash('success', 'Votre compte est créé');
             return $this->redirectToRoute('welcome');
         }
